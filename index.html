@@ -152,7 +152,68 @@
             grid-template-columns: 1fr;
             gap: 30px;
         }
+        /* Week Navigation - Main Styles */
+.week-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 20px 0;
+    padding: 10px 0;
+    gap: 10px;
+}
 
+.week-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.week-nav:hover {
+    background: rgba(79, 70, 229, 0.1);
+    transform: translateY(-2px);
+}
+
+.arrow-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(79, 70, 229, 0.3);
+}
+
+.week-nav:hover .arrow-circle {
+    background: var(--secondary);
+    transform: scale(1.1);
+}
+
+.week-display {
+    background: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+.week-separator {
+    margin: 0 5px;
+    color: var(--gray);
+    font-weight: 400;
+}
         .card {
             background: var(--card-bg);
             border-radius: 16px;
@@ -194,19 +255,20 @@
         }
 
         .calendar-wrapper {
-            overflow-x: auto;
-            margin: 0 -10px;
-            padding: 0 10px 15px;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-        }
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -10px;
+    padding: 0 10px 15px;
+    width: calc(100% + 20px);
+    position: relative;
+}
 
-        .calendar {
-            width: 100%;
-            min-width: 650px;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+.calendar {
+    width: 100%;
+    min-width: 650px;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
 
         .calendar th {
             background: rgba(79, 70, 229, 0.1);
@@ -808,6 +870,298 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        @media (max-width: 768px) {
+    /* [...] Other mobile styles [...] */
+    
+    /* Week Navigation Mobile Styles */
+    .week-navigation {
+        margin-bottom: 15px;
+    }
+    
+    .nav-text {
+        display: none;
+    }
+    
+    .week-nav {
+        padding: 8px;
+    }
+    
+    .week-display {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .arrow-circle {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+        @media (max-width: 768px) {
+    .calendar-wrapper {
+        overflow-x: visible;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .calendar {
+        min-width: 100%;
+        display: block;
+    }
+    
+    .calendar thead {
+        display: none;
+    }
+    
+    .calendar tbody {
+        display: block;
+    }
+    
+    .calendar tr {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .calendar td {
+        display: flex;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid var(--border-color);
+        padding: 12px 15px;
+        position: relative;
+        min-height: auto;
+    }
+    
+    .calendar td:last-child {
+        border-bottom: none;
+    }
+    
+    .calendar td::before {
+        content: attr(data-day);
+        font-weight: 600;
+        color: var(--primary);
+        width: 80px;
+        display: inline-block;
+    }
+    
+    .calendar .date {
+        margin-bottom: 0;
+        margin-left: 10px;
+    }
+    
+    .calendar .subject {
+        margin-left: auto;
+        text-align: right;
+    }
+    
+    .today::after {
+        width: 3px;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+    
+    .exam-day::after {
+        width: 3px;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+}
+.countdown-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 15px 30px rgba(79, 70, 229, 0.2);
+        margin-bottom: 30px;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid var(--border-color);
+    }
+
+    .countdown-content {
+        padding: 30px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .countdown-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .countdown-title i {
+        font-size: 1.8rem;
+    }
+
+    .countdown-grid {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin-bottom: 20px;
+    }
+
+    .countdown-item {
+        text-align: center;
+        min-width: 100px;
+    }
+
+    .countdown-number {
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1;
+        color: var(--primary);
+        background: rgba(79, 70, 229, 0.1);
+        border-radius: 12px;
+        padding: 15px 5px;
+        margin-bottom: 5px;
+    }
+
+    .countdown-label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--gray);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .countdown-separator {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-light);
+        margin-top: -15px;
+    }
+
+    .exam-details {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .exam-subject {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--light);
+        margin-bottom: 5px;
+    }
+
+    .exam-date {
+        font-size: 1.2rem;
+        color: var(--gray);
+    }
+
+    .countdown-urgency {
+        height: 6px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        animation: urgencyProgress 60s linear infinite;
+    }
+
+    @keyframes urgencyProgress {
+        0% { width: 100%; }
+        100% { width: 0%; }
+    }
+
+    /* Urgency styles when exam is close */
+    .countdown-card.urgent {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), white);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .countdown-card.urgent .countdown-number {
+        color: #ef4444;
+        background: rgba(239, 68, 68, 0.1);
+    }
+
+    .countdown-card.urgent .countdown-separator {
+        color: #ef4444;
+    }
+
+    .countdown-card.urgent .countdown-urgency {
+        background: linear-gradient(90deg, #ef4444, #dc2626);
+        animation-duration: 10s;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 1024px) {
+        .countdown-number {
+            font-size: 3rem;
+        }
+        .countdown-item {
+            min-width: 80px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .countdown-content {
+            padding: 20px;
+        }
+        
+        .countdown-title {
+            font-size: 1.2rem;
+        }
+        
+        .countdown-number {
+            font-size: 2.2rem;
+            padding: 10px 5px;
+        }
+        
+        .countdown-item {
+            min-width: 70px;
+        }
+        
+        .countdown-separator {
+            font-size: 1.8rem;
+            margin-top: -10px;
+        }
+        
+        .exam-subject {
+            font-size: 1.4rem;
+        }
+        
+        .exam-date {
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .countdown-grid {
+            gap: 2px;
+        }
+        
+        .countdown-number {
+            font-size: 1.8rem;
+        }
+        
+        .countdown-item {
+            min-width: 60px;
+        }
+        
+        .countdown-label {
+            font-size: 0.7rem;
+        }
+        
+        .countdown-separator {
+            font-size: 1.4rem;
+            margin-top: -5px;
+        }
+    }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -863,10 +1217,73 @@
                         </div>
                     </div>
                     
+                    
+
+
                     <div class="calendar-wrapper">
                         <div class="scroll-indicator">
                             <i class="fas fa-hand-pointer"></i>
                         </div>
+
+                        <!-- Add this right below the card-header div in the calendar tab -->
+<div class="countdown-card">
+    <div class="countdown-content">
+        <div class="countdown-title">
+            <i class="fas fa-hourglass-start"></i> 
+            <span>NEXT EXAM COUNTDOWN</span>
+        </div>
+        <div class="countdown-grid">
+            <div class="countdown-item">
+                <div class="countdown-number" id="countdown-days">00</div>
+                <div class="countdown-label">DAYS</div>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="countdown-hours">00</div>
+                <div class="countdown-label">HOURS</div>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="countdown-minutes">00</div>
+                <div class="countdown-label">MINUTES</div>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="countdown-seconds">00</div>
+                <div class="countdown-label">SECONDS</div>
+            </div>
+        </div>
+        <div class="exam-details" id="exam-details">
+            <div class="exam-subject" id="exam-subject">Loading next exam...</div>
+            <div class="exam-date" id="exam-date"></div>
+        </div>
+    </div>
+    <div class="countdown-urgency"></div>
+</div>
+
+
+                        <div class="week-navigation">
+                            <button class="week-nav prev-week" aria-label="Previous week">
+                                <div class="arrow-circle">
+                                    <i class="fas fa-chevron-left"></i>
+                                </div>
+                                <span class="nav-text">Previous Week</span>
+                            </button>
+                            
+                            <div class="week-display">
+                                <span class="current-week">1</span>
+                                <span class="week-separator">/</span>
+                                <span class="total-weeks">8</span>
+                            </div>
+                            
+                            <button class="week-nav next-week" aria-label="Next week">
+                                <span class="nav-text">Next Week</span>
+                                <div class="arrow-circle">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                            </button>
+                        </div>
+
                         <table class="calendar">
                             <thead>
                                 <tr>
@@ -881,220 +1298,220 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="today">
+                                    <td data-day="Sunday"></td>
+                                    <td data-day="Monday"></td>
+                                    <td data-day="Tuesday" class="today">
                                         <div class="date">2-APRIL</div>
                                         <div class="subject">Big Data & IEFT</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Wednesday">
                                         <div class="date">3-APRIL</div>
                                         <div class="subject">Big Data & IEFT</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Thursday">
                                         <div class="date">4-APRIL</div>
                                         <div class="subject">Big Data & IEFT</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Friday">
                                         <div class="date">5-APRIL</div>
                                         <div class="subject">AAD & Lab</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Saturday">
                                         <div class="date">6-APRIL</div>
                                         <div class="subject">AAD & Lab</div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td data-day="Sunday">
                                         <div class="date">7-APRIL</div>
                                         <div class="subject">Lab Full</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Monday">
                                         <div class="date">8-APRIL</div>
                                         <div class="subject">Lab Full</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Tuesday">
                                         <div class="date">9-APRIL</div>
                                         <div class="subject">Lab Full</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Wednesday">
                                         <div class="exam-day">10-APRIL</div>
                                         <div class="subject">Lab exam</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Thursday">
                                         <div class="exam-day">11-APRIL</div>
                                         <div class="subject">Lab exam</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Friday">
                                         <div class="date">12-APRIL</div>
                                         <div class="subject">RIS</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Saturday">
                                         <div class="date">13-APRIL</div>
                                         <div class="subject">RIS</div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td data-day="Sunday">
                                         <div class="date">14-APRIL</div>
                                         <div class="subject">CV</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Monday">
                                         <div class="date">15-APRIL</div>
                                         <div class="subject">CV</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Tuesday">
                                         <div class="date">16-APRIL</div>
                                         <div class="subject">IEFT</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Wednesday">
                                         <div class="date">17-APRIL</div>
                                         <div class="subject">IEFT</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Thursday">
                                         <div class="date">18-APRIL</div>
                                         <div class="subject">Recommendation</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Friday">
                                         <div class="date">19-APRIL</div>
                                         <div class="subject">Recommendation</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Saturday">
                                         <div class="date">20-APRIL</div>
                                         <div class="subject">Big Data</div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td data-day="Sunday">
                                         <div class="date">21-APRIL</div>
                                         <div class="subject">Big Data</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Monday">
                                         <div class="date">22-APRIL</div>
                                         <div class="subject">Big Data</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Tuesday">
                                         <div class="date">23-APRIL</div>
                                         <div class="subject">Big Data</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Wednesday">
                                         <div class="exam-day">24-APRIL</div>
-                                        <div class="subject">BD EXAM </div>
+                                        <div class="subject">BD EXAM</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Thursday">
                                         <div class="date">25-APRIL</div>
                                         <div class="subject">RIS</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Friday">
                                         <div class="date">26-APRIL</div>
                                         <div class="subject">RIS</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Saturday">
                                         <div class="date">27-APRIL</div>
                                         <div class="subject">RIS</div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td data-day="Sunday">
                                         <div class="date">28-APRIL</div>
                                         <div class="subject">RIS</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Monday">
                                         <div class="date">29-APRIL</div>
                                         <div class="subject">RIS</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Tuesday">
                                         <div class="exam-day">30-APRIL</div>
                                         <div class="subject">RIS EXAM</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Wednesday">
                                         <div class="date">1-MAY</div>
                                         <div class="subject">AAD</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Thursday">
                                         <div class="date">2-MAY</div>
                                         <div class="subject">AAD</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Friday">
                                         <div class="date">3-MAY</div>
                                         <div class="subject">AAD</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Saturday">
                                         <div class="date">4-MAY</div>
                                         <div class="subject">AAD</div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td data-day="Sunday">
                                         <div class="date">5-MAY</div>
                                         <div class="subject">AAD</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Monday">
                                         <div class="date">6-MAY</div>
                                         <div class="subject">AAD</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Tuesday">
                                         <div class="exam-day">7-MAY</div>
                                         <div class="subject">AAD EXAM</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Wednesday">
                                         <div class="date">8-MAY</div>
                                         <div class="subject">REC</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Thursday">
                                         <div class="date">9-MAY</div>
                                         <div class="subject">REC</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Friday">
                                         <div class="date">10-MAY</div>
                                         <div class="subject">REC</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Saturday">
                                         <div class="date">11-MAY</div>
                                         <div class="subject">REC</div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td data-day="Sunday">
                                         <div class="exam-day">12-MAY</div>
                                         <div class="subject">REC EXAM</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Monday">
                                         <div class="date">13-MAY</div>
                                         <div class="subject">IEFT</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Tuesday">
                                         <div class="date">14-MAY</div>
                                         <div class="subject">IEFT</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Wednesday">
                                         <div class="exam-day">15-MAY</div>
                                         <div class="subject">IEFT EXAM</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Thursday">
                                         <div class="date">16-MAY</div>
                                         <div class="subject">CV</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Friday">
                                         <div class="date">17-MAY</div>
                                         <div class="subject">CV</div>
                                     </td>
-                                    <td>
+                                    <td data-day="Saturday">
                                         <div class="date">18-MAY</div>
                                         <div class="subject">CV</div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td data-day="Sunday">
                                         <div class="exam-day">19-MAY</div>
                                         <div class="subject">CV EXAM</div>
                                     </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td data-day="Monday"></td>
+                                    <td data-day="Tuesday"></td>
+                                    <td data-day="Wednesday"></td>
+                                    <td data-day="Thursday"></td>
+                                    <td data-day="Friday"></td>
+                                    <td data-day="Saturday"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1931,6 +2348,138 @@ function showMaterials(subject) {
                 });
             }
         });
+        document.addEventListener('DOMContentLoaded', function() {
+    const weeks = document.querySelectorAll('.calendar tbody tr');
+    const prevWeekBtn = document.querySelector('.week-navigation .prev-week');
+    const nextWeekBtn = document.querySelector('.week-navigation .next-week');
+    const currentWeekDisplay = document.querySelector('.week-display .current-week');
+    const totalWeeksDisplay = document.querySelector('.week-display .total-weeks');
+    
+    let currentWeek = 0;
+    totalWeeksDisplay.textContent = weeks.length;
+    
+    function updateWeekDisplay() {
+        // Hide all weeks
+        weeks.forEach(week => week.style.display = 'none');
+        // Show current week
+        weeks[currentWeek].style.display = 'table-row';
+        currentWeekDisplay.textContent = currentWeek + 1;
+    }
+    
+    // Initialize
+    updateWeekDisplay();
+    
+    // Previous week button
+    prevWeekBtn.addEventListener('click', () => {
+        currentWeek = Math.max(currentWeek - 1, 0);
+        updateWeekDisplay();
+    });
+    
+    // Next week button
+    nextWeekBtn.addEventListener('click', () => {
+        currentWeek = Math.min(currentWeek + 1, weeks.length - 1);
+        updateWeekDisplay();
+    });
+    
+    // Handle window resize (show all weeks on desktop)
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            weeks.forEach(week => week.style.display = 'table-row');
+        } else {
+            updateWeekDisplay();
+        }
+    });
+});
+document.addEventListener('DOMContentLoaded', function() {
+        // Exam dates with subject names (all at 9 AM)
+        const exams = [
+            { date: '2025-04-10T09:00:00', subject: 'Lab Exam' },
+            { date: '2025-04-11T09:00:00', subject: 'Lab Exam' },
+            { date: '2025-04-24T09:00:00', subject: 'Big Data Exam' },
+            { date: '2025-04-30T09:00:00', subject: 'RIS Exam' },
+            { date: '2025-05-07T09:00:00', subject: 'AAD Exam' },
+            { date: '2025-05-12T09:00:00', subject: 'Recommendation Exam' },
+            { date: '2025-05-15T09:00:00', subject: 'IEFT Exam' },
+            { date: '2025-05-19T09:00:00', subject: 'CV Exam' }
+        ];
+
+        // Find the next upcoming exam
+        function getNextExam() {
+            const now = new Date();
+            for (let exam of exams) {
+                const examDate = new Date(exam.date);
+                if (examDate > now) {
+                    return exam;
+                }
+            }
+            return null; // No more exams
+        }
+
+        // Update the countdown display
+        function updateCountdown() {
+            const nextExam = getNextExam();
+            const countdownCard = document.querySelector('.countdown-card');
+            
+            if (!nextExam) {
+                countdownCard.innerHTML = `
+                    <div class="countdown-content">
+                        <div class="countdown-title">
+                            <i class="fas fa-check-circle"></i> 
+                            <span>EXAM SEASON COMPLETE!</span>
+                        </div>
+                        <div class="exam-details">
+                            <div class="exam-subject">All exams completed!</div>
+                            <div class="exam-date">Congratulations on finishing!</div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            const examDate = new Date(nextExam.date);
+            const now = new Date();
+            const diff = examDate - now;
+
+            if (diff <= 0) {
+                return;
+            }
+
+            // Calculate time units
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            // Update display
+            document.getElementById('countdown-days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('countdown-minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('countdown-seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            // Update exam info
+            document.getElementById('exam-subject').textContent = nextExam.subject;
+            document.getElementById('exam-date').textContent = 
+                examDate.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+            // Change to urgent style when exam is very close (less than 24 hours)
+            if (days === 0) {
+                countdownCard.classList.add('urgent');
+            } else {
+                countdownCard.classList.remove('urgent');
+            }
+        }
+
+        // Update every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    });
     </script>
 </body>
 </html>
