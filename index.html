@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selinte Tuition - Study Calendar</title>
+    <title>Selinte Tuition - Study Planner</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-light: #3b82f6;
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
             --secondary: #7c3aed;
-            --dark: #0f172a;
-            --dark-accent: #1e293b;
-            --light: #f8fafc;
-            --gray: #94a3b8;
+            --dark: #f9fafb;
+            --dark-accent: #ffffff;
+            --light: #111827;
+            --gray: #6b7280;
             --success: #10b981;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --border-color: rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -37,7 +39,7 @@
         }
         
         ::-webkit-scrollbar-track {
-            background: var(--dark-accent);
+            background: #f1f1f1;
         }
         
         ::-webkit-scrollbar-thumb {
@@ -53,13 +55,13 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.3;
+            opacity: 0.2;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 40px 20px;
         }
 
         header {
@@ -89,7 +91,7 @@
             color: transparent;
             margin-bottom: 15px;
             letter-spacing: -1px;
-            text-shadow: 0 5px 15px rgba(124, 58, 237, 0.2);
+            text-shadow: 0 5px 15px rgba(79, 70, 229, 0.2);
         }
 
         .tagline {
@@ -99,20 +101,66 @@
             margin: 0 auto;
         }
 
+        /* Tabs Navigation */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--gray);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         .dashboard {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 30px;
         }
 
         .card {
-            background: rgba(30, 41, 59, 0.5);
+            background: var(--card-bg);
             border-radius: 16px;
             padding: 30px;
             margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
@@ -120,14 +168,14 @@
         .card:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid var(--border-color);
             padding-bottom: 15px;
             margin-bottom: 20px;
         }
@@ -142,7 +190,7 @@
         }
 
         .card-title i {
-            color: var(--primary-light);
+            color: var(--primary);
         }
 
         .calendar-wrapper {
@@ -161,16 +209,16 @@
         }
 
         .calendar th {
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(79, 70, 229, 0.1);
             padding: 12px;
             text-align: center;
             font-weight: 600;
-            color: var(--primary-light);
-            border: 1px solid rgba(255,255,255,0.05);
+            color: var(--primary);
+            border: 1px solid var(--border-color);
         }
 
         .calendar td {
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
             padding: 12px;
             min-height: 90px;
             vertical-align: top;
@@ -178,7 +226,7 @@
         }
 
         .calendar td:hover {
-            background: rgba(59, 130, 246, 0.05);
+            background: rgba(79, 70, 229, 0.05);
         }
 
         .calendar .date {
@@ -186,6 +234,26 @@
             margin-bottom: 8px;
             color: var(--light);
         }
+
+        .calendar .exam-day {
+    background-color: rgba(239, 68, 68, 0.15);
+    position: relative;
+}
+
+.calendar .exam-day::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+.calendar .exam-day .subject {
+    background-color: #ef4444;
+    box-shadow: 0 2px 5px rgba(239, 68, 68, 0.3);
+}
 
         .calendar .subject {
             background-color: var(--primary);
@@ -196,16 +264,16 @@
             margin-top: 5px;
             display: inline-block;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 2px 5px rgba(79, 70, 229, 0.3);
         }
 
         .calendar .subject:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 4px 8px rgba(79, 70, 229, 0.4);
         }
 
         .today {
-            background: rgba(255, 215, 0, 0.1);
+            background: rgba(255, 215, 0, 0.15);
             position: relative;
         }
 
@@ -230,24 +298,24 @@
             display: flex;
             margin-bottom: 15px;
             padding: 18px;
-            background: rgba(30, 41, 59, 0.7);
+            background: white;
             border-radius: 12px;
             border-left: 4px solid var(--primary);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         }
 
         .time-slot:hover {
             transform: translateX(5px);
-            background: rgba(30, 41, 59, 0.9);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            background: white;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
         .time {
             width: 120px;
             font-weight: 600;
             font-size: 1rem;
-            color: var(--primary-light);
+            color: var(--primary);
         }
 
         .subject {
@@ -271,23 +339,128 @@
 
         .exam-schedule th, .exam-schedule td,
         .total-days th, .total-days td {
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
             padding: 15px;
             text-align: left;
         }
 
         .exam-schedule th, .total-days th {
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--primary-light);
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
             font-weight: 600;
         }
 
         .exam-schedule tr:nth-child(even), .total-days tr:nth-child(even) {
-            background: rgba(30, 41, 59, 0.3);
+            background: rgba(0, 0, 0, 0.02);
         }
 
         .exam-schedule tr:hover, .total-days tr:hover {
-            background: rgba(59, 130, 246, 0.05);
+            background: rgba(79, 70, 229, 0.05);
+        }
+
+        /* Team Members Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 3px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--light);
+            margin-bottom: 5px;
+        }
+
+        .team-role {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .team-bio {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background: var(--secondary);
+            box-shadow: 0 5px 10px rgba(124, 58, 237, 0.3);
+        }
+
+        /* About Section */
+        .about-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .about-content h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .about-content p {
+            color: var(--light);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
         }
 
         /* Animations */
@@ -338,7 +511,7 @@
             border-radius: 50%;
             background: var(--primary);
             color: white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border: none;
             font-size: 24px;
             cursor: pointer;
@@ -355,12 +528,13 @@
             position: fixed;
             bottom: 90px;
             right: 20px;
-            background: var(--dark-accent);
+            background: white;
             border-radius: 12px;
             padding: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             z-index: 99;
             animation: slideUp 0.3s ease-out;
+            border: 1px solid var(--border-color);
         }
 
         @keyframes slideUp {
@@ -386,6 +560,7 @@
 
         .mobile-menu a:hover {
             background: var(--primary);
+            color: white;
         }
 
         /* Floating scroll indicator */
@@ -417,11 +592,11 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(30, 41, 59, 0.9);
-            color: white;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--light);
             padding: 15px 20px;
             border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             opacity: 0;
             transition: all 0.3s ease;
@@ -499,6 +674,16 @@
             .scroll-indicator {
                 display: block;
             }
+
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tab {
+                width: 100%;
+                text-align: center;
+            }
         }
 
         @media (max-width: 480px) {
@@ -526,6 +711,10 @@
             .container {
                 padding: 20px 10px;
             }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -544,534 +733,632 @@
             <div class="tagline">Your Path to Academic Excellence</div>
         </header>
         
+        <!-- Tabs Navigation -->
+        <div class="tabs">
+            <div class="tab active" data-tab="about">About Us</div>
+            <div class="tab" data-tab="calendar">Study Calendar</div>
+            <div class="tab" data-tab="study-times">Best Study Times</div>
+            <div class="tab" data-tab="team">Our Team</div>
+        </div>
+        
         <!-- Navigation dots for mobile -->
         <div class="nav-dots">
             <span class="dot active" data-index="0"></span>
             <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+            <span class="dot" data-index="3"></span>
         </div>
         
-        <div class="dashboard">
-            <div class="card section">
-                <div class="card-header">
-                    <div class="card-title">
-                        <i class="far fa-calendar-alt"></i> Study Calendar
+        <!-- About Tab Content -->
+        <div id="about" class="tab-content active">
+            <div class="about-content">
+                <h2>About Selinte Tuition</h2>
+                <p>Welcome to Selinte Tuition, a premier educational institution dedicated to nurturing academic excellence and personal growth. Founded with a vision to transform the learning experience, we provide personalized guidance to help students achieve their full potential.</p>
+                <p>Our unique approach combines innovative teaching methodologies with a supportive environment, ensuring that each student receives the attention and resources they need to succeed. We believe in fostering not just academic skills but also critical thinking, creativity, and confidence.</p>
+                <p>At Selinte Tuition, we're committed to creating a learning experience that goes beyond textbooks, preparing students for the challenges of tomorrow with a strong foundation today.</p>
+            </div>
+        </div>
+        
+        <!-- Calendar Tab Content -->
+        <div id="calendar" class="tab-content">
+            <div class="dashboard">
+                <div class="card section">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="far fa-calendar-alt"></i> Study Calendar
+                        </div>
                     </div>
-                </div>
-                
-                <div class="calendar-wrapper">
-                    <div class="scroll-indicator">
-                        <i class="fas fa-hand-pointer"></i>
+                    
+                    <div class="calendar-wrapper">
+                        <div class="scroll-indicator">
+                            <i class="fas fa-hand-pointer"></i>
+                        </div>
+                        <table class="calendar">
+                            <thead>
+                                <tr>
+                                    <th>Sun</th>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="today">
+                                        <div class="date">2-APRIL</div>
+                                        <div class="subject">Big Data & IEFT</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">3-APRIL</div>
+                                        <div class="subject">Big Data & IEFT</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">4-APRIL</div>
+                                        <div class="subject">Big Data & IEFT</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">5-APRIL</div>
+                                        <div class="subject">AAD & Lab</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">6-APRIL</div>
+                                        <div class="subject">AAD & Lab</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="date">7-APRIL</div>
+                                        <div class="subject">Lab Full</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">8-APRIL</div>
+                                        <div class="subject">Lab Full</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">9-APRIL</div>
+                                        <div class="subject">Lab Full</div>
+                                    </td>
+                                    <td>
+                                        <div class="exam-day">10-APRIL</div>
+                                        <div class="subject">Lab exam</div>
+                                    </td>
+                                    <td>
+                                        <div class="exam-day">11-APRIL</div>
+                                        <div class="subject">Lab exam</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">12-APRIL</div>
+                                        <div class="subject">RIS</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">13-APRIL</div>
+                                        <div class="subject">RIS</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="date">14-APRIL</div>
+                                        <div class="subject">CV</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">15-APRIL</div>
+                                        <div class="subject">CV</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">16-APRIL</div>
+                                        <div class="subject">IEFT</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">17-APRIL</div>
+                                        <div class="subject">IEFT</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">18-APRIL</div>
+                                        <div class="subject">Recommendation</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">19-APRIL</div>
+                                        <div class="subject">Recommendation</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">20-APRIL</div>
+                                        <div class="subject">Big Data</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="date">21-APRIL</div>
+                                        <div class="subject">Big Data</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">22-APRIL</div>
+                                        <div class="subject">Big Data</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">23-APRIL</div>
+                                        <div class="subject">Big Data</div>
+                                    </td>
+                                    <td>
+                                        <div class="exam-day">24-APRIL</div>
+                                        <div class="subject">BD EXAM </div>
+                                    </td>
+                                    <td>
+                                        <div class="date">25-APRIL</div>
+                                        <div class="subject">RIS</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">26-APRIL</div>
+                                        <div class="subject">RIS</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">27-APRIL</div>
+                                        <div class="subject">RIS</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="date">28-APRIL</div>
+                                        <div class="subject">RIS</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">29-APRIL</div>
+                                        <div class="subject">RIS</div>
+                                    </td>
+                                    <td>
+                                        <div class="exam-day">30-APRIL</div>
+                                        <div class="subject">RIS EXAM</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">1-MAY</div>
+                                        <div class="subject">AAD</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">2-MAY</div>
+                                        <div class="subject">AAD</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">3-MAY</div>
+                                        <div class="subject">AAD</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">4-MAY</div>
+                                        <div class="subject">AAD</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="date">5-MAY</div>
+                                        <div class="subject">AAD</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">6-MAY</div>
+                                        <div class="subject">AAD</div>
+                                    </td>
+                                    <td>
+                                        <div class="exam-day">7-MAY</div>
+                                        <div class="subject">AAD EXAM</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">8-MAY</div>
+                                        <div class="subject">REC</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">9-MAY</div>
+                                        <div class="subject">REC</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">10-MAY</div>
+                                        <div class="subject">REC</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">11-MAY</div>
+                                        <div class="subject">REC</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="exam-day">12-MAY</div>
+                                        <div class="subject">REC EXAM</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">13-MAY</div>
+                                        <div class="subject">IEFT</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">14-MAY</div>
+                                        <div class="subject">IEFT</div>
+                                    </td>
+                                    <td>
+                                        <div class="exam-day">15-MAY</div>
+                                        <div class="subject">IEFT EXAM</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">16-MAY</div>
+                                        <div class="subject">CV</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">17-MAY</div>
+                                        <div class="subject">CV</div>
+                                    </td>
+                                    <td>
+                                        <div class="date">18-MAY</div>
+                                        <div class="subject">CV</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="exam-day">19-MAY</div>
+                                        <div class="subject">CV EXAM</div>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <table class="calendar">
-                        <thead>
-                            <tr>
-                                <th>Sun</th>
-                                <th>Mon</th>
-                                <th>Tue</th>
-                                <th>Wed</th>
-                                <th>Thu</th>
-                                <th>Fri</th>
-                                <th>Sat</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td class="today">
-                                    <div class="date">2/4</div>
-                                    <div class="subject">Big Data & Lab</div>
-                                </td>
-                                <td>
-                                    <div class="date">3/4</div>
-                                    <div class="subject">Big Data & Lab</div>
-                                </td>
-                                <td>
-                                    <div class="date">4/4</div>
-                                    <div class="subject">Big Data & Lab</div>
-                                </td>
-                                <td>
-                                    <div class="date">5/4</div>
-                                    <div class="subject">AAD & Lab</div>
-                                </td>
-                                <td>
-                                    <div class="date">6/4</div>
-                                    <div class="subject">AAD & Lab</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="date">7/4</div>
-                                    <div class="subject">Lab Full</div>
-                                </td>
-                                <td>
-                                    <div class="date">8/4</div>
-                                    <div class="subject">Lab Full</div>
-                                </td>
-                                <td>
-                                    <div class="date">9/4</div>
-                                    <div class="subject">Lab Full</div>
-                                </td>
-                                <td>
-                                    <div class="date">10/4</div>
-                                    <div class="subject">Lab exam</div>
-                                </td>
-                                <td>
-                                    <div class="date">11/4</div>
-                                    <div class="subject">Lab exam</div>
-                                </td>
-                                <td>
-                                    <div class="date">12/4</div>
-                                    <div class="subject">RIS</div>
-                                </td>
-                                <td>
-                                    <div class="date">13/4</div>
-                                    <div class="subject">RIS</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="date">14/4</div>
-                                    <div class="subject">CV</div>
-                                </td>
-                                <td>
-                                    <div class="date">15/4</div>
-                                    <div class="subject">CV</div>
-                                </td>
-                                <td>
-                                    <div class="date">16/4</div>
-                                    <div class="subject">IEFT</div>
-                                </td>
-                                <td>
-                                    <div class="date">17/4</div>
-                                    <div class="subject">IEFT</div>
-                                </td>
-                                <td>
-                                    <div class="date">18/4</div>
-                                    <div class="subject">Recommendation</div>
-                                </td>
-                                <td>
-                                    <div class="date">19/4</div>
-                                    <div class="subject">Recommendation</div>
-                                </td>
-                                <td>
-                                    <div class="date">20/4</div>
-                                    <div class="subject">Big Data</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="date">21/4</div>
-                                    <div class="subject">Big Data</div>
-                                </td>
-                                <td>
-                                    <div class="date">22/4</div>
-                                    <div class="subject">Big Data</div>
-                                </td>
-                                <td>
-                                    <div class="date">23/4</div>
-                                    <div class="subject">Big Data</div>
-                                </td>
-                                <td>
-                                    <div class="date">24/4</div>
-                                    <div class="subject">BD EXAM </div>
-                                </td>
-                                <td>
-                                    <div class="date">25/4</div>
-                                    <div class="subject">RIS</div>
-                                </td>
-                                <td>
-                                    <div class="date">26/4</div>
-                                    <div class="subject">RIS</div>
-                                </td>
-                                <td>
-                                    <div class="date">27/4</div>
-                                    <div class="subject">RIS</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="date">28/4</div>
-                                    <div class="subject">RIS</div>
-                                </td>
-                                <td>
-                                    <div class="date">29/4</div>
-                                    <div class="subject">RIS</div>
-                                </td>
-                                <td>
-                                    <div class="date">30/4</div>
-                                    <div class="subject">RIS EXAM</div>
-                                </td>
-                                <td>
-                                    <div class="date">1/5</div>
-                                    <div class="subject">AAD</div>
-                                </td>
-                                <td>
-                                    <div class="date">2/5</div>
-                                    <div class="subject">AAD</div>
-                                </td>
-                                <td>
-                                    <div class="date">3/5</div>
-                                    <div class="subject">AAD</div>
-                                </td>
-                                <td>
-                                    <div class="date">4/5</div>
-                                    <div class="subject">AAD</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="date">5/5</div>
-                                    <div class="subject">AAD</div>
-                                </td>
-                                <td>
-                                    <div class="date">6/5</div>
-                                    <div class="subject">AAD</div>
-                                </td>
-                                <td>
-                                    <div class="date">7/5</div>
-                                    <div class="subject">AAD EXAM</div>
-                                </td>
-                                <td>
-                                    <div class="date">8/5</div>
-                                    <div class="subject">REC</div>
-                                </td>
-                                <td>
-                                    <div class="date">9/5</div>
-                                    <div class="subject">REC</div>
-                                </td>
-                                <td>
-                                    <div class="date">10/5</div>
-                                    <div class="subject">REC</div>
-                                </td>
-                                <td>
-                                    <div class="date">11/5</div>
-                                    <div class="subject">REC</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="date">12/5</div>
-                                    <div class="subject">REC EXAM</div>
-                                </td>
-                                <td>
-                                    <div class="date">13/5</div>
-                                    <div class="subject">IEFT</div>
-                                </td>
-                                <td>
-                                    <div class="date">14/5</div>
-                                    <div class="subject">IEFT</div>
-                                </td>
-                                <td>
-                                    <div class="date">15/5</div>
-                                    <div class="subject">IEFT EXAM</div>
-                                </td>
-                                <td>
-                                    <div class="date">16/5</div>
-                                    <div class="subject">CV</div>
-                                </td>
-                                <td>
-                                    <div class="date">17/5</div>
-                                    <div class="subject">CV</div>
-                                </td>
-                                <td>
-                                    <div class="date">18/5</div>
-                                    <div class="subject">CV</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="date">19/5</div>
-                                    <div class="subject">CV EXAM</div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
-            
-            <div class="card section">
-                <div class="card-header">
-                    <div class="card-title">
-                        <i class="far fa-clock"></i> Best Time to Study
-                    </div>
-                </div>
-                
-                <div class="time-slots-wrapper">
-                    <div class="time-slot">
-                        <div class="time">6:00-10:00</div>
-                        <div class="subject">After fajr</div>
+        </div>
+        
+        <!-- Study Times Tab Content -->
+        <div id="study-times" class="tab-content">
+            <div class="dashboard">
+                <div class="card section">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="far fa-clock"></i> Best Time to Study
+                        </div>
                     </div>
                     
-                    <div class="time-slot">
-                        <div class="time">11:00-13:30</div>
-                        <div class="subject">After break</div>
+                    <div class="time-slots-wrapper">
+                        <div class="time-slot">
+                            <div class="time">6:00-10:00</div>
+                            <div class="subject">After fajr</div>
+                        </div>
+                        
+                        <div class="time-slot">
+                            <div class="time">11:00-13:30</div>
+                            <div class="subject">After break</div>
+                        </div>
+                        
+                        <div class="time-slot">
+                            <div class="time">14:30-16:00</div>
+                            <div class="subject">Take an nap</div>
+                        </div>
+
+                        <div class="time-slot">
+                            <div class="time">16:30-18:00</div>
+                            <div class="subject">Vainerathe Chayakada or Purath iraghi kurach kaat kollu</div>
+                        </div>
+
+                        <div class="time-slot">
+                            <div class="time">19:30-22:30</div>
+                            <div class="subject">Padikka vere onnu chindikenda</div>
+                        </div>
+
+                        <div class="time-slot">
+                            <div class="time">23:00-23:30</div>
+                            <div class="subject">Gf nett chat cheyth kidakka</div>
+                        </div>
                     </div>
                     
-                    <div class="time-slot">
-                        <div class="time">14:30-16:00</div>
-                        <div class="subject">Take an nap</div>
+                    <div class="card-header" style="margin-top: 30px;">
+                        <div class="card-title">
+                            <i class="fas fa-clipboard-list"></i> Study at the Time of Exam
+                        </div>
                     </div>
-
-                    <div class="time-slot">
-                        <div class="time">16:30-18:00</div>
-                        <div class="subject">Vainerathe Chayakada or Purath iraghi kurach kaat kollu</div>
+                    
+                    <div class="table-wrapper">
+                        <table class="exam-schedule">
+                            <thead>
+                                <tr>
+                                    <th>Date Range</th>
+                                    <th>Subject</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>20-23</td>
+                                    <td>Big Data</td>
+                                </tr>
+                                <tr>
+                                    <td>25-29</td>
+                                    <td>RIS</td>
+                                </tr>
+                                <tr>
+                                    <td>1-6</td>
+                                    <td>AAD</td>
+                                </tr>
+                                <tr>
+                                    <td>8-11</td>
+                                    <td>REC</td>
+                                </tr>
+                                <tr>
+                                    <td>13-14</td>
+                                    <td>IEFT</td>
+                                </tr>
+                                <tr>
+                                    <td>16-18</td>
+                                    <td>CV</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-
-                    <div class="time-slot">
-                        <div class="time">19:30-22:30</div>
-                        <div class="subject">Padikka vere onnu chindikenda</div>
+                    
+                    <div class="card-header" style="margin-top: 30px;">
+                        <div class="card-title">
+                            <i class="fas fa-chart-bar"></i> Total Days
+                        </div>
                     </div>
-
-                    <div class="time-slot">
-                        <div class="time">23:00-23:30</div>
-                        <div class="subject">Gf nett chat cheyth kidakka</div>
+                    
+                    <div class="table-wrapper">
+                        <table class="total-days">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Total Days</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Big Data</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>AAD</td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>RIS</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>CV</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>IEFT</td>
+                                    <td>4 full day & 3 night</td>
+                                </tr>
+                                <tr>
+                                    <td>REC</td>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <td>Lab</td>
+                                    <td>5  night, 3 Full day</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                
-                <div class="card-header" style="margin-top: 30px;">
-                    <div class="card-title">
-                        <i class="fas fa-clipboard-list"></i> Study at the Time of Exam
+            </div>
+        </div>
+        
+        <!-- Team Tab Content -->
+        <div id="team" class="tab-content">
+            <div class="dashboard">
+                <div class="card section">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-users"></i> Our Team
+                        </div>
                     </div>
-                </div>
-                
-                <div class="table-wrapper">
-                    <table class="exam-schedule">
-                        <thead>
-                            <tr>
-                                <th>Date Range</th>
-                                <th>Subject</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>20-23</td>
-                                <td>Big Data</td>
-                            </tr>
-                            <tr>
-                                <td>25-29</td>
-                                <td>RIS</td>
-                            </tr>
-                            <tr>
-                                <td>1-6</td>
-                                <td>AAD</td>
-                            </tr>
-                            <tr>
-                                <td>8-11</td>
-                                <td>REC</td>
-                            </tr>
-                            <tr>
-                                <td>13-14</td>
-                                <td>IEFT</td>
-                            </tr>
-                            <tr>
-                                <td>16-18</td>
-                                <td>CV</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div class="card-header" style="margin-top: 30px;">
-                    <div class="card-title">
-                        <i class="fas fa-chart-bar"></i> Total Days
+                    
+                    <div class="team-grid">
+                        <div class="team-card">
+                            <img src="images/shahin.jpg" alt="CEO" class="team-photo">
+                            <h3 class="team-name">Shahin Hamza</h3>
+                            <p class="team-role">Founder & CEO</p>
+                            <p class="team-bio">Visionary leader with a passion for education and student success.</p>
+                            <div class="team-social">
+                                <a href="https://www.instagram.com/shahinhamzaa?igsh=ejk0ZnZyNmJwb3Yy" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div class="team-card">
+                            <img src="images/nazmal.jpg" alt="Coordinator" class="team-photo">
+                            <h3 class="team-name">Nazmal Nizar</h3>
+                            <p class="team-role">Academic Coordinator</p>
+                            <p class="team-bio">Dedicated to creating the perfect learning environment for students.</p>
+                            <div class="team-social">
+                                <a href="https://www.instagram.com/nach.07_?igsh=MXg1aXBrNTYxb3BjaA==" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div class="team-card">
+                            <img src="images/students.jpg" alt="Math Tutor" class="team-photo">
+                            <h3 class="team-name">yeahiii</h3>
+                            <p class="team-role">Students</p>
+                            <p class="team-bio">Makes Btech Life with Adichipoli along with padipp</p>
+                            <div class="team-social">
+                                <a href="https://www.instagram.com/yeaahh.i?igsh=MTNoZXVtOWhvZ3Z4Yg==" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="table-wrapper">
-                    <table class="total-days">
-                        <thead>
-                            <tr>
-                                <th>Subject</th>
-                                <th>Total Days</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Big Data</td>
-                                <td>7</td>
-                            </tr>
-                            <tr>
-                                <td>AAD</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>RIS</td>
-                                <td>7</td>
-                            </tr>
-                            <tr>
-                                <td>CV</td>
-                                <td>5</td>
-                            </tr>
-                            <tr>
-                                <td>IEFT</td>
-                                <td>4</td>
-                            </tr>
-                            <tr>
-                                <td>REC</td>
-                                <td>6</td>
-                            </tr>
-                            <tr>
-                                <td>Lab</td>
-                                <td>5  night, 3 Full day</td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Mobile menu button -->
-    <button class="mobile-menu-toggle"><i class="fas fa-bars"></i></button>
     
-    <!-- Mobile menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="#" class="menu-item" data-index="0"><i class="far fa-calendar-alt"></i> Calendar</a>
-        <a href="#" class="menu-item" data-index="1"><i class="far fa-clock"></i> Study Times</a>
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2025 Selinte Tuition. All rights reserved. Designed by Shahin Hamza
     </div>
-
-    <!-- Particles.js for background effects -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     
-    <!-- Custom JavaScript -->
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#" data-tab="about">About Us</a>
+        <a href="#" data-tab="calendar">Study Calendar</a>
+        <a href="#" data-tab="study-times">Study Times</a>
+        <a href="#" data-tab="team">Our Team</a>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         // Initialize particles.js
-       // Initialize particles.js
-particlesJS('particles-js', {
-    particles: {
-        number: { value: 40, density: { enable: true, value_area: 800 }},
-        color: { value: "#3b82f6" },
-        shape: { type: "circle" },
-        opacity: {
-            value: 0.5,
-            random: true,
-            anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
-        },
-        size: {
-            value: 3,
-            random: true,
-            anim: { enable: true, speed: 2, size_min: 0.1, sync: false }
-        },
-        line_linked: {
-            enable: true,
-            distance: 150,
-            color: "#3b82f6",
-            opacity: 0.4,
-            width: 1
-        },
-        move: {
-            enable: true,
-            speed: 1,
-            direction: "none",
-            random: true,
-            straight: false,
-            out_mode: "out",
-            bounce: false
-        }
-    },
-    interactivity: {
-        detect_on: "canvas",
-        events: {
-            onhover: { enable: true, mode: "grab" },
-            onclick: { enable: true, mode: "push" },
-            resize: true
-        },
-        modes: {
-            grab: { distance: 140, line_linked: { opacity: 1 } },
-            push: { particles_nb: 4 }
-        }
-    },
-    retina_detect: true
-});
-
-// Intersection Observer for scroll animations
-document.addEventListener('DOMContentLoaded', function() {
-    const sections = document.querySelectorAll('.section');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 80, density: { enable: true, value_area: 800 } },
+                        color: { value: "#4f46e5" },
+                        shape: { type: "circle" },
+                        opacity: { value: 0.5, random: true },
+                        size: { value: 3, random: true },
+                        line_linked: { enable: true, distance: 150, color: "#4f46e5", opacity: 0.4, width: 1 },
+                        move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
+                    },
+                    interactivity: {
+                        detect_on: "canvas",
+                        events: {
+                            onhover: { enable: true, mode: "grab" },
+                            onclick: { enable: true, mode: "push" }
+                        }
+                    }
+                });
+            }
+            
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Hide all tab contents
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Show corresponding tab content
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    // Update nav dots for mobile
+                    updateNavDots();
+                });
+            });
+            
+            // Mobile menu toggle
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
+            });
+            
+            // Mobile menu links
+            document.querySelectorAll('.mobile-menu a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tabId = link.getAttribute('data-tab');
+                    
+                    // Hide mobile menu
+                    mobileMenu.style.display = 'none';
+                    
+                    // Switch to selected tab
+                    tabs.forEach(tab => tab.classList.remove('active'));
+                    document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
+                    
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    // Update nav dots
+                    updateNavDots();
+                });
+            });
+            
+            // Nav dots functionality
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const index = dot.getAttribute('data-index');
+                    const tabIds = ['about', 'calendar', 'study-times', 'team'];
+                    
+                    // Update active dot
+                    dots.forEach(d => d.classList.remove('active'));
+                    dot.classList.add('active');
+                    
+                    // Update active tab
+                    tabs.forEach((tab, i) => {
+                        if (i == index) {
+                            tab.classList.add('active');
+                        } else {
+                            tab.classList.remove('active');
+                        }
+                    });
+                    
+                    // Update active content
+                    document.querySelectorAll('.tab-content').forEach((content, i) => {
+                        if (i == index) {
+                            content.classList.add('active');
+                        } else {
+                            content.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            
+            // Intersection Observer for animations
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Show toast notification (example)
+            setTimeout(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }, 1500);
+            
+            // Function to update nav dots based on active tab
+            function updateNavDots() {
+                const activeTab = document.querySelector('.tab.active');
+                const tabId = activeTab.getAttribute('data-tab');
+                const tabIds = ['about', 'calendar', 'study-times', 'team'];
+                const index = tabIds.indexOf(tabId);
+                
+                dots.forEach((dot, i) => {
+                    if (i === index) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
             }
         });
-    }, { threshold: 0.1 });
-    
-    sections.forEach(section => {
-        observer.observe(section);
-    });
-    
-    // Mobile menu functionality
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    
-    mobileMenuToggle.addEventListener('click', function() {
-        mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
-    });
-    
-    // Navigation dots functionality
-    const dots = document.querySelectorAll('.dot');
-    const cards = document.querySelectorAll('.card');
-    
-    dots.forEach(dot => {
-        dot.addEventListener('click', function() {
-            const index = this.getAttribute('data-index');
-            
-            // Update active dot
-            dots.forEach(d => d.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Scroll to corresponding card
-            cards[index].scrollIntoView({ behavior: 'smooth' });
-        });
-    });
-    
-    // Mobile menu items functionality
-    const menuItems = document.querySelectorAll('.menu-item');
-    
-    menuItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const index = this.getAttribute('data-index');
-            
-            // Update active dot
-            dots.forEach(d => d.classList.remove('active'));
-            dots[index].classList.add('active');
-            
-            // Scroll to corresponding card
-            cards[index].scrollIntoView({ behavior: 'smooth' });
-            
-            // Hide menu
-            mobileMenu.style.display = 'none';
-        });
-    });
-    
-    // Toast notification demo
-    setTimeout(() => {
-        const toast = document.getElementById('toast');
-        toast.classList.add('show');
-        
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 3000);
-    }, 2000);
-    
-    // Hide scroll indicator after first scroll
-    const calendarWrapper = document.querySelector('.calendar-wrapper');
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    
-    if (calendarWrapper && scrollIndicator) {
-        calendarWrapper.addEventListener('scroll', function() {
-            scrollIndicator.style.display = 'none';
-        }, { once: true });
-    }
-});
-</script>
+    </script>
 </body>
 </html>
