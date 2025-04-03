@@ -1241,6 +1241,268 @@
             font-size: 1.1rem;
         }
     }
+    .chatbot-toggle {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+    z-index: 100;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatbot-toggle:hover {
+    background: var(--secondary);
+    transform: scale(1.1);
+}
+
+.chatbot-container {
+    position: fixed;
+    bottom: 100px;
+    left: 30px;
+    width: 350px;
+    max-height: 500px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    z-index: 100;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.chatbot-container.active {
+    display: flex;
+    animation: slideUp 0.3s ease-out;
+}
+
+.chatbot-header {
+    padding: 15px 20px;
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-title {
+    font-size: 1.1rem;
+}
+
+.chatbot-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.chatbot-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #f9fafb;
+}
+
+.chatbot-message {
+    margin-bottom: 15px;
+    display: flex;
+}
+
+.chatbot-message.bot {
+    justify-content: flex-start;
+}
+
+.chatbot-message.user {
+    justify-content: flex-end;
+}
+
+.message-content {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 18px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.chatbot-message.bot .message-content {
+    background: white;
+    color: var(--light);
+    border: 1px solid var(--border-color);
+}
+
+.chatbot-message.user .message-content {
+    background: var(--primary);
+    color: white;
+}
+
+.chatbot-input {
+    padding: 15px;
+    display: flex;
+    border-top: 1px solid var(--border-color);
+    background: white;
+}
+
+.chatbot-input input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+}
+
+.chatbot-input input:focus {
+    border-color: var(--primary);
+}
+
+.chatbot-input button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.chatbot-input button:hover {
+    background: var(--secondary);
+    transform: scale(1.05);
+}
+
+/* Typing indicator */
+.typing-indicator {
+    display: flex;
+    padding: 10px 15px;
+    background: white;
+    border-radius: 18px;
+    border: 1px solid var(--border-color);
+    width: fit-content;
+    margin-bottom: 15px;
+}
+
+.typing-indicator span {
+    height: 8px;
+    width: 8px;
+    background: var(--gray);
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 2px;
+    animation: typingAnimation 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typingAnimation {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+}
+
+/* Responsive styles */
+@media (max-width: 480px) {
+    .chatbot-container {
+        width: 300px;
+        max-height: 400px;
+        left: 15px;
+    }
+    
+    .chatbot-toggle {
+        left: 15px;
+        bottom: 15px;
+    }
+}
+/* Selinte AI About Section Styles */
+.ai-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 25px 0;
+}
+
+.feature {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary);
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.1);
+}
+
+.feature i {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.feature h3 {
+    color: var(--light);
+    margin-bottom: 10px;
+}
+
+.feature p {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.chat-launch-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+}
+
+.chat-launch-btn:hover {
+    background: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+}
+
+@media (max-width: 768px) {
+    .ai-features {
+        grid-template-columns: 1fr;
+    }
+}
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1278,9 +1540,14 @@
         
         <!-- About Tab Content -->
         <div id="about" class="tab-content active">
-            <div class="about-content">
-                <h2>About Selinte Tuition</h2>
-                <p>Welcome to Selinte Tuition, a premier educational institution dedicated to nurturing academic excellence and personal growth. Founded with a vision to transform the learning experience, we provide personalized guidance to help students achieve their full potential.</p>  
+            <div class="about-content" style="margin-top: 30px;">
+                <h2>Meet Selinte AI</h2>
+                <p>Hey there! 👋 I'm Selinte AI, your personal study assistant. I'm here to help you navigate your academic journey and make your study sessions more effective.</p>
+                
+                
+                <button class="chat-launch-btn" onclick="document.getElementById('selinte-ai-container').classList.add('active')">
+                    <i class="fas fa-robot"></i> Try Selinte AI Now
+                </button>
             </div>
             <div class="card section" style="margin-top: 30px;">
                 <div class="card-header">
@@ -2694,6 +2961,220 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+        // Chatbot functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const chatbotToggle = document.getElementById('selinte-ai-toggle');
+    const chatbotContainer = document.getElementById('selinte-ai-container');
+    const chatbotClose = document.querySelector('.chatbot-close');
+    const chatbotInput = document.getElementById('chatbot-input');
+    const chatbotSend = document.getElementById('chatbot-send');
+    const chatbotMessages = document.getElementById('chatbot-messages');
+    
+    // Toggle chatbot visibility
+    chatbotToggle.addEventListener('click', function() {
+        chatbotContainer.classList.toggle('active');
+    });
+    
+    // Close chatbot
+    chatbotClose.addEventListener('click', function() {
+        chatbotContainer.classList.remove('active');
+    });
+    
+    // Send message on button click
+    chatbotSend.addEventListener('click', sendMessage);
+    
+    // Send message on Enter key
+    chatbotInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+    
+    function sendMessage() {
+        const message = chatbotInput.value.trim();
+        if (message === '') return;
+        
+        // Add user message to chat
+        addMessage(message, 'user');
+        chatbotInput.value = '';
+        
+        // Show typing indicator
+        showTypingIndicator();
+        
+        // Simulate bot response after a delay
+        setTimeout(() => {
+            // Remove typing indicator
+            removeTypingIndicator();
+            
+            // Generate bot response
+            const botResponse = generateResponse(message);
+            addMessage(botResponse, 'bot');
+            
+            // Scroll to bottom
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }, 1000 + Math.random() * 2000); // Random delay between 1-3 seconds
+    }
+    
+    function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chatbot-message ${sender}`;
+        messageDiv.innerHTML = `
+            <div class="message-content">${text}</div>
+        `;
+        chatbotMessages.appendChild(messageDiv);
+        
+        // Scroll to bottom
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+    
+    function showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'typing-indicator';
+        typingDiv.id = 'typing-indicator';
+        typingDiv.innerHTML = `
+            <span></span>
+            <span></span>
+            <span></span>
+        `;
+        chatbotMessages.appendChild(typingDiv);
+        
+        // Scroll to bottom
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+    
+    function removeTypingIndicator() {
+        const typingIndicator = document.getElementById('typing-indicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
+        }
+    }
+    
+    // Simple response generation
+    // Replace your existing generateResponse function with this enhanced version
+function generateResponse(userMessage) {
+    const lowerMessage = userMessage.toLowerCase();
+    
+    // Enhanced Greetings
+    if (/^(hi|hello|hey|greetings|sup|what's up)/i.test(lowerMessage)) {
+        const greetings = [
+            "Hello! How can I assist with your studies today?",
+            "Hi there! Ready to ace your exams? How can I help?",
+            "Greetings! What study topic shall we discuss?"
+        ];
+        return greetings[Math.floor(Math.random() * greetings.length)];
+    }
+
+    // Exam Information
+    if (/(exam|test|midterm|final)/i.test(lowerMessage)) {
+        if (/(when|date|time|schedule)/i.test(lowerMessage)) {
+            return "Here are your upcoming exams:\n- Lab Exam: April 10-11\n- Big Data: April 24\n- RIS: April 30\n- AAD: May 7\n- Recommendation: May 12\n- IEFT: May 15\n- CV: May 19\n\nWould you like details on any specific exam?";
+        }
+        if (/(prepare|study|tips|advice)/i.test(lowerMessage)) {
+            return "For exam preparation, I recommend:\n1. Review materials in the 'Materials' tab\n2. Follow your study calendar\n3. Practice past papers\n4. Focus on weak areas first\n5. Take regular breaks (Pomodoro technique works well!)";
+        }
+        return "Exams are important but don't stress! Proper planning is key. Would you like:\n1. Exam dates\n2. Study tips\n3. Subject-specific advice?";
+    }
+
+    // Subject-Specific Prompts
+    const subjects = {
+        'big data': {
+            exam: "April 24",
+            tips: "Focus on Hadoop architecture, MapReduce, and HDFS. Practice writing algorithms for large datasets.",
+            materials: "Check the Materials tab for module PDFs and past papers."
+        },
+        'aad': {
+            exam: "May 7",
+            tips: "Master dynamic programming and graph algorithms. Practice time complexity analysis.",
+            materials: "Algorithm visualizations and solved papers available in Materials."
+        },
+        'ris': {
+            exam: "April 30",
+            tips: "Understand sensor integration and robotic decision-making. Review SLAM algorithms.",
+            materials: "Module notes and lab manuals in Materials tab."
+        },
+        'cv': {
+            exam: "May 19",
+            tips: "Focus on image processing techniques and CNN architectures. Practice OpenCV implementations.",
+            materials: "Image datasets and sample code available."
+        },
+        'ieft': {
+            exam: "May 15",
+            tips: "Understand network protocols and IoT architectures. Review security challenges.",
+            materials: "Protocol cheat sheets and case studies in Materials."
+        },
+        'lab': {
+            exam: "April 10-11",
+            tips: "Practice all lab exercises. Focus on debugging and documentation.",
+            materials: "Lab manuals and solution guides available."
+        }
+    };
+
+    for (const [subject, info] of Object.entries(subjects)) {
+        if (lowerMessage.includes(subject)) {
+            let response = `${subject.toUpperCase()} Information:\n`;
+            response += `Exam Date: ${info.exam}\n`;
+            response += `Study Tips: ${info.tips}\n`;
+            response += `Materials: ${info.materials}`;
+            
+            if (subject === 'lab') {
+                response += "\n\nRemember to bring your lab journal and necessary code files!";
+            }
+            return response;
+        }
+    }
+
+    // Study Schedule Questions
+    if (/(schedule|calendar|plan|timetable)/i.test(lowerMessage)) {
+        return "Your study schedule is organized in the Calendar tab with:\n- Color-coded subjects\n- Exam days highlighted\n- Recommended study blocks\n\nI can help interpret it or suggest focus areas!";
+    }
+
+    // Materials Access
+    if (/(material|resource|note|pdf|slide|book)/i.test(lowerMessage)) {
+        return "All study materials are organized by subject in the Materials tab. You'll find:\n- Lecture notes\n- Past papers\n- Solution guides\n- Reference books\n\nWould you like me to open a specific subject's materials?";
+    }
+
+    // Time Management
+    if (/(time management|schedule|routine|balance)/i.test(lowerMessage)) {
+        return "Effective time management tips:\n1. Use the Pomodoro technique (25min study, 5min break)\n2. Prioritize tough subjects during peak focus times\n3. Schedule review sessions\n4. Include buffer time\n5. Don't forget sleep and exercise!\n\nCheck the 'Best Study Times' tab for personalized recommendations.";
+    }
+
+    // Motivation/Stress
+    if (/(stress|overwhelm|tired|burnout|motivation)/i.test(lowerMessage)) {
+        return "It's normal to feel stressed during exams. Try these:\n1. Take a 10-minute walk\n2. Practice deep breathing\n3. Break tasks into smaller chunks\n4. Reward small victories\n5. Remember - this is temporary!\n\nYou've got this! 💪";
+    }
+
+    // Default Responses
+    const defaultResponses = [
+        "Poyi Padikk Monee...Nthelu Doubts ndel Noor,Ladeeda,Arshad,Nabha anghene ulorod choichokk Nammalkk okke ithre ariyulu machuuuuu🙂"
+    ];
+    
+    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+}a
+});
     </script>
+     <!-- Chatbot Container -->
+     <div id="selinte-ai-container" class="chatbot-container">
+        <div class="chatbot-header">
+            <div class="chatbot-title">Selinte AI</div>
+            <button class="chatbot-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="chatbot-message bot">
+                <div class="message-content">
+                    Hello! I'm Selinte AI, your study assistant. How can I help you today?
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbot-input" placeholder="Ask me anything about your studies...">
+            <button id="chatbot-send"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Chatbot Toggle Button -->
+    <button id="selinte-ai-toggle" class="chatbot-toggle">
+        <i class="fas fa-robot"></i>
+    </button>       
+
 </body>
 </html>
