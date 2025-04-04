@@ -1503,11 +1503,194 @@
         grid-template-columns: 1fr;
     }
 }
+/* Intro Animation Styles */
+/* Intro Animation Styles */
+/* Intro Animation Styles */
+.intro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+.intro-overlay.fade-out {
+    opacity: 0;
+}
+
+.intro-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.remembrance-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary);
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+}
+
+.intro-text {
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.welcome-text {
+    font-style: italic;
+    color: var(--gray);
+    margin-bottom: 5px;
+}
+
+.site-title {
+    font-weight: 800;
+    font-size: 3.5rem;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 5px 15px rgba(79, 70, 229, 0.2);
+}
+
+/* Train Loading Animation */
+.train-loader {
+    width: 120px;
+    height: 60px;
+    position: relative;
+    margin-top: 30px;
+}
+
+.train-body {
+    width: 100px;
+    height: 40px;
+    background: var(--primary);
+    border-radius: 8px;
+    position: relative;
+    animation: train-move 2s linear infinite;
+}
+
+.train-body:before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--secondary);
+    border-radius: 50%;
+    top: 30px;
+    left: 15px;
+}
+
+.train-body:after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--secondary);
+    border-radius: 50%;
+    top: 30px;
+    right: 15px;
+}
+
+.train-smoke {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    top: 5px;
+    right: -5px;
+    animation: smoke 2s linear infinite;
+}
+
+.train-smoke:nth-child(2) {
+    animation-delay: 0.3s;
+    right: -10px;
+    top: 0;
+    width: 12px;
+    height: 12px;
+}
+
+.train-smoke:nth-child(3) {
+    animation-delay: 0.6s;
+    right: -15px;
+    top: -5px;
+    width: 14px;
+    height: 14px;
+}
+
+.train-track {
+    width: 120px;
+    height: 4px;
+    background: var(--gray);
+    position: absolute;
+    bottom: 0;
+    border-radius: 2px;
+}
+
+@keyframes train-move {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes smoke {
+    0% { transform: translateY(0) scale(1); opacity: 0.7; }
+    100% { transform: translateY(-30px) scale(2); opacity: 0; }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    .remembrance-image {
+        width: 60px;
+        height: 60px;
+    }
+    .intro-text {
+        font-size: 2rem;
+    }
+    .site-title {
+        font-size: 2.5rem;
+    }
+}
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Intro Overlay -->
+<!-- Intro Overlay -->
+<!-- Intro Overlay -->
+<!-- Intro Overlay -->
+<div class="intro-overlay" id="introOverlay">
+    <div class="intro-content">
+        <img src="images/remember.jpg" alt="Remembrance" class="remembrance-image">
+        <div class="intro-text">
+            <div class="welcome-text">Welcome to</div>
+            <div class="site-title">SELINTE TUITION</div>
+        </div>
+        <div class="train-loader">
+            <div class="train-body"></div>
+            <div class="train-smoke"></div>
+            <div class="train-smoke"></div>
+            <div class="train-smoke"></div>
+            <div class="train-track"></div>
+        </div>
+    </div>
+</div>
+</div>
     <!-- Particles background -->
     <div id="particles-js"></div>
 
@@ -1732,11 +1915,11 @@
                                         <div class="date">2-APRIL</div>
                                         <div class="subject">Big Data & IEFT</div>
                                     </td>
-                                    <td data-day="Thursday">
+                                    <td data-day="Thursday"class="today">
                                         <div class="date">3-APRIL</div>
                                         <div class="subject">Big Data & IEFT</div>
                                     </td>
-                                    <td data-day="Friday"class="today">
+                                    <td data-day="Friday">
                                         <div class="date">4-APRIL</div>
                                         <div class="subject">Big Data & IEFT</div>
                                     </td>
@@ -3149,7 +3332,21 @@ function generateResponse(userMessage) {
     ];
     
     return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-}a
+}
+});
+// Intro animation
+document.addEventListener('DOMContentLoaded', function() {
+    const introOverlay = document.getElementById('introOverlay');
+    
+    // Show the site after 2 seconds
+    setTimeout(() => {
+        introOverlay.classList.add('fade-out');
+        
+        // Remove the overlay after fade out completes
+        setTimeout(() => {
+            introOverlay.style.display = 'none';
+        }, 500); // Match this with the CSS transition duration
+    }, 2000);
 });
     </script>
      <!-- Chatbot Container -->
