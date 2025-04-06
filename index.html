@@ -2220,6 +2220,16 @@
             
             <!-- Subject Selection Cards -->
             <div class="team-grid">
+
+                <!-- Lab Exam -->
+                <div class="team-card subject-card" data-subject="Lab exam">
+                    <div class="subject-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3 class="team-name">Lab Exam</h3>
+                    <p class="team-bio">Lecture notes, reference materials, and past papers</p>
+                </div>
+                
                 <!-- Big Data -->
                 <div class="team-card subject-card" data-subject="big-data">
                     <div class="subject-icon">
@@ -2448,6 +2458,15 @@
 
             // Subject materials data (you can replace with actual data from server)
 const materialsData = {
+    'Lab': [
+        {
+            type: 'zip',
+            title: '2023 qpaper',
+            date: '2025-03-15',
+            url: 'materials/big-data/2023 qpaper.pdf',
+            preview: 'materials/big-data/intro-preview.jpg'
+        },
+    ],
     'big-data': [
         {
             type: 'pdf',
