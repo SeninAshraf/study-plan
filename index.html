@@ -3819,6 +3819,71 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500); // Match this with the CSS transition duration
     }, 2000);
 });
+        // Function to update the "today" class at midnight
+function updateTodayClass() {
+  // Get current date information
+  const now = new Date();
+  const currentDate = now.getDate();
+  const currentMonth = now.getMonth() + 1; // JavaScript months are 0-indexed
+  
+  // Format the current date as "DD-MONTH" (e.g., "7-APRIL")
+  const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", 
+                      "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+  const formattedDate = `${currentDate}-${monthNames[now.getMonth()]}`;
+  
+  // Remove the "today" class from all cells
+  document.querySelectorAll('.calendar td.today').forEach(cell => {
+    cell.classList.remove('today');
+  });
+  
+  // Find the cell with the current date and add the "today" class
+  document.querySelectorAll('.calendar td .date').forEach(dateDiv => {
+    if (dateDiv.textContent === formattedDate) {
+      dateDiv.closest('td').classList.add('today');
+    }
+  });
+}
+
+// Check if it's midnight (12:00 AM) and update
+function checkTimeAndUpdate() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  
+  // If it's midnight (00:00), update the today class
+  if (hours === 0 && minutes === 0) {
+    updateTodayClass();
+  }
+}
+
+// Run initially to set the correct "today" class
+updateTodayClass();
+
+// Set up checks for midnight
+setInterval(checkTimeAndUpdate, 60000); // Check every minute
+
+// Alternative approach: Schedule the update to happen exactly at midnight
+function scheduleNextMidnightUpdate() {
+  const now = new Date();
+  const midnight = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1, // Next day
+    0, 0, 0 // 00:00:00 hours
+  );
+  
+  // Calculate milliseconds until midnight
+  const msUntilMidnight = midnight - now;
+  
+  // Schedule the update
+  setTimeout(() => {
+    updateTodayClass();
+    scheduleNextMidnightUpdate(); // Schedule for the next day
+  }, msUntilMidnight);
+}
+
+// Start the scheduling
+scheduleNextMidnightUpdate();
     </script>
      <!-- Chatbot Container -->
      <div id="selinte-ai-container" class="chatbot-container">
