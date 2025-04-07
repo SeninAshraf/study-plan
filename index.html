@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selinte Tuition - Study Planner</title>
     <style>
-        :root {
+    
+:root {
   /* Modern AI color palette */
   --primary: #0070f3;
   --primary-dark: #0054b3;
@@ -1934,7 +1935,143 @@ header {
         font-size: 1rem;
     }
 }
-    
+/* Add these styles to your existing CSS */
+.urgent-exam-alert {
+    display: none;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.urgent-exam-alert::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.urgent-exam-alert:hover::before {
+    opacity: 0.05;
+}
+
+.alert-icon {
+    font-size: 1.8rem;
+    color: var(--primary);
+    animation: ring 4s 0.7s ease-in-out infinite;
+    transform-origin: 50% 4px;
+}
+
+.alert-content {
+    flex: 1;
+}
+
+.alert-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gray);
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.alert-message {
+    font-size: 1rem;
+    color: var(--light);
+    line-height: 1.5;
+}
+
+.alert-message strong {
+    font-weight: 700;
+}
+
+.exam-time {
+    font-size: 0.9rem;
+    color: var(--gray);
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.countdown-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: white;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.alert-fire {
+    display: none;
+    font-size: 1.5rem;
+    color: var(--accent);
+    animation: burn 1.5s ease-in-out infinite alternate;
+    margin-left: 10px;
+}
+
+/* Animations */
+@keyframes ring {
+    0% { transform: rotate(0); }
+    1% { transform: rotate(30deg); }
+    3% { transform: rotate(-28deg); }
+    5% { transform: rotate(34deg); }
+    7% { transform: rotate(-32deg); }
+    9% { transform: rotate(30deg); }
+    11% { transform: rotate(-28deg); }
+    13% { transform: rotate(26deg); }
+    15% { transform: rotate(-24deg); }
+    17% { transform: rotate(22deg); }
+    19% { transform: rotate(-20deg); }
+    21% { transform: rotate(18deg); }
+    23% { transform: rotate(-16deg); }
+    25% { transform: rotate(14deg); }
+    27% { transform: rotate(-12deg); }
+    29% { transform: rotate(10deg); }
+    31% { transform: rotate(-8deg); }
+    33% { transform: rotate(6deg); }
+    35% { transform: rotate(-4deg); }
+    37% { transform: rotate(2deg); }
+    39% { transform: rotate(-1deg); }
+    41% { transform: rotate(1deg); }
+    43% { transform: rotate(0); }
+    100% { transform: rotate(0); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 128, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 0, 128, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 128, 0); }
+}
+
+@keyframes burn {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.1); opacity: 1; }
+}
+
+.critical-alert {
+    animation: criticalPulse 1.5s infinite;
+}
+
+@keyframes criticalPulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 128, 0.6); }
+    50% { transform: scale(1.01); box-shadow: 0 0 0 8px rgba(255, 0, 128, 0.2); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 128, 0); }
+}
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1950,7 +2087,7 @@ header {
     <div class="intro-content">
         <div class="intro-logo-container">
             <div class="intro-logo">SELINTE TUITION</div>
-            <div class="intro-tagline">താൻ പഠിച്ചാൽ തനിക്ക് നന്ന്..ബാക്കി ഉള്ളോരൊക്കെ ഭയങ്കര പഠിപ്പ് ആണ്</div>
+            <div class="intro-tagline">Your Path to Academic Excellence</div>
         </div>
         <div class="loading-bar">
             <div class="loading-progress"></div>
@@ -1960,7 +2097,7 @@ header {
     <!-- Particles background -->
     <div id="particles-js"></div>
 
-    
+    <!-- Toast notification -->
     <div class="container">
         <header>
             <div class="logo">SELINTE TUITION</div>
@@ -1987,14 +2124,27 @@ header {
         
         <!-- About Tab Content -->
         <div id="about" class="tab-content active">
-            <div class="about-content" style="margin-top: 30px;">
-                <h2>Meet Selinte AI</h2>
-                <p>Hey there! 👋 I'm Selinte AI, your personal study assistant. I'm here to help you navigate your academic journey and make your study sessions more effective.</p>
-                
-                <button class="chat-launch-btn" onclick="document.getElementById('selinte-ai-container').classList.add('active')">
-                    <i class="fas fa-robot"></i> Try Selinte AI Now
-                </button>
+          <div class="about-content" style="margin-top: 30px;">
+            <h2>Selinte AI Assistant</h2>
+            <div class="urgent-exam-alert" id="urgent-exam-alert">
+                <div class="alert-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="alert-content">
+                    <div class="alert-title">NEXT EXAM WARNING</div>
+                    <div class="alert-message" id="exam-alert-message"></div>
+                    <div class="countdown-badge" id="countdown-badge"></div>
+                </div>
+                <div class="alert-fire" id="alert-fire">
+                    <i class="fas fa-fire"></i>
+                </div>
             </div>
+            
+            <button class="chat-launch-btn" onclick="document.getElementById('selinte-ai-container').classList.add('active')">
+                <i class="fas fa-robot"></i> Try Selinte AI Now
+            </button>
+        </div>
+        
             <div class="card section" style="margin-top: 30px;">
                 <div class="card-header">
                     <div class="card-title">
@@ -2023,7 +2173,7 @@ header {
                     </div>
                     
                     <div class="exam-day-card">
-                        <div class="exam-date">25 APRIL 2025</div>
+                        <div class="exam-date">24 APRIL 2025</div>
                         <div class="exam-subject">Big Data Exam</div>
                         <div class="exam-time">09:00 AM</div>
                         <div class="exam-countdown">
@@ -2032,7 +2182,7 @@ header {
                     </div>
                     
                     <div class="exam-day-card">
-                        <div class="exam-date">2 MAY 2025</div>
+                        <div class="exam-date">30 APRIL 2025</div>
                         <div class="exam-subject">RIS Exam</div>
                         <div class="exam-time">09:00 AM</div>
                         <div class="exam-countdown">
@@ -2041,7 +2191,7 @@ header {
                     </div>
                     
                     <div class="exam-day-card">
-                        <div class="exam-date">8 MAY 2025</div>
+                        <div class="exam-date">7 MAY 2025</div>
                         <div class="exam-subject">AAD Exam</div>
                         <div class="exam-time">09:00 AM</div>
                         <div class="exam-countdown">
@@ -2050,7 +2200,7 @@ header {
                     </div>
                     
                     <div class="exam-day-card">
-                        <div class="exam-date">13 MAY 2025</div>
+                        <div class="exam-date">12 MAY 2025</div>
                         <div class="exam-subject">Recommendation Exam</div>
                         <div class="exam-time">09:00 AM</div>
                         <div class="exam-countdown">
@@ -2059,7 +2209,7 @@ header {
                     </div>
                     
                     <div class="exam-day-card">
-                        <div class="exam-date">16 MAY 2025</div>
+                        <div class="exam-date">15 MAY 2025</div>
                         <div class="exam-subject">IEFT Exam</div>
                         <div class="exam-time">09:00 AM</div>
                         <div class="exam-countdown">
@@ -2068,7 +2218,7 @@ header {
                     </div>
                     
                     <div class="exam-day-card">
-                        <div class="exam-date">20 MAY 2025</div>
+                        <div class="exam-date">19 MAY 2025</div>
                         <div class="exam-subject">CV Exam</div>
                         <div class="exam-time">09:00 AM</div>
                         <div class="exam-countdown">
@@ -2269,12 +2419,12 @@ header {
                                         <div class="subject">Big Data</div>
                                     </td>
                                     <td data-day="Thursday">
-                                        <div class="date">24-APRIL</div>
-                                        <div class="subject">Big Data</div>
+                                        <div class="exam-day">24-APRIL</div>
+                                        <div class="subject">BD EXAM</div>
                                     </td>
                                     <td data-day="Friday">
-                                        <div class="exam-day">25-APRIL</div>
-                                        <div class="subject">BD EXAM</div>
+                                        <div class="date">25-APRIL</div>
+                                        <div class="subject">RIS</div>
                                     </td>
                                     <td data-day="Saturday">
                                         <div class="date">26-APRIL</div>
@@ -2295,16 +2445,16 @@ header {
                                         <div class="subject">RIS</div>
                                     </td>
                                     <td data-day="Wednesday">
-                                        <div class="date">30-APRIL</div>
-                                        <div class="subject">RIS</div>
+                                        <div class="exam-day">30-APRIL</div>
+                                        <div class="subject">RIS EXAM</div>
                                     </td>
                                     <td data-day="Thursday">
                                         <div class="date">1-MAY</div>
-                                        <div class="subject">RIS</div>
+                                        <div class="subject">AAD</div>
                                     </td>
                                     <td data-day="Friday">
-                                        <div class="exam-day">2-MAY</div>
-                                        <div class="subject">RIS EXAM</div>
+                                        <div class="date">2-MAY</div>
+                                        <div class="subject">AAD</div>
                                     </td>
                                     <td data-day="Saturday">
                                         <div class="date">3-MAY</div>
@@ -2325,12 +2475,12 @@ header {
                                         <div class="subject">AAD</div>
                                     </td>
                                     <td data-day="Wednesday">
-                                        <div class="date">7-MAY</div>
-                                        <div class="subject">AAD</div>
+                                        <div class="exam-day">7-MAY</div>
+                                        <div class="subject">AAD EXAM</div>
                                     </td>
                                     <td data-day="Thursday">
-                                        <div class="exam-day">8-MAY</div>
-                                        <div class="subject">AAD EXAM</div>
+                                        <div class="date">8-MAY</div>
+                                        <div class="subject">REC</div>
                                     </td>
                                     <td data-day="Friday">
                                         <div class="date">9-MAY</div>
@@ -2347,24 +2497,24 @@ header {
                                         <div class="subject">REC</div>
                                     </td>
                                     <td data-day="Monday">
-                                        <div class="date">12-MAY</div>
-                                        <div class="subject">REC</div>
+                                        <div class="exam-day">12-MAY</div>
+                                        <div class="subject">REC EXAM</div>
                                     </td>
                                     <td data-day="Tuesday">
-                                        <div class="exam-day">13-MAY</div>
-                                        <div class="subject">REC EXAM</div>
+                                        <div class="date">13-MAY</div>
+                                        <div class="subject">IEFT</div>
                                     </td>
                                     <td data-day="Wenesday">
                                         <div class="date">14-MAY</div>
                                         <div class="subject">IEFT</div>
                                     </td>
                                     <td data-day="Thursday">
-                                        <div class="date">15-MAY</div>
-                                        <div class="subject">IEFT</div>
+                                        <div class="exam-day">15-MAY</div>
+                                        <div class="subject">IEFT EXAM</div>
                                     </td>
                                     <td data-day="Friday">
-                                        <div class="exam-day">16-MAY</div>
-                                        <div class="subject">IEFT EXAM</div>
+                                        <div class="date">16-MAY</div>
+                                        <div class="subject">CV</div>
                                     </td>
                                     <td data-day="Saturday">
                                         <div class="date">17-MAY</div>
@@ -2377,11 +2527,7 @@ header {
                                         <div class="subject">CV</div>
                                     </td>
                                     <td data-day="Monday">
-                                        <div class="date">19-MAY</div>
-                                        <div class="subject">CV</div>
-                                    </td>
-                                    <td data-day="Tuesday">
-                                        <div class="exam-day">20-MAY</div>
+                                        <div class="exam-day">19-MAY</div>
                                         <div class="subject">CV EXAM</div>
                                     </td>
                                     <td data-day="Monday"></td>
@@ -2545,16 +2691,6 @@ header {
             
             <!-- Subject Selection Cards -->
             <div class="team-grid">
-
-                <!-- Lab Exam -->
-                <div class="team-card subject-card" data-subject="Lab-exam">
-                    <div class="subject-icon">
-                        <i class="fas fa-laptop"></i>
-                    </div>
-                    <h3 class="team-name">Lab Exam</h3>
-                    <p class="team-bio">Lecture notes, reference materials, and past papers</p>
-                </div>
-                
                 <!-- Big Data -->
                 <div class="team-card subject-card" data-subject="big-data">
                     <div class="subject-icon">
@@ -2675,17 +2811,6 @@ header {
                                 <a href="https://www.instagram.com/fayzzzii?igsh=dWQ2eW0xZTNiczI0" class="social-icon"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
-
-                        <div class="team-card">
-                            <img src="images/marqen.jpg" alt="Web Designer" class="team-photo">
-                            <h3 class="team-name">Marqen</h3>
-                            <p class="team-role">Internet Marketing Service</p>
-                            <p class="team-bio">A strategic marketing service who designed this Website.</p>
-                            <div class="team-social">
-                                <a href="https://www.instagram.com/marqen.co?igsh=amc3cW13NGpnaXRt" class="social-icon"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-
                         
                         <div class="team-card">
                             <img src="images/nazmal.jpg" alt="Coordinator" class="team-photo">
@@ -2697,7 +2822,7 @@ header {
                             </div>
                         </div>
 
-                         <div class="team-card">
+                        <div class="team-card">
                             <img src="images/mishal.jpg" alt="Branch" class="team-photo">
                             <h3 class="team-name">Mishal Muhammed</h3>
                             <p class="team-role">Branch Manager</p>
@@ -2706,12 +2831,12 @@ header {
                                 <a href="https://www.instagram.com/al.mixhal?igsh=MWpnM2N2NG9mYW5iMg==" class="social-icon"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
-
+                        
                         <div class="team-card">
                             <img src="images/students.jpg" alt="Math Tutor" class="team-photo">
                             <h3 class="team-name">yeahiii</h3>
                             <p class="team-role">Students</p>
-                            <p class="team-bio">Makes Btech Life with Ottamind along with padipp</p>
+                            <p class="team-bio">Makes Btech Life with Adichipoli along with padipp</p>
                             <div class="team-social">
                                 <a href="https://www.instagram.com/yeaahh.i?igsh=MTNoZXVtOWhvZ3Z4Yg==" class="social-icon"><i class="fab fa-instagram"></i></a>
                             </div>
@@ -2724,10 +2849,9 @@ header {
     </div>
     
     <!-- Footer -->
-   <div class="footer">
-    &copy; 2025 Designed by 
-    <a href="https://seninashraf.netlify.app/" style="color: #0070f3; font-weight: bold; text-decoration: none;">SENIN</a>
-</div>
+    <div class="footer">
+        &copy; 2025 Selinte Tuition. All rights reserved. Designed by Shahin Hamza
+    </div>
     
     <!-- Mobile Menu Toggle -->
     <button class="mobile-menu-toggle" id="mobileMenuToggle">
@@ -2795,36 +2919,6 @@ header {
 
             // Subject materials data (you can replace with actual data from server)
 const materialsData = {
-    'Lab-exam': [
-        {
-            type: 'zip',
-            title: 'All Programs',
-            date: 'Download the zip file and extract it and save it then you can view all programs(if you don't have r studio on your system.Please watch below given respective link based on your system and download R studio)',
-            url: 'materials/cv/senin.zip',
-            preview: 'materials/cv/intro.jpg'
-        },
-        {
-    type: 'youtube',
-    title: 'How to install R studio in windows',
-    date: '2025-03-10',
-    url: 'https://youtu.be/9SzKJH93t5o?si=y17xNQ4pXiznLPE0',
-    preview: 'path/to/thumbnail/image.jpg'
-},
-        {
-    type: 'youtube',
-    title: 'How to install R studio in MAC',
-    date: '2025-03-10',
-    url: 'https://youtu.be/I5WIMX4LK8M?si=PQ3TVtMRKikbB8R-',
-    preview: 'path/to/thumbnail/image.jpg'
-}, 
-        {
-            type: 'pdf',
-            title: 'Short & Simple Algorithms',
-            date: '2025-03-15',
-            url: 'materials/cv/R Programs Analysis and Algorithms.pdf',
-            preview: 'materials/big-data/intro-preview.jpg'
-        },
-    ],
     'big-data': [
         {
             type: 'pdf',
@@ -2949,44 +3043,9 @@ const materialsData = {
             url: 'materials/aad/QP4.pdf',
             preview: 'materials/aad/basics-preview.jpg'
         },
-        {
-            type: 'pdf',
-            title: 'Module 1',
-            date: '2025-03-10',
-            url: 'materials/aad/mod1.pdf',
-            preview: 'materials/aad/basics-preview.jpg'
-        },
-        {
-            type: 'pdf',
-            title: 'Module 2',
-            date: '2025-03-10',
-            url: 'materials/aad/mod2.pdf',
-            preview: 'materials/aad/basics-preview.jpg'
-        },
-        {
-            type: 'pdf',
-            title: 'Module 3',
-            date: '2025-03-10',
-            url: 'materials/aad/mod3.pdf',
-            preview: 'materials/aad/basics-preview.jpg'
-        },
-        {
-            type: 'pdf',
-            title: 'Module 4',
-            date: '2025-03-10',
-            url: 'materials/aad/mod4.pdf',
-            preview: 'materials/aad/basics-preview.jpg'
-        },
         // Add more materials as needed
     ],
     'cv': [
-        {
-            type: 'pdf',
-            title: '2023 qpaper',
-            date: '2025-03-15',
-            url: 'materials/cv/2023 qpaper.pdf',
-            preview: 'materials/big-data/intro-preview.jpg'
-        },
         {
             type: 'pdf',
             title: '2024 qpaper',
@@ -2994,53 +3053,11 @@ const materialsData = {
             url: 'materials/cv/2024 qpaper.pdf',
             preview: 'materials/big-data/intro-preview.jpg'
         },
-        {
-            type: 'pdf',
-            title: 'OS MCQ',
-            date: '2025-03-15',
-            url: 'materials/cv/os mcq.pdf',
-            preview: 'materials/big-data/intro-preview.jpg'
-        },
          {
             type: 'pdf',
             title: 'Data science syllabus',
             date: '2025-03-15',
             url: 'materials/cv/ds.pdf',
-            preview: 'materials/big-data/intro-preview.jpg'
-        },
-         {
-            type: 'pdf',
-            title: 'Ai MCQ',
-            date: '2025-03-15',
-            url: 'materials/cv/ai mcq',
-            preview: 'materials/big-data/intro-preview.jpg'
-        },
-         {
-            type: 'pdf',
-            title: 'Os mcq part 2',
-            date: '2025-03-15',
-            url: 'materials/cv/os mcq part 1',
-            preview: 'materials/big-data/intro-preview.jpg'
-        },
-         {
-            type: 'pdf',
-            title: 'Dbms MCQ',
-            date: '2025-03-15',
-            url: 'materials/cv/dbms mcq.pdf',
-            preview: 'materials/big-data/intro-preview.jpg'
-        },
-         {
-            type: 'pdf',
-            title: 'Ds MCQ',
-            date: '2025-03-15',
-            url: 'materials/cv/ds mcq.pdf',
-            preview: 'materials/big-data/intro-preview.jpg'
-        },
-         {
-            type: 'pdf',
-            title: 'Iml MCQ',
-            date: '2025-03-15',
-            url: 'materials/cv/iml mcq.pdf',
             preview: 'materials/big-data/intro-preview.jpg'
         },
     ],
@@ -3071,20 +3088,6 @@ const materialsData = {
             title: 'Module 2',
             date: '2025-03-10',
             url: 'materials/ris/MODULE2.pdf',
-            preview: 'materials/aad/basics-preview.jpg'
-        },
-        {
-            type: 'pdf',
-            title: 'Module 3 Full',
-            date: '2025-03-10',
-            url: 'materials/big-data/mod3full.pdf',
-            preview: 'materials/aad/basics-preview.jpg'
-        },
-        {
-            type: 'pdf',
-            title: 'Module 4 Full',
-            date: '2025-03-10',
-            url: 'materials/big-data/mod4full.pdf',
             preview: 'materials/aad/basics-preview.jpg'
         },
         {
@@ -3257,14 +3260,14 @@ const materialsData = {
             type: 'pdf',
             title: 'Module 4',
             date: '2025-03-10',
-            url: 'materials/ieft/MODULE 4.pdf',
+            url: 'materials/rec/MODULE 4.pdf',
             preview: 'materials/aad/basics-preview.jpg'
         },
         {
             type: 'pdf',
             title: 'Module 5',
             date: '2025-03-10',
-            url: 'materials/ieft/mod5.pdf',
+            url: 'materials/rec/MODULE -5.pdf',
             preview: 'materials/aad/basics-preview.jpg'
         },
         // Add more materials as needed
@@ -3499,12 +3502,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const exams = [
             { date: '2025-04-10T09:00:00', subject: 'Lab Exam' },
             { date: '2025-04-11T09:00:00', subject: 'Lab Exam' },
-            { date: '2025-04-25T09:00:00', subject: 'Big Data Exam' },
-            { date: '2025-05-02T09:00:00', subject: 'RIS Exam' },
-            { date: '2025-05-08T09:00:00', subject: 'AAD Exam' },
-            { date: '2025-05-13T09:00:00', subject: 'Recommendation Exam' },
-            { date: '2025-05-16T09:00:00', subject: 'IEFT Exam' },
-            { date: '2025-05-20T09:00:00', subject: 'CV Exam' }
+            { date: '2025-04-24T09:00:00', subject: 'Big Data Exam' },
+            { date: '2025-04-30T09:00:00', subject: 'RIS Exam' },
+            { date: '2025-05-07T09:00:00', subject: 'AAD Exam' },
+            { date: '2025-05-12T09:00:00', subject: 'Recommendation Exam' },
+            { date: '2025-05-15T09:00:00', subject: 'IEFT Exam' },
+            { date: '2025-05-19T09:00:00', subject: 'CV Exam' }
         ];
 
         // Find the next upcoming exam
@@ -3590,12 +3593,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const examDates = [
             '2025-04-10',
             '2025-04-11',
-            '2025-04-25',
-            '2025-05-02',
-            '2025-05-08',
-            '2025-05-13',
-            '2025-05-16',
-            '2025-05-20'
+            '2025-04-24',
+            '2025-04-30',
+            '2025-05-07',
+            '2025-05-12',
+            '2025-05-15',
+            '2025-05-19'
         ];
         
         const today = new Date();
@@ -3821,72 +3824,235 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500); // Match this with the CSS transition duration
     }, 2000);
 });
-        // Function to update the "today" class at midnight
-function updateTodayClass() {
-  // Get current date information
-  const now = new Date();
-  const currentDate = now.getDate();
-  const currentMonth = now.getMonth() + 1; // JavaScript months are 0-indexed
-  
-  // Format the current date as "DD-MONTH" (e.g., "7-APRIL")
-  const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", 
-                      "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
-  const formattedDate = `${currentDate}-${monthNames[now.getMonth()]}`;
-  
-  // Remove the "today" class from all cells
-  document.querySelectorAll('.calendar td.today').forEach(cell => {
-    cell.classList.remove('today');
-  });
-  
-  // Find the cell with the current date and add the "today" class
-  document.querySelectorAll('.calendar td .date').forEach(dateDiv => {
-    if (dateDiv.textContent === formattedDate) {
-      dateDiv.closest('td').classList.add('today');
+// Function to update the "today" class and highlight the current week
+// Function to update the "today" class and scroll to today's row
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to find and highlight today's date
+    function highlightAndScrollToToday() {
+        // Get current date (hardcoded for testing)
+        const today = new Date(); // This will use the actual current date
+        
+        // For debugging/testing specific dates, uncomment and modify this line:
+        // const today = new Date(2025, 3, 7); // Month is 0-indexed (3 = April), day 7
+        
+        const currentDay = today.getDate();
+        const currentMonth = today.getMonth() + 1; // JavaScript months are 0-indexed
+        
+        console.log(`Looking for date: ${currentDay}-${today.getMonth() + 1}`); // Debug info
+        
+        // Find today's cell by direct date comparison (more reliable)
+        let todayCell = null;
+        let targetRow = null;
+        
+        // Get all date elements that contain day numbers
+        const dateElements = document.querySelectorAll('.date');
+        
+        dateElements.forEach((element) => {
+            // Get the date text like "7-APRIL"
+            const dateText = element.textContent.trim();
+            console.log(`Checking element: ${dateText}`); // Debug info
+            
+            // Extract the day number before the dash
+            const dateParts = dateText.split('-');
+            if (dateParts.length === 2) {
+                const day = parseInt(dateParts[0], 10);
+                const month = dateParts[1].trim().toUpperCase();
+                
+                // Get month number from name
+                const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", 
+                                  "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+                const monthNumber = monthNames.indexOf(month) + 1;
+                
+                console.log(`Parsed: day=${day}, month=${month}, monthNum=${monthNumber}`); // Debug info
+                
+                // Check if this is today's date
+                if (day === currentDay && monthNumber === currentMonth) {
+                    console.log("FOUND TODAY'S DATE!"); // Debug info
+                    // Found today's cell
+                    todayCell = element.closest('td');
+                    // Get the parent row
+                    targetRow = todayCell.closest('tr');
+                }
+            }
+        });
+        
+        // If today's cell is found
+        if (todayCell) {
+            // Remove any existing 'today' class
+            document.querySelectorAll('.today').forEach(el => el.classList.remove('today'));
+            
+            // Add 'today' class to highlight today's cell
+            todayCell.classList.add('today');
+            
+            // Scroll to the row containing today's date
+            if (targetRow) {
+                console.log("Scrolling to row:", targetRow); // Debug info
+                
+                // Scroll after a slight delay to ensure DOM is fully loaded
+                setTimeout(() => {
+                    targetRow.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }, 100);
+            }
+        } else {
+            console.log("Today's date not found in calendar"); // Debug info
+            
+            // FALLBACK: If April 7th is not automatically found, let's find it explicitly
+            if (currentDay === 7 && currentMonth === 4) {
+                const allRows = document.querySelectorAll('.calendar tbody tr');
+                if (allRows.length >= 2) {
+                    // April 7th is in the second row based on your calendar
+                    targetRow = allRows[1]; // 0-indexed, so index 1 is the second row
+                    
+                    console.log("Explicitly targeting row 2 for April 7"); // Debug info
+                    
+                    setTimeout(() => {
+                        targetRow.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                        
+                        // Try to find and highlight the cell for April 7
+                        const april7Cell = targetRow.querySelector('td[data-day="Monday"] .date');
+                        if (april7Cell && april7Cell.textContent.includes('7-APRIL')) {
+                            const tdElement = april7Cell.closest('td');
+                            if (tdElement) {
+                                document.querySelectorAll('.today').forEach(el => el.classList.remove('today'));
+                                tdElement.classList.add('today');
+                            }
+                        }
+                    }, 100);
+                }
+            }
+        }
     }
-  });
-}
+    
+    // Set up a timer to check and update at midnight
+    function setupMidnightUpdate() {
+        const now = new Date();
+        // Calculate time until next midnight
+        const tomorrow = new Date(now);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setHours(0, 0, 0, 0);
+        
+        const timeUntilMidnight = tomorrow - now;
+        
+        // Set a timer to update at midnight
+        setTimeout(() => {
+            highlightAndScrollToToday();
+            // Reset the timer for the next day
+            setupMidnightUpdate();
+        }, timeUntilMidnight);
+    }
+    
+    // Run immediately when page loads
+    highlightAndScrollToToday();
+    
+    // Setup the midnight update check
+    setupMidnightUpdate();
+});
+// Add this script to show the next exam with countdown
+// Accurate exam countdown calculation
+document.addEventListener('DOMContentLoaded', function() {
+    const exams = [
+        { date: '2025-04-10T09:00:00', subject: 'Lab Exam', color: 'var(--accent)' },
+        { date: '2025-04-11T09:00:00', subject: 'Lab Exam', color: 'var(--accent)' },
+        { date: '2025-04-24T09:00:00', subject: 'Big Data Exam', color: 'var(--primary)' },
+        { date: '2025-04-30T09:00:00', subject: 'RIS Exam', color: 'var(--primary)' },
+        { date: '2025-05-07T09:00:00', subject: 'AAD Exam', color: 'var(--primary)' },
+        { date: '2025-05-12T09:00:00', subject: 'Recommendation Exam', color: 'var(--primary)' },
+        { date: '2025-05-15T09:00:00', subject: 'IEFT Exam', color: 'var(--primary)' },
+        { date: '2025-05-19T09:00:00', subject: 'CV Exam', color: 'var(--primary)' }
+    ];
 
-// Check if it's midnight (12:00 AM) and update
-function checkTimeAndUpdate() {
-  const now = new Date();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-  
-  // If it's midnight (00:00), update the today class
-  if (hours === 0 && minutes === 0) {
-    updateTodayClass();
-  }
-}
+    function updateExamAlert() {
+        const now = new Date();
+        let nextExam = null;
+        let timeRemaining = Infinity;
+        
+        // Find the chronologically next exam
+        exams.forEach(exam => {
+            const examDate = new Date(exam.date);
+            const diff = examDate - now;
+            
+            if (diff > 0 && diff < timeRemaining) {
+                nextExam = exam;
+                timeRemaining = diff;
+            }
+        });
 
-// Run initially to set the correct "today" class
-updateTodayClass();
+        const alertElement = document.getElementById('urgent-exam-alert');
+        const messageElement = document.getElementById('exam-alert-message');
+        const badgeElement = document.getElementById('countdown-badge');
+        const fireElement = document.getElementById('alert-fire');
+        
+        if (nextExam) {
+            // Calculate days remaining (counting full calendar days)
+            const examDate = new Date(nextExam.date);
+            const daysRemaining = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hoursRemaining = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            
+            // Format the date
+            const formattedDate = examDate.toLocaleDateString('en-US', { 
+                weekday: 'short', 
+                month: 'short', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            // Set urgency level
+            const isCritical = daysRemaining <= 3;
+            const isUrgent = daysRemaining <= 7;
+            
+            // Update message
+            messageElement.innerHTML = `
+                <strong style="color: ${nextExam.color}">${nextExam.subject}</strong><br>
+                <span class="exam-time">${formattedDate}</span>
+            `;
+            
+            // Update badge
+            let badgeText = '';
+            if (daysRemaining > 0) {
+                badgeText = `${daysRemaining} ${daysRemaining === 1 ? 'DAY' : 'DAYS'} LEFT`;
+            } else {
+                badgeText = `${hoursRemaining} ${hoursRemaining === 1 ? 'HOUR' : 'HOURS'} LEFT`;
+            }
+            badgeElement.innerHTML = badgeText;
+            
+            // Visual treatment based on urgency
+            if (isCritical) {
+                alertElement.style.background = 'rgba(255, 0, 128, 0.15)';
+                alertElement.style.borderLeft = '4px solid var(--accent)';
+                badgeElement.style.background = 'var(--accent)';
+                fireElement.style.display = 'flex';
+                alertElement.classList.add('critical-alert');
+            } else if (isUrgent) {
+                alertElement.style.background = 'rgba(255, 0, 128, 0.1)';
+                alertElement.style.borderLeft = '4px solid var(--accent)';
+                badgeElement.style.background = 'var(--accent)';
+                fireElement.style.display = 'none';
+                alertElement.classList.add('pulse-alert');
+            } else {
+                alertElement.style.background = 'rgba(0, 112, 243, 0.1)';
+                alertElement.style.borderLeft = '4px solid var(--primary)';
+                badgeElement.style.background = 'var(--primary)';
+                fireElement.style.display = 'none';
+                alertElement.classList.remove('pulse-alert', 'critical-alert');
+            }
+            
+            alertElement.style.display = 'flex';
+        } else {
+            alertElement.style.display = 'none';
+        }
+    }
 
-// Set up checks for midnight
-setInterval(checkTimeAndUpdate, 60000); // Check every minute
-
-// Alternative approach: Schedule the update to happen exactly at midnight
-function scheduleNextMidnightUpdate() {
-  const now = new Date();
-  const midnight = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() + 1, // Next day
-    0, 0, 0 // 00:00:00 hours
-  );
-  
-  // Calculate milliseconds until midnight
-  const msUntilMidnight = midnight - now;
-  
-  // Schedule the update
-  setTimeout(() => {
-    updateTodayClass();
-    scheduleNextMidnightUpdate(); // Schedule for the next day
-  }, msUntilMidnight);
-}
-
-// Start the scheduling
-scheduleNextMidnightUpdate();
-
+    // Update immediately and every hour
+    updateExamAlert();
+    setInterval(updateExamAlert, 60 * 60 * 1000);
+});
     </script>
      <!-- Chatbot Container -->
      <div id="selinte-ai-container" class="chatbot-container">
