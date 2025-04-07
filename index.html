@@ -2070,7 +2070,119 @@ header {
     50% { transform: scale(1.01); box-shadow: 0 0 0 8px rgba(255, 0, 128, 0.2); }
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 128, 0); }
 }
-    
+    /* Today's Schedule Card Styles */
+.today-schedule-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 25px;
+    margin-top: 20px;
+    border: 1px solid var(--border-color);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.today-schedule-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.today-schedule-card:hover::before {
+    opacity: 0.05;
+}
+
+.schedule-date {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.schedule-date i {
+    font-size: 1.2rem;
+}
+
+.schedule-content {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.schedule-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 112, 243, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
+.schedule-details h3 {
+    color: var(--light);
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.schedule-subjects {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.subject-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--light);
+    font-size: 1rem;
+}
+
+.subject-item i {
+    color: var(--success);
+}
+
+.schedule-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.view-full-calendar {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.view-full-calendar:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 112, 243, 0.3);
+}
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -2124,7 +2236,7 @@ header {
         <!-- About Tab Content -->
         <div id="about" class="tab-content active">
             <div class="about-content" style="margin-top: 30px;">
-                <h2>Selinte AI Assistant</h2>
+                <h2>Kootukkara...!!!</h2>
                 <div class="urgent-exam-alert" id="urgent-exam-alert">
                     <div class="alert-icon">
                         <i class="fas fa-bell"></i>
@@ -2224,320 +2336,73 @@ header {
         
         <!-- Calendar Tab Content -->
         <div id="calendar" class="tab-content">
-            <div class="dashboard">
-                <div class="card section">
-                    <div class="card-header">
-                        <div class="card-title">
-                            <i class="far fa-calendar-alt"></i> Study Calendar
-                        </div>
-                    </div>
-                    
-                    
-
-
-                    <div class="calendar-wrapper">
-                        <div class="scroll-indicator">
-                            <i class="fas fa-hand-pointer"></i>
-                        </div>
-
-                        <!-- Add this right below the card-header div in the calendar tab -->
-<div class="countdown-card">
-    <div class="countdown-content">
-        <div class="countdown-title">
-            <i class="fas fa-hourglass-start"></i> 
-            <span>NEXT EXAM COUNTDOWN</span>
-        </div>
-        <div class="countdown-grid">
-            <div class="countdown-item">
-                <div class="countdown-number" id="countdown-days">00</div>
-                <div class="countdown-label">DAYS</div>
-            </div>
-            <div class="countdown-separator">:</div>
-            <div class="countdown-item">
-                <div class="countdown-number" id="countdown-hours">00</div>
-                <div class="countdown-label">HOURS</div>
-            </div>
-            <div class="countdown-separator">:</div>
-            <div class="countdown-item">
-                <div class="countdown-number" id="countdown-minutes">00</div>
-                <div class="countdown-label">MINUTES</div>
-            </div>
-            <div class="countdown-separator">:</div>
-            <div class="countdown-item">
-                <div class="countdown-number" id="countdown-seconds">00</div>
-                <div class="countdown-label">SECONDS</div>
-            </div>
-        </div>
-        <div class="exam-details" id="exam-details">
-            <div class="exam-subject" id="exam-subject">Loading next exam...</div>
-            <div class="exam-date" id="exam-date"></div>
-        </div>
-    </div>
-    <div class="countdown-urgency"></div>
-</div>
-
-
-                        <div class="week-navigation">
-                            <button class="week-nav prev-week" aria-label="Previous week">
-                                <div class="arrow-circle">
-                                    <i class="fas fa-chevron-left"></i>
-                                </div>
-                                <span class="nav-text">Previous Week</span>
-                            </button>
-                            
-                            <div class="week-display">
-                                <span class="current-week">1</span>
-                                <span class="week-separator">/</span>
-                                <span class="total-weeks">8</span>
-                            </div>
-                            
-                            <button class="week-nav next-week" aria-label="Next week">
-                                <span class="nav-text">Next Week</span>
-                                <div class="arrow-circle">
-                                    <i class="fas fa-chevron-right"></i>
-                                </div>
-                            </button>
-                        </div>
-
-                        <table class="calendar">
-                            <thead>
-                                <tr>
-                                    <th>Sun</th>
-                                    <th>Mon</th>
-                                    <th>Tue</th>
-                                    <th>Wed</th>
-                                    <th>Thu</th>
-                                    <th>Fri</th>
-                                    <th>Sat</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td data-day="Sunday"></td>
-                                    <td data-day="Monday"></td>
-                                    <td data-day="Tuesday"></td>
-                                    <td data-day="Wednesday">
-                                        <div class="date">2-APRIL</div>
-                                        <div class="subject">Big Data & IEFT</div>
-                                    </td>
-                                    <td data-day="Thursday">
-                                        <div class="date">3-APRIL</div>
-                                        <div class="subject">Big Data & IEFT</div>
-                                    </td>
-                                    <td data-day="Friday">
-                                        <div class="date">4-APRIL</div>
-                                        <div class="subject">Big Data & IEFT</div>
-                                    </td>
-                                    <td data-day="Saturday">
-                                        <div class="date">5-APRIL</div>
-                                        <div class="subject">AAD & Lab</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td data-day="Sunday">
-                                        <div class="date">6-APRIL</div>
-                                        <div class="subject">AAD & Lab</div>
-                                    </td>
-                                    <td data-day="Monday">
-                                        <div class="date">7-APRIL</div>
-                                        <div class="subject">Lab Full</div>
-                                    </td>
-                                    <td data-day="Tuesday">
-                                        <div class="date">8-APRIL</div>
-                                        <div class="subject">Lab Full</div>
-                                    </td>
-                                    <td data-day="Wednesday">
-                                        <div class="date">9-APRIL</div>
-                                        <div class="subject">Lab Full</div>
-                                    </td>
-                                    <td data-day="Thursday">
-                                        <div class="exam-day">10-APRIL</div>
-                                        <div class="subject">Lab exam</div>
-                                    </td>
-                                    <td data-day="Friday">
-                                        <div class="exam-day">11-APRIL</div>
-                                        <div class="subject">Lab exam</div>
-                                    </td>
-                                    <td data-day="Saturday">
-                                        <div class="date">12-APRIL</div>
-                                        <div class="subject">RIS</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td data-day="Sunday">
-                                        <div class="date">13-APRIL</div>
-                                        <div class="subject">RIS</div>
-                                    </td>
-                                    <td data-day="Monday">
-                                        <div class="date">14-APRIL</div>
-                                        <div class="subject">CV</div>
-                                    </td>
-                                    <td data-day="Tuesday">
-                                        <div class="date">15-APRIL</div>
-                                        <div class="subject">CV</div>
-                                    </td>
-                                    <td data-day="Wednesday">
-                                        <div class="date">16-APRIL</div>
-                                        <div class="subject">IEFT</div>
-                                    </td>
-                                    <td data-day="Thursday">
-                                        <div class="date">17-APRIL</div>
-                                        <div class="subject">IEFT</div>
-                                    </td>
-                                    <td data-day="Friday">
-                                        <div class="date">18-APRIL</div>
-                                        <div class="subject">Recommendation</div>
-                                    </td>
-                                    <td data-day="Saturday">
-                                        <div class="date">19-APRIL</div>
-                                        <div class="subject">Recommendation</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                     <td data-day="Sunday">
-                                        <div class="date">20-APRIL</div>
-                                        <div class="subject">Big Data</div>
-                                    </td>
-                                    <td data-day="Monday">
-                                        <div class="date">21-APRIL</div>
-                                        <div class="subject">Big Data</div>
-                                    </td>
-                                    <td data-day="Tuesday">
-                                        <div class="date">22-APRIL</div>
-                                        <div class="subject">Big Data</div>
-                                    </td>
-                                    <td data-day="Wednesday">
-                                        <div class="date">23-APRIL</div>
-                                        <div class="subject">Big Data</div>
-                                    </td>
-                                    <td data-day="Thursday">
-                                        <div class="date">24-APRIL</div>
-                                        <div class="subject">Big Data</div>
-                                    </td>
-                                    <td data-day="Friday">
-                                        <div class="exam-day">25-APRIL</div>
-                                        <div class="subject">BD EXAM</div>
-                                    </td>
-                                    <td data-day="Saturday">
-                                        <div class="date">26-APRIL</div>
-                                        <div class="subject">RIS</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td data-day="Sunday">
-                                        <div class="date">27-APRIL</div>
-                                        <div class="subject">RIS</div>
-                                    </td>
-                                    <td data-day="Monday">
-                                        <div class="date">28-APRIL</div>
-                                        <div class="subject">RIS</div>
-                                    </td>
-                                    <td data-day="Tuesday">
-                                        <div class="date">29-APRIL</div>
-                                        <div class="subject">RIS</div>
-                                    </td>
-                                    <td data-day="Wednesday">
-                                        <div class="date">30-APRIL</div>
-                                        <div class="subject">RIS</div>
-                                    </td>
-                                    <td data-day="Thursday">
-                                        <div class="date">1-MAY</div>
-                                        <div class="subject">RIS</div>
-                                    </td>
-                                    <td data-day="Friday">
-                                        <div class="exam-day">2-MAY</div>
-                                        <div class="subject">RIS EXAM</div>
-                                    </td>
-                                    <td data-day="Saturday">
-                                        <div class="date">3-MAY</div>
-                                        <div class="subject">AAD</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td data-day="Sunday">
-                                        <div class="date">4-MAY</div>
-                                        <div class="subject">AAD</div>
-                                    </td>
-                                    <td data-day="Monday">
-                                        <div class="date">5-MAY</div>
-                                        <div class="subject">AAD</div>
-                                    </td>
-                                    <td data-day="Tuesday">
-                                        <div class="date">6-MAY</div>
-                                        <div class="subject">AAD</div>
-                                    </td>
-                                    <td data-day="Wednesday">
-                                        <div class="date">7-MAY</div>
-                                        <div class="subject">AAD</div>
-                                    </td>
-                                    <td data-day="Thursday">
-                                        <div class="exam-day">8-MAY</div>
-                                        <div class="subject">AAD EXAM</div>
-                                    </td>
-                                    <td data-day="Friday">
-                                        <div class="date">9-MAY</div>
-                                        <div class="subject">REC</div>
-                                    </td>
-                                    <td data-day="Saturday">
-                                        <div class="date">10-MAY</div>
-                                        <div class="subject">REC</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td data-day="Sunday">
-                                        <div class="date">11-MAY</div>
-                                        <div class="subject">REC</div>
-                                    </td>
-                                    <td data-day="Monday">
-                                        <div class="date">12-MAY</div>
-                                        <div class="subject">REC</div>
-                                    </td>
-                                    <td data-day="Tuesday">
-                                        <div class="exam-day">13-MAY</div>
-                                        <div class="subject">REC EXAM</div>
-                                    </td>
-                                    <td data-day="Wenesday">
-                                        <div class="date">14-MAY</div>
-                                        <div class="subject">IEFT</div>
-                                    </td>
-                                    <td data-day="Thursday">
-                                        <div class="date">15-MAY</div>
-                                        <div class="subject">IEFT</div>
-                                    </td>
-                                    <td data-day="Friday">
-                                        <div class="exam-day">16-MAY</div>
-                                        <div class="subject">IEFT EXAM</div>
-                                    </td>
-                                    <td data-day="Saturday">
-                                        <div class="date">17-MAY</div>
-                                        <div class="subject">CV</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td data-day="Sunday">
-                                        <div class="date">18-MAY</div>
-                                        <div class="subject">CV</div>
-                                    </td>
-                                    <td data-day="Monday">
-                                        <div class="date">19-MAY</div>
-                                        <div class="subject">CV</div>
-                                    </td>
-                                    <td data-day="Tuesday">
-                                        <div class="exam-day">20-MAY</div>
-                                        <div class="subject">CV EXAM</div>
-                                    </td>
-                                    <td data-day="Monday"></td>
-                                    <td data-day="Tuesday"></td>
-                                    <td data-day="Wednesday"></td>
-                                    <td data-day="Thursday"></td>
-                                    <td data-day="Friday"></td>
-                                    <td data-day="Saturday"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+          <div class="dashboard">
+            <div class="card section">
+              <div class="card-header">
+                <div class="card-title">
+                  <i class="far fa-calendar-alt"></i> Today's Schedule
                 </div>
+              </div>
+              
+              <!-- Countdown to Next Exam -->
+              <div class="countdown-card">
+                <div class="countdown-content">
+                  <div class="countdown-title">
+                    <i class="fas fa-hourglass-start"></i> 
+                    <span>NEXT EXAM COUNTDOWN</span>
+                  </div>
+                  <div class="countdown-grid">
+                    <div class="countdown-item">
+                      <div class="countdown-number" id="countdown-days">00</div>
+                      <div class="countdown-label">DAYS</div>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-item">
+                      <div class="countdown-number" id="countdown-hours">00</div>
+                      <div class="countdown-label">HOURS</div>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-item">
+                      <div class="countdown-number" id="countdown-minutes">00</div>
+                      <div class="countdown-label">MINUTES</div>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-item">
+                      <div class="countdown-number" id="countdown-seconds">00</div>
+                      <div class="countdown-label">SECONDS</div>
+                    </div>
+                  </div>
+                  <div class="exam-details" id="exam-details">
+                    <div class="exam-subject" id="exam-subject">Loading next exam...</div>
+                    <div class="exam-date" id="exam-date"></div>
+                  </div>
+                </div>
+                <div class="countdown-urgency"></div>
+              </div>
+        
+              <!-- Today's Schedule Card (Standalone) -->
+              <div class="today-schedule-card">
+                <div class="schedule-date">
+                  <i class="far fa-calendar"></i>
+                  <span id="current-date">April 7, 2025</span>
+                </div>
+                <div class="schedule-content">
+                  <div class="schedule-icon">
+                    <i class="fas fa-book-open"></i>
+                  </div>
+                  <div class="schedule-details">
+                    <h3>Today's Study Plan</h3>
+                    <div class="schedule-subjects" id="today-subjects">
+                      <div class="subject-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Lab Full</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
         
         <!-- Study Times Tab Content -->
@@ -3759,6 +3624,107 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    document.addEventListener('DOMContentLoaded', function() {
+    // Function to update today's schedule
+    function updateTodaysSchedule() {
+        const today = new Date();
+        const currentDay = today.getDate();
+        const currentMonth = today.getMonth() + 1; // JavaScript months are 0-indexed
+        
+        // Format today's date display
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current-date').textContent = today.toLocaleDateString('en-US', options);
+        
+        // Hardcoded schedule data (replace with your actual schedule)
+        const scheduleData = {
+            '4-2': ['Big Data & IEFT'],
+            '4-3': ['Big Data & IEFT'],
+            '4-4': ['Big Data & IEFT'],
+            '4-5': ['AAD & Lab'],
+            '4-6': ['AAD & Lab'],
+            '4-7': ['Lab Full'],
+            '4-8': ['Lab Full'],
+            '4-9': ['Lab Full'],
+            '4-10': ['Lab exam'],
+            '4-11': ['Lab exam'],
+            '4-12': ['RIS'],
+            '4-13': ['RIS'],
+            '4-14': ['CV'],
+            '4-15': ['CV'],
+            '4-16': ['IEFT'],
+            '4-17': ['IEFT'],
+            '4-18': ['Recommendation'],
+            '4-19': ['Recommendation'],
+            '4-20': ['Big Data'],
+            '4-21': ['Big Data'],
+            '4-22': ['Big Data'],
+            '4-23': ['Big Data'],
+            '4-24': ['Big Data'],
+            '4-25': ['BD EXAM'],
+            '4-26': ['RIS'],
+            '4-27': ['RIS'],
+            '4-28': ['RIS'],
+            '4-29': ['RIS'],
+            '4-30': ['RIS'],
+            '5-1': ['RIS'],
+            '5-2': ['RIS EXAM'],
+            '5-3': ['AAD'],
+            '5-4': ['AAD'],
+            '5-5': ['AAD'],
+            '5-6': ['AAD'],
+            '5-7': ['AAD'],
+            '5-8': ['AAD EXAM'],
+            '5-9': ['REC'],
+            '5-10': ['REC'],
+            '5-11': ['REC'],
+            '5-12': ['REC'],
+            '5-13': ['REC EXAM'],
+            '5-14': ['IEFT'],
+            '5-15': ['IEFT'],
+            '5-16': ['IEFT EXAM'],
+            '5-17': ['CV'],
+            '5-18': ['CV'],
+            '5-19': ['CV'],
+            '5-20': ['CV EXAM']
+        };
+        
+        const todayKey = `${currentMonth}-${currentDay}`;
+        const todaysSubjects = scheduleData[todayKey] || ['No scheduled study today'];
+        
+        const subjectsContainer = document.getElementById('today-subjects');
+        subjectsContainer.innerHTML = '';
+        
+        todaysSubjects.forEach(subject => {
+            const subjectItem = document.createElement('div');
+            subjectItem.className = 'subject-item';
+            subjectItem.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <span>${subject}</span>
+            `;
+            subjectsContainer.appendChild(subjectItem);
+        });
+    }
+    
+    // Run immediately when page loads
+    updateTodaysSchedule();
+    
+    // Update at midnight
+    function setupMidnightUpdate() {
+        const now = new Date();
+        const tomorrow = new Date(now);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setHours(0, 0, 0, 0);
+        
+        const timeUntilMidnight = tomorrow - now;
+        
+        setTimeout(() => {
+            updateTodaysSchedule();
+            setupMidnightUpdate();
+        }, timeUntilMidnight);
+    }
+    
+    setupMidnightUpdate();
+});
         // Chatbot functionality
 document.addEventListener('DOMContentLoaded', function() {
     const chatbotToggle = document.getElementById('selinte-ai-toggle');
