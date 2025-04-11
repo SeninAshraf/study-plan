@@ -2456,6 +2456,28 @@ header {
             bottom: 90px;
         }
     }
+    /* Add this to your CSS */
+.exam-completed {
+    background: rgba(16, 185, 129, 0.15) !important;
+    border-left: 4px solid var(--success) !important;
+}
+
+.exam-completed .exam-countdown {
+    color: var(--success);
+}
+
+.exam-completed-text {
+    color: var(--success);
+    font-weight: 600;
+}
+
+.exam-completed .countdown-days {
+    display: none;
+}
+
+.exam-day-card.exam-completed:hover {
+    border-left-color: var(--success) !important;
+}
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -3914,38 +3936,49 @@ document.addEventListener('DOMContentLoaded', function() {
         setInterval(updateCountdown, 1000);
     });
      // Add this script to make the countdown dynamic
-     document.addEventListener('DOMContentLoaded', function() {
-        const examCards = document.querySelectorAll('.exam-day-card');
-        const examDates = [
-            '2025-04-10',
-            '2025-04-11',
-            '2025-04-25',
-            '2025-05-02',
-            '2025-05-08',
-            '2025-05-13',
-            '2025-05-16',
-            '2025-05-20'
-        ];
+     // In the exam countdown calculation section, replace with this:
+document.addEventListener('DOMContentLoaded', function() {
+    const examCards = document.querySelectorAll('.exam-day-card');
+    const examDates = [
+        '2025-04-10',
+        '2025-04-11',
+        '2025-04-25',
+        '2025-05-02',
+        '2025-05-08',
+        '2025-05-13',
+        '2025-05-16',
+        '2025-05-20'
+    ];
+    
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    examCards.forEach((card, index) => {
+        const examDate = new Date(examDates[index]);
+        examDate.setHours(0, 0, 0, 0);
         
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
+        const diffTime = examDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         
-        examCards.forEach((card, index) => {
-            const examDate = new Date(examDates[index]);
-            examDate.setHours(0, 0, 0, 0);
-            
-            const diffTime = examDate - today;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            const countdownElement = card.querySelector('.countdown-days');
+        const countdownElement = card.querySelector('.countdown-days');
+        const examCountdownElement = card.querySelector('.exam-countdown');
+        
+        if (diffDays < 0) {
+            // Exam is in the past
+            countdownElement.textContent = '0';
+            examCountdownElement.innerHTML = '<span class="exam-completed-text">Exam Completed</span>';
+            card.classList.add('exam-completed');
+        } else {
             countdownElement.textContent = diffDays;
+            examCountdownElement.innerHTML = `<span class="countdown-days">${diffDays}</span> days remaining`;
             
-            // Add urgent class if exam is within 7 days
+            // Add urgent class if exam is within 3 days
             if (diffDays <= 3) {
                 card.classList.add('urgent');
             }
-        });
+        }
     });
+});
     document.addEventListener('DOMContentLoaded', function() {
     // Function to update today's schedule
     function updateTodaysSchedule() {
