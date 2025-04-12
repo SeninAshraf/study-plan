@@ -2836,105 +2836,129 @@ header {
         </div>
 
         <!-- Materials Tab Content -->
+<!-- Replace the current Materials Tab Content section with this: -->
 <div id="materials" class="tab-content">
-    <div class="dashboard">
-        <div class="card section">
-            <div class="card-header">
-                <div class="card-title">
-                    <i class="fas fa-book-open"></i> Study Materials
-                </div>
-            </div>
-            
-            <!-- Subject Selection Cards -->
-            <div class="team-grid">
+  <div class="dashboard">
+      <div class="card section">
+          <!-- Semester Selection Screen (shown by default) -->
+          <div id="semester-selection">
+              <div class="card-header">
+                  <div class="card-title">
+                      <i class="fas fa-book-open"></i> Select Semester
+                  </div>
+              </div>
+              
+              <div class="team-grid">
+                  <!-- Semester Cards -->
+                  
+                  <div class="team-card subject-card" data-semester="s6">
+                      <div class="subject-icon">
+                          <i class="fas fa-graduation-cap"></i>
+                      </div>
+                      <h3 class="team-name">Semester 6</h3>
+                      <p class="team-bio">Sixth semester study materials</p>
+                  </div>
+              </div>
+          </div>
+          
+          <!-- Subject Selection Screen (hidden by default) -->
+          <div id="subject-selection" style="display: none;">
+              <div class="card-header">
+                  <div class="card-title">
+                      <i class="fas fa-arrow-left" id="back-to-semesters" style="cursor: pointer;"></i>
+                      <span id="current-semester">Semester 6 Subjects</span>
+                  </div>
+              </div>
+              
+              <div class="team-grid">
+                  <!-- Lab Exam -->
+                  <div class="team-card subject-card" data-subject="Lab-exam">
+                      <div class="subject-icon">
+                          <i class="fas fa-laptop"></i>
+                      </div>
+                      <h3 class="team-name">Lab Exam</h3>
+                      <p class="team-bio">Lecture notes, reference materials, and past papers</p>
+                  </div>
+                  
+                  <!-- Big Data -->
+                  <div class="team-card subject-card" data-subject="big-data">
+                      <div class="subject-icon">
+                          <i class="fas fa-database"></i>
+                      </div>
+                      <h3 class="team-name">Big Data</h3>
+                      <p class="team-bio">Lecture notes, reference materials, and past papers</p>
+                  </div>
+                  
+                  <!-- AAD -->
+                  <div class="team-card subject-card" data-subject="aad">
+                      <div class="subject-icon">
+                          <i class="fas fa-project-diagram"></i>
+                      </div>
+                      <h3 class="team-name">AAD</h3>
+                      <p class="team-bio">Lecture notes, reference materials, and past papers</p>
+                  </div>
+                  
+                  <!-- RIS -->
+                  <div class="team-card subject-card" data-subject="ris">
+                      <div class="subject-icon">
+                          <i class="fas fa-robot"></i>
+                      </div>
+                      <h3 class="team-name">RIS</h3>
+                      <p class="team-bio">Lecture notes, reference materials, and past papers</p>
+                  </div>
+                  
+                  <!-- CV -->
+                  <div class="team-card subject-card" data-subject="cv">
+                      <div class="subject-icon">
+                          <i class="fas fa-eye"></i>
+                      </div>
+                      <h3 class="team-name">CV</h3>
+                      <p class="team-bio">Lecture notes, reference materials, and past papers</p>
+                  </div>
+                  
+                  <!-- IEFT -->
+                  <div class="team-card subject-card" data-subject="ieft">
+                      <div class="subject-icon">
+                          <i class="fas fa-network-wired"></i>
+                      </div>
+                      <h3 class="team-name">IEFT</h3>
+                      <p class="team-bio">Lecture notes, reference materials, and past papers</p>
+                  </div>
 
-                <!-- Lab Exam -->
-                <div class="team-card subject-card" data-subject="Lab-exam">
-                    <div class="subject-icon">
-                        <i class="fas fa-laptop"></i>
-                    </div>
-                    <h3 class="team-name">Lab Exam</h3>
-                    <p class="team-bio">Lecture notes, reference materials, and past papers</p>
-                </div>
-                
-                <!-- Big Data -->
-                <div class="team-card subject-card" data-subject="big-data">
-                    <div class="subject-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3 class="team-name">Big Data</h3>
-                    <p class="team-bio">Lecture notes, reference materials, and past papers</p>
-                </div>
-                
-                <!-- AAD -->
-                <div class="team-card subject-card" data-subject="aad">
-                    <div class="subject-icon">
-                        <i class="fas fa-project-diagram"></i>
-                    </div>
-                    <h3 class="team-name">AAD</h3>
-                    <p class="team-bio">Lecture notes, reference materials, and past papers</p>
-                </div>
-                
-                <!-- RIS -->
-                <div class="team-card subject-card" data-subject="ris">
-                    <div class="subject-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3 class="team-name">RIS</h3>
-                    <p class="team-bio">Lecture notes, reference materials, and past papers</p>
-                </div>
-                
-                <!-- CV -->
-                <div class="team-card subject-card" data-subject="cv">
-                    <div class="subject-icon">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <h3 class="team-name">CV</h3>
-                    <p class="team-bio">Lecture notes, reference materials, and past papers</p>
-                </div>
-                
-                <!-- IEFT -->
-                <div class="team-card subject-card" data-subject="ieft">
-                    <div class="subject-icon">
-                        <i class="fas fa-network-wired"></i>
-                    </div>
-                    <h3 class="team-name">IEFT</h3>
-                    <p class="team-bio">Lecture notes, reference materials, and past papers</p>
-                </div>
-
-                <div class="team-card subject-card" data-subject="syllabus">
-                    <div class="subject-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <h3 class="team-name">SYLLABUS</h3>
-                    <p class="team-bio">Syllabus of all overview</p>
-                </div>
-                
-                <!-- REC -->
-                <div class="team-card subject-card" data-subject="rec">
-                    <div class="subject-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="team-name">RECCOMENDATION</h3>
-                    <p class="team-bio">Lecture notes, reference materials, and past papers</p>
-                </div>
-            </div>
-            
-            <!-- Materials Display Area (hidden by default) -->
-            <div id="materials-display" style="display: none; margin-top: 30px;">
-                <div class="card-header">
-                    <div class="card-title">
-                        <i class="fas fa-arrow-left" id="back-to-subjects" style="cursor: pointer;"></i>
-                        <span id="current-subject">Subject Materials</span>
-                    </div>
-                </div>
-                
-                <div class="materials-container" id="materials-container">
-                    <!-- PDFs and images will be loaded here -->
-                </div>
-            </div>
-        </div>
-    </div>
+                  <div class="team-card subject-card" data-subject="syllabus">
+                      <div class="subject-icon">
+                          <i class="fas fa-book"></i>
+                      </div>
+                      <h3 class="team-name">SYLLABUS</h3>
+                      <p class="team-bio">Syllabus of all overview</p>
+                  </div>
+                  
+                  <!-- REC -->
+                  <div class="team-card subject-card" data-subject="rec">
+                      <div class="subject-icon">
+                          <i class="fas fa-shield-alt"></i>
+                      </div>
+                      <h3 class="team-name">RECCOMENDATION</h3>
+                      <p class="team-bio">Lecture notes, reference materials, and past papers</p>
+                  </div>
+              </div>
+          </div>
+          
+          <!-- Materials Display Area (hidden by default) -->
+          <div id="materials-display" style="display: none; margin-top: 30px;">
+              <div class="card-header">
+                  <div class="card-title">
+                      <i class="fas fa-arrow-left" id="back-to-subjects" style="cursor: pointer;"></i>
+                      <span id="current-subject">Subject Materials</span>
+                  </div>
+              </div>
+              
+              <div class="materials-container" id="materials-container">
+                  <!-- PDFs and images will be loaded here -->
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
         
         <!-- Team Tab Content -->
@@ -3156,6 +3180,13 @@ const materialsData = {
         },
     ],
     'big-data': [
+    {
+    type: 'youtube',
+    title: 'Apache Hadoop HBASE malayalam explanation',
+    date: '2025-03-10',
+    url: 'https://youtu.be/cWXf01HsdOE?si=Vtq6Jb0wXly7vHeM',
+    preview: 'path/to/thumbnail/image.jpg'
+}, 
         {
             type: 'pdf',
             title: '2023 qpaper',
@@ -3272,6 +3303,13 @@ const materialsData = {
         // Add more materials as needed
     ],
     'aad': [
+    {
+    type: 'youtube',
+    title: 'Aad Playlist(almost topics available)',
+    date: '2025-03-10',
+    url: 'https://youtube.com/playlist?list=PLpqGPi6G3Jf1efKbzUObp2W-jsF3MGmdT&si=uji6Z4X9ujnz21Ot',
+    preview: 'path/to/thumbnail/image.jpg'
+}, 
         {
             type: 'pdf',
             title: 'Question Paper & Ans 2022',
@@ -3338,6 +3376,13 @@ const materialsData = {
         // Add more materials as needed
     ],
     'cv': [
+    {
+    type: 'youtube',
+    title: 'Ai mcq',
+    date: '2025-03-10',
+    url: 'https://youtube.com/playlist?list=PLG-cz6t92P1EP3KKJb8v32hzz4pg4M38s&si=CpOZ5z4O3lydXx2P',
+    preview: 'path/to/thumbnail/image.jpg'
+}, 
         {
             type: 'pdf',
             title: '2023 qpaper',
@@ -3403,6 +3448,13 @@ const materialsData = {
         },
     ],
     'ris': [
+    {
+    type: 'youtube',
+    title: 'Problems mod 3',
+    date: '2025-03-10',
+    url: 'https://youtube.com/playlist?list=PLFD-ukJML1xpIgM_QupMMx2CKh8i74B67&si=NE_RQWu8hEdlkvB-',
+    preview: 'path/to/thumbnail/image.jpg'
+}, 
         {
             type: 'pdf',
             title: '2024 qpaper',
@@ -3482,6 +3534,13 @@ const materialsData = {
         },
     ],
     'rec': [
+    {
+    type: 'youtube',
+    title: 'Basic Reccomendation Concepts',
+    date: '2025-03-10',
+    url: 'https://youtube.com/playlist?list=PLZoTAELRMXVN7QGpcuN-Vg35Hgjp3htvi&si=6NTtiDV3ttEvq_65',
+    preview: 'path/to/thumbnail/image.jpg'
+}, 
          {
             type: 'pdf',
             title: '2023 qpaper',
@@ -3541,6 +3600,13 @@ const materialsData = {
         // Add more materials as needed
     ],
     'ieft': [
+    {
+    type: 'youtube',
+    title: 'IEFT malayalam playlist',
+    date: '2025-03-10',
+    url: 'https://youtube.com/playlist?list=PLIex9xdAUpoiXq2s5atGKtBN0CkBX_nE5&si=Jm2lcVG_eYKvnvvz',
+    preview: 'path/to/thumbnail/image.jpg'
+}, 
         {
             type: 'pdf',
             title: '2021 qpaper',
@@ -3641,24 +3707,44 @@ const materialsData = {
     // Add materials for other subjects similarly
 };
 
-// Handle subject card clicks
-document.querySelectorAll('.subject-card').forEach(card => {
+// Handle semester card clicks
+document.querySelectorAll('.subject-card[data-semester]').forEach(card => {
+    card.addEventListener('click', function() {
+        const semester = this.getAttribute('data-semester');
+        if (semester === 's6') {
+            // Show S6 subjects
+            document.getElementById('semester-selection').style.display = 'none';
+            document.getElementById('subject-selection').style.display = 'block';
+            document.getElementById('current-semester').textContent = 'Semester 6 Subjects';
+        }
+    });
+});
+
+// Handle back button from subjects to semesters
+document.getElementById('back-to-semesters').addEventListener('click', function() {
+    document.getElementById('subject-selection').style.display = 'none';
+    document.getElementById('semester-selection').style.display = 'block';
+});
+
+// Handle subject card clicks (existing code, keep this)
+document.querySelectorAll('.subject-card[data-subject]').forEach(card => {
     card.addEventListener('click', function() {
         const subject = this.getAttribute('data-subject');
         showMaterials(subject);
     });
 });
 
-// Handle back button
+// Handle back button from materials to subjects (existing code, keep this)
 document.getElementById('back-to-subjects').addEventListener('click', function() {
     document.getElementById('materials-display').style.display = 'none';
-    document.querySelector('.team-grid').style.display = 'grid';
+    document.getElementById('subject-selection').style.display = 'block';
 });
 
 // Function to show materials for a subject
 function showMaterials(subject) {
-    // Hide subject selection
-    document.querySelector('.team-grid').style.display = 'none';
+    // Hide subject selection and show materials display
+    document.getElementById('subject-selection').style.display = 'none';
+    document.getElementById('materials-display').style.display = 'block';
     
     // Set subject title
     document.getElementById('current-subject').textContent = 
@@ -3689,24 +3775,43 @@ function showMaterials(subject) {
                     <img src="${material.preview || material.url}" alt="${material.title}">
                 </div>
             `;
+        } else if (material.type === 'youtube') {
+            previewContent = `
+                <div class="material-preview">
+                    <i class="fab fa-youtube pdf-icon" style="color: #ff0000;"></i>
+                </div>
+            `;
+        } else if (material.type === 'zip') {
+            previewContent = `
+                <div class="material-preview">
+                    <i class="fas fa-file-archive pdf-icon"></i>
+                </div>
+            `;
+        }
+        
+        // Create download link
+        let downloadLink = '';
+        if (material.type === 'youtube') {
+            downloadLink = `<a href="${material.url}" target="_blank" class="download-btn">
+                <i class="fas fa-external-link-alt"></i> Watch Video
+            </a>`;
+        } else {
+            downloadLink = `<a href="${material.url}" class="download-btn" download>
+                <i class="fas fa-download"></i> Download
+            </a>`;
         }
         
         materialItem.innerHTML = `
             ${previewContent}
             <div class="material-info">
                 <div class="material-title">${material.title}</div>
-                <div class="material-date">${material.date}</div>
-                <a href="${material.url}" class="download-btn" download>
-                    <i class="fas fa-download"></i> Download
-                </a>
+                <div class="material-description">${material.date}</div>
+                ${downloadLink}
             </div>
         `;
         
         container.appendChild(materialItem);
     });
-    
-    // Show materials display
-    document.getElementById('materials-display').style.display = 'block';
 }
             
             // Mobile menu toggle
