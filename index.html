@@ -2478,226 +2478,268 @@ header {
 .exam-day-card.exam-completed:hover {
     border-left-color: var(--success) !important;
 }
-.recent-exam-review {
+/* Faculty Chat Styles */
+.faculty-chat {
     background: var(--card-bg);
     border-radius: 16px;
-    padding: 30px;
+    padding: 25px;
     margin-bottom: 30px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 112, 243, 0.2);
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.recent-exam-review::before {
+.faculty-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.faculty-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary);
+    box-shadow: 0 4px 12px rgba(0, 112, 243, 0.3);
+}
+
+.message-bubble {
+    background: rgba(0, 112, 243, 0.1);
+    border-radius: 18px;
+    padding: 15px 20px;
+    max-width: 80%;
+    position: relative;
+    border-top-left-radius: 4px;
+}
+
+.message-bubble::after {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: -1;
+    left: -8px;
+    top: 15px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-right-color: rgba(0, 112, 243, 0.1);
+    border-left: 0;
 }
 
-.recent-exam-review:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 112, 243, 0.3);
-    border-color: var(--primary-light);
-}
-
-.recent-exam-review:hover::before {
-    opacity: 0.08;
-}
-
-.recent-exam-title {
-    font-size: 1.5rem;
+.faculty-name {
     font-weight: 700;
-    margin-bottom: 20px;
+    color: var(--primary);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.message-time {
+    font-size: 0.7rem;
+    color: var(--gray);
+    text-align: right;
+    margin-top: 5px;
+}
+
+/* Student Response Area */
+.student-response {
+    margin-left: 65px;
+}
+
+.typing-indicator {
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.typing-dots {
+    display: flex;
+    margin-left: 10px;
+}
+
+.typing-dots span {
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+    margin: 0 2px;
+    opacity: 0.4;
+    animation: typingAnimation 1.4s infinite ease-in-out;
+}
+
+.typing-dots span:nth-child(1) { animation-delay: 0s; }
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingAnimation {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-5px); opacity: 1; }
+}
+
+.feedback-form {
+    background: var(--dark-accent);
+    border-radius: 18px;
+    padding: 20px;
+    border-top-right-radius: 4px;
     position: relative;
 }
 
-.recent-exam-title i {
-    font-size: 1.8rem;
-}
-
-.review-prompt {
-    color: var(--light-gray);
-    margin-bottom: 20px;
-    line-height: 1.6;
-    font-size: 1.05rem;
-    position: relative;
-    padding-left: 20px;
-}
-
-.review-prompt::before {
+.feedback-form::after {
     content: "";
     position: absolute;
-    left: 0;
-    top: 8px;
-    height: 60%;
-    width: 3px;
-    background: linear-gradient(to bottom, var(--primary), var(--secondary));
+    right: -8px;
+    top: 15px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-left-color: var(--dark-accent);
+    border-right: 0;
 }
 
-.review-textarea {
-    padding: 15px 20px;
-    border-radius: 12px;
-    background: var(--dark-accent);
+.feedback-textarea {
+    width: 100%;
+    min-height: 120px;
+    background: var(--card-bg);
     border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 15px;
     color: var(--light);
     font-family: 'Inter', sans-serif;
-    min-height: 120px;
     resize: vertical;
-    width: 100%;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-    margin-bottom: 20px;
+    margin: 15px 0;
 }
 
-.review-textarea:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.2);
-    outline: none;
-}
-
-.review-submit {
-    padding: 14px 30px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1rem;
-    box-shadow: 0 4px 15px rgba(0, 112, 243, 0.3);
-}
-
-.review-submit:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 112, 243, 0.4);
-    background: linear-gradient(90deg, var(--primary-light), var(--secondary-light));
-}
-
-/* Review Items */
-.review-item {
-    background: var(--card-bg-light);
-    border-radius: 16px;
-    padding: 25px;
-    margin-bottom: 20px;
-    border-left: 4px solid var(--primary);
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.review-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    border-left-width: 6px;
-}
-
-.review-item::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: -1;
-}
-
-.review-item:hover::before {
-    opacity: 0.05;
-}
-
-.review-header {
+.form-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.send-button {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.send-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 112, 243, 0.3);
+}
+
+.privacy-note {
+    font-size: 0.8rem;
+    color: var(--gray);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Feedback Dashboard Styles */
+.feedback-dashboard {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 25px;
+    border: 1px solid var(--border-color);
+}
+
+.dashboard-header {
+    margin-bottom: 20px;
+}
+
+.dashboard-subtitle {
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.dashboard-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.metric-card {
+    background: rgba(0, 112, 243, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.metric-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.metric-label {
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin: 8px 0;
+}
+
+.metric-stars {
+    color: gold;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.metric-progress {
+    height: 6px;
+    background: var(--dark-accent);
+    border-radius: 3px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 3px;
+}
+
+.trend-up {
+    color: var(--success);
+}
+
+.feedback-summary {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.feedback-summary h3 {
+    color: var(--primary);
     margin-bottom: 15px;
-    flex-wrap: wrap;
+}
+
+.summary-points {
+    display: flex;
+    flex-direction: column;
     gap: 10px;
 }
 
-.football-name {
-    font-weight: 700;
-    font-size: 1.1rem;
-    background: linear-gradient(90deg, var(--secondary), var(--primary-light));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.football-name::before {
-    content: "⚽";
-    font-size: 0.9em;
-}
-
-.review-date {
-    color: var(--gray);
-    font-size: 0.9rem;
-    background: var(--dark-accent);
-    padding: 4px 10px;
-    border-radius: 50px;
-}
-
-.review-content {
+.summary-points p {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
     color: var(--light);
-    line-height: 1.7;
-    font-size: 1.05rem;
-    position: relative;
-    padding-left: 15px;
 }
 
-
-
-/* Empty State */
-.empty-reviews {
-    text-align: center;
-    padding: 40px 20px;
-    color: var(--gray);
-    font-size: 1.1rem;
-}
-
-.empty-reviews i {
-    font-size: 2.5rem;
-    color: var(--primary);
-    margin-bottom: 15px;
-    opacity: 0.5;
-}
-
-/* Pulsing Animation for New Reviews */
-@keyframes pulseHighlight {
-    0% { box-shadow: 0 0 0 0 rgba(0, 112, 243, 0.4); }
-    70% { box-shadow: 0 0 0 15px rgba(0, 112, 243, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(0, 112, 243, 0); }
-}
-
-.new-review {
-    animation: pulseHighlight 1.5s ease-out;
+.summary-points i {
+    color: var(--success);
+    margin-top: 3px;
 }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -2933,40 +2975,113 @@ header {
           </div>
         </div>
         <!-- Recent Exam Reviews Tab Content -->
-<div id="reviews" class="tab-content">
-  <div class="dashboard">
-      <div class="card section">
-          <div class="recent-exam-review">
-              <div class="recent-exam-title">
-                  <i class="fas fa-pencil-alt"></i>
-                  <span>How was your <span class="exam-name">Big Data</span> exam?</span>
-              </div>
-              
-              
-              <form id="recentExamReviewForm" class="review-form">
-                  <textarea class="review-textarea" id="recentExamReviewText" 
-                            placeholder="How was the difficulty? What topics were emphasized? Any surprises?"></textarea>
+        <div id="reviews" class="tab-content">
+          <div class="dashboard">
+              <div class="card section">
+                  <!-- Faculty Chat-Style Prompt -->
+                  <div class="faculty-chat">
+                      <div class="faculty-message">
+                          <img src="images/vijuu.jpg" alt="Big Data Professor" class="faculty-photo">
+                          <div class="message-bubble">
+                              <div class="message-content">
+                                  <span class="faculty-name">Prof. Viju P Poonthottam</span>
+                                  <p>മക്കളെ എക്സാം ഒക്കെ എങ്ങനെ ഉണ്ട്.ക്ലാസ്സിൽ ഉറങ്ങിയതിന്റെ എഫക്ട് ണ്ടാർന്നോ... ☺❤.</p>
+                              </div>
+                              <div class="message-time"></div>
+                          </div>
+                      </div>
+                      
+                      <!-- Response Area -->
+                      <div class="student-response">
+                          <div class="typing-indicator">
+                              <span>ന്തേലും ഒക്കെ പറയൂ...... 😌</span>
+                              <div class="typing-dots">
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                              </div>
+                          </div>
+                          
+                          <form id="examFeedbackForm" class="feedback-form">
+                              <div class="form-group">
+                                  <label>How would you rate the exam difficulty?</label>
+                                  <div class="rating-stars">
+                                      <i class="far fa-star" data-rating="1"></i>
+                                      <i class="far fa-star" data-rating="2"></i>
+                                      <i class="far fa-star" data-rating="3"></i>
+                                      <i class="far fa-star" data-rating="4"></i>
+                                      <i class="far fa-star" data-rating="5"></i>
+                                  </div>
+                                  <input type="hidden" id="exam-rating" name="rating" value="0">
+                              </div>
+                              
+                              <textarea class="feedback-textarea" id="examFeedbackText" 
+                                        placeholder="ഒന്ന് വായ തുറന്ന് പറ മക്കളെ"
+                                        required></textarea>
+                              
+                              <div class="form-footer">
+                                  <button type="submit" class="send-button">
+                                      <i class="fas fa-paper-plane"></i> Send Feedback
+                                  </button>
+                                  <div class="privacy-note">
+                                      <i class="fas fa-lock"></i> This feedback is private and will only be seen by faculty
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
                   
-                  <button type="submit" class="review-submit">
-                      <i class="fas fa-share"></i> Share Experience
-                  </button>
-              </form>
-          </div>
-          
-          <div class="reviews-list">
-              <div class="card-header">
-                  <div class="card-title">
-                      <i class="fas fa-users"></i> Community Experiences
+                  <!-- Previous Feedback Dashboard (Visible only to faculty in real implementation) -->
+                  <div class="feedback-dashboard">
+                      <div class="dashboard-header">
+                          <div class="card-title">
+                              <i class="fas fa-chart-line"></i> Student Feedback Insights
+                          </div>
+                          <div class="dashboard-subtitle">Aggregated and anonymized for faculty review</div>
+                      </div>
+                      
+                      <div class="dashboard-metrics">
+                          <div class="metric-card">
+                              <div class="metric-value">4.2</div>
+                              <div class="metric-label">Average Rating</div>
+                              <div class="metric-stars">
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star-half-alt"></i>
+                              </div>
+                          </div>
+                          
+                          <div class="metric-card">
+                              <div class="metric-value">87%</div>
+                              <div class="metric-label">Found Exam Fair</div>
+                              <div class="metric-progress">
+                                  <div class="progress-bar" style="width: 87%"></div>
+                              </div>
+                          </div>
+                          
+                          <div class="metric-card">
+                              <div class="metric-value">23</div>
+                              <div class="metric-label">Feedback Received</div>
+                              <div class="metric-trend">
+                                  <i class="fas fa-arrow-up trend-up"></i> 12% from last exam
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div class="feedback-summary">
+                          <h3>What students are saying:</h3>
+                          <div class="summary-points">
+                              <p><i class="fas fa-check-circle"></i> Most found Module 4 Qns challenging but fair</p>
+                              <p><i class="fas fa-check-circle"></i> Several requests for Hive File Formats examples</p>
+                              <p><i class="fas fa-check-circle"></i> Appreciated the clear problem statements</p>
+                          </div>
+                      </div>
                   </div>
               </div>
-              
-              <div id="recentExamReviewsContainer">
-                  <!-- Recent exam reviews will be inserted here by JavaScript -->
-              </div>
           </div>
-      </div>
-  </div>
-</div>
+        </div>
         <!-- Study Times Tab Content -->
         <div id="study-times" class="tab-content">
             <div class="dashboard">
