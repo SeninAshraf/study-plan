@@ -5614,7 +5614,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     // Recent Exam Review System with Football Player Names
     document.addEventListener('DOMContentLoaded', function() {
-    // Star rating functionality
+    // 1. Star Rating Functionality
     const stars = document.querySelectorAll('.rating-stars i');
     const ratingInput = document.getElementById('exam-rating');
     
@@ -5625,80 +5625,117 @@ document.addEventListener('DOMContentLoaded', function() {
             
             stars.forEach((s, i) => {
                 if (i < rating) {
-                    s.classList.add('active');
+                    s.classList.add('fas', 'active');
                     s.classList.remove('far');
-                    s.classList.add('fas');
                 } else {
-                    s.classList.remove('active');
                     s.classList.add('far');
-                    s.classList.remove('fas');
+                    s.classList.remove('fas', 'active');
                 }
             });
         });
     });
-    
-    // Form submission
+
+    // 2. Form Submission Handling
     const feedbackForm = document.getElementById('examFeedbackForm');
     const thankYouMessage = document.getElementById('thankYouMessage');
+    const userMessage = document.getElementById('examFeedbackText'); // Matches your textarea ID
+    const sendButton = feedbackForm.querySelector('.send-button');
     
-    feedbackForm.addEventListener('submit', function(e) {
+    feedbackForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        // Simulate form submission
-        setTimeout(() => {
-            // Hide form and show thank you message
-            feedbackForm.style.display = 'none';
-            thankYouMessage.style.display = 'block';
+        // Validation
+        if (ratingInput.value === '0') {
+            alert('Please select a star rating');
+            return;
+        }
+        
+        if (!userMessage.value.trim()) {
+            alert('Please enter your feedback message');
+            return;
+        }
+
+        // Show loading state
+        sendButton.disabled = true;
+        const originalButtonHTML = sendButton.innerHTML;
+        sendButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+        try {
+            // Prepare form data
+            const formData = new FormData();
+            formData.append('rating', ratingInput.value);
+            formData.append('message', userMessage.value);
+            formData.append('_subject', 'Exam Feedback from Student');
+            formData.append('_captcha', 'false');
+            formData.append('_template', 'table');
             
-            // Scroll to thank you message
-            thankYouMessage.scrollIntoView({ behavior: 'smooth' });
+            // Submit to FormSubmit
+            const response = await fetch('https://formsubmit.co/ajax/seninashraf44@gmail.com', {
+                method: 'POST',
+                body: formData
+            });
             
-            // Reset form after showing message
-            setTimeout(() => {
+            const result = await response.json();
+            
+            if (response.ok) {
+                // Show success message
+                feedbackForm.style.display = 'none';
+                thankYouMessage.style.display = 'block';
+                thankYouMessage.scrollIntoView({ behavior: 'smooth' });
+                
+                // Reset form
                 feedbackForm.reset();
                 stars.forEach(star => {
-                    star.classList.remove('active');
+                    star.classList.remove('fas', 'active');
                     star.classList.add('far');
-                    star.classList.remove('fas');
                 });
                 ratingInput.value = '0';
                 
-                // Show form again after 5 seconds
+                // Hide message after 5 seconds and show form again
                 setTimeout(() => {
                     thankYouMessage.style.display = 'none';
                     feedbackForm.style.display = 'block';
                 }, 5000);
-            }, 1000);
-        }, 1000);
+            } else {
+                throw new Error(result.message || 'Submission failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to submit feedback. Please try again.');
+        } finally {
+            sendButton.disabled = false;
+            sendButton.innerHTML = originalButtonHTML;
+        }
     });
 });
-    </script>
-     <!-- Chatbot Container -->
-     <div id="selinte-ai-container" class="chatbot-container">
-        <div class="chatbot-header">
-            <div class="chatbot-title">Selinte AI</div>
-            <button class="chatbot-close"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="chatbot-messages" id="chatbot-messages">
-            <div class="chatbot-message bot">
-                <div class="message-content">
-                    Hello! I'm Selinte AI, your study assistant. How can I help you today?
-                </div>
+</script>
+
+<!-- Chatbot Container -->
+<div id="selinte-ai-container" class="chatbot-container">
+    <div class="chatbot-header">
+        <div class="chatbot-title">Selinte AI</div>
+        <button class="chatbot-close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="chatbot-messages" id="chatbot-messages">
+        <div class="chatbot-message bot">
+            <div class="message-content">
+                Hello! I'm Selinte AI, your study assistant. How can I help you today?
             </div>
         </div>
-        <div class="chatbot-input">
-            <input type="text" id="chatbot-input" placeholder="Ask me anything about your studies...">
-            <button id="chatbot-send"><i class="fas fa-paper-plane"></i></button>
-        </div>
     </div>
+    <div class="chatbot-input">
+        <input type="text" id="chatbot-input" placeholder="Ask me anything about your studies...">
+        <button id="chatbot-send"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
 
-    <!-- Chatbot Toggle Button -->
-    <button id="selinte-ai-toggle" class="chatbot-toggle">
-        <i class="fas fa-robot"></i>
-    </button>       
-    <button id="theme-toggle" class="theme-toggle">
-      <i class="fas fa-moon"></i>
-  </button>
+<!-- Chatbot Toggle Button -->
+<button id="selinte-ai-toggle" class="chatbot-toggle">
+    <i class="fas fa-robot"></i>
+</button>
 
+<button id="theme-toggle" class="theme-toggle">
+    <i class="fas fa-moon"></i>
+</button>
 </body>
 </html>
