@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2825,7 +2826,219 @@ header {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
-}
+}.upload-section {
+    margin-top: 20px;
+  }
+  
+  .upload-card {
+    background: linear-gradient(145deg, #f0f4ff, #e6f0ff);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+  }
+  
+  .upload-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .upload-icon {
+    font-size: 2.5em;
+    color: #4285f4;
+    margin-bottom: 15px;
+  }
+  
+  .upload-btn {
+    background: #4285f4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 15px;
+    box-shadow: 0 2px 5px rgba(66, 133, 244, 0.3);
+  }
+  
+  .upload-btn:hover {
+    background: #3367d6;
+    box-shadow: 0 4px 8px rgba(66, 133, 244, 0.4);
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    animation: modalFadeIn 0.3s;
+  }
+  
+  @keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .close-modal {
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .file-input-container {
+    border: 2px dashed #ddd;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 5px;
+    transition: all 0.3s ease;
+  }
+  
+  .file-input-container:hover {
+    border-color: #4285f4;
+  }
+  
+  .file-preview {
+    margin-top: 10px;
+    min-height: 60px;
+  }
+  
+  .file-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+  }
+  
+  .file-details i {
+    font-size: 1.5em;
+    color: #4285f4;
+  }
+  
+  .file-size {
+    margin-left: auto;
+    color: #777;
+    font-size: 0.9em;
+  }
+  
+  .form-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .submit-btn {
+    background: #4285f4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .cancel-btn {
+    background: #f1f1f1;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .upload-status {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+  }
+  
+  .upload-status.success {
+    background-color: #d4edda;
+    color: #155724;
+    display: block;
+  }
+  
+  .upload-status.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    display: block;
+  }
+  
+  .upload-status.info {
+    background-color: #e7f3fe;
+    color: #004085;
+    display: block;
+  }
+  
+  .upload-status.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    display: block;
+  }
+  
+  .upload-progress {
+    height: 5px;
+    background-color: #e9ecef;
+    border-radius: 3px;
+    margin-top: 10px;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: #4285f4;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+</style>
+
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -2841,6 +3054,8 @@ header {
 </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5929768503018934"
      crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+
 <body>
     <!-- Intro Overlay -->
 <!-- Intro Overlay -->
@@ -3442,6 +3657,65 @@ header {
                       <i class="fas fa-arrow-left" id="back-to-subjects" style="cursor: pointer;"></i>
                       <span id="current-subject">Subject Materials</span>
                   </div>
+              </div>
+              <div class="upload-section">
+                <div class="upload-card">
+                  <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <h3>Upload Study Material</h3>
+                  <p>Share PDFs, images or other resources with your classmates</p>
+                  <button id="upload-material-btn" class="upload-btn">
+                    <i class="fas fa-plus"></i> Upload Material
+                  </button>
+                </div>
+              </div>
+              
+           
+              
+              <!-- 3. Add the modal HTML -->
+              <div id="upload-modal" class="modal">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2>Upload Study Material</h2>
+                    <span class="close-modal">&times;</span>
+                  </div>
+                  <div class="modal-body">
+                    <form id="upload-form">
+                      <div class="form-group">
+                        <label for="file-title">Title:</label>
+                        <input type="text" id="file-title" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="file-subject">Subject:</label>
+                        <select id="file-subject" required>
+                          <option value="">Select Subject</option>
+                          <option value="r">R Programming</option>
+                          <option value="Lab-exam">Lab Exam</option>
+                          <option value="big-data">Big Data</option>
+                          <option value="aad">AAD</option>
+                          <option value="ris">RIS</option>
+                          <option value="cv">CV</option>
+                          <option value="ieft">IEFT</option>
+                          <option value="syllabus">SYLLABUS</option>
+                          <option value="rec">RECOMMENDATION</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="file-input">Select File:</label>
+                        <div class="file-input-container">
+                          <input type="file" id="file-input" required>
+                          <div class="file-preview" id="file-preview"></div>
+                        </div>
+                      </div>
+                      <div class="upload-status" id="upload-status"></div>
+                      <div class="form-actions">
+                        <button type="button" class="cancel-btn">Cancel</button>
+                        <button type="submit" class="submit-btn">Upload</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
               </div>
               
               <div class="materials-container" id="materials-container">
@@ -5707,6 +5981,265 @@ document.addEventListener('DOMContentLoaded', function() {
             sendButton.innerHTML = originalButtonHTML;
         }
     });
+});
+// Appwrite configuration
+// Appwrite configuration
+document.addEventListener('DOMContentLoaded', function() {
+  console.log("DOM loaded, checking for Appwrite SDK...");
+  
+  // Create a function to initialize the upload functionality
+  function initUploadFeature() {
+    console.log("Initializing upload feature...");
+    
+    // Appwrite configuration
+    const APPWRITE_ENDPOINT = 'https://fra.cloud.appwrite.io/v1';
+    const APPWRITE_PROJECT_ID = '680e7e8b000312af6ff9';
+    const APPWRITE_BUCKET_ID = '680e7f45000c873de0c5';
+    const DATABASE_ID = '680e84b2002beb5c6175';
+    const COLLECTION_ID = '680e85030013c8d529cd';
+
+    // DOM elements
+    const modal = document.getElementById('upload-modal');
+    const uploadBtn = document.getElementById('upload-material-btn');
+    const closeModal = document.querySelector('.close-modal');
+    const cancelBtn = document.querySelector('.cancel-btn');
+    const uploadForm = document.getElementById('upload-form');
+    const fileInput = document.getElementById('file-input');
+    const filePreview = document.getElementById('file-preview');
+    const uploadStatus = document.getElementById('upload-status');
+
+    if (!modal || !uploadBtn || !closeModal || !cancelBtn || !uploadForm || !fileInput || !filePreview || !uploadStatus) {
+      console.error("Required DOM elements not found!");
+      return;
+    }
+
+    // Open modal
+    uploadBtn.addEventListener('click', () => {
+      modal.style.display = 'block';
+    });
+
+    // Close modal function
+    const closeModalFunction = () => {
+      modal.style.display = 'none';
+      uploadForm.reset();
+      filePreview.innerHTML = '';
+      uploadStatus.className = 'upload-status';
+      uploadStatus.textContent = '';
+      uploadStatus.style.display = 'none';
+    };
+
+    // Close modal event listeners
+    closeModal.addEventListener('click', closeModalFunction);
+    cancelBtn.addEventListener('click', closeModalFunction);
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModalFunction();
+      }
+    });
+
+    // File preview
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      
+      if (!file) {
+        filePreview.innerHTML = '';
+        return;
+      }
+      
+      filePreview.innerHTML = '';
+      
+      // Show file details
+      const fileDetails = document.createElement('div');
+      fileDetails.className = 'file-details';
+      
+      // Create icon based on file type
+      const fileIcon = document.createElement('i');
+      if (file.type.includes('pdf')) {
+        fileIcon.className = 'fas fa-file-pdf';
+      } else if (file.type.includes('image')) {
+        fileIcon.className = 'fas fa-file-image';
+      } else if (file.type.includes('zip') || file.type.includes('archive')) {
+        fileIcon.className = 'fas fa-file-archive';
+      } else {
+        fileIcon.className = 'fas fa-file';
+      }
+      
+      // Create filename element
+      const fileName = document.createElement('span');
+      fileName.textContent = file.name;
+      
+      // Create filesize element
+      const fileSize = document.createElement('span');
+      fileSize.className = 'file-size';
+      fileSize.textContent = formatFileSize(file.size);
+      
+      // Append elements
+      fileDetails.appendChild(fileIcon);
+      fileDetails.appendChild(fileName);
+      fileDetails.appendChild(fileSize);
+      filePreview.appendChild(fileDetails);
+    });
+
+    // Handle form submission
+    uploadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const fileTitle = document.getElementById('file-title').value;
+      const fileSubject = document.getElementById('file-subject').value;
+      const file = fileInput.files[0];
+      
+      if (!file || !fileTitle || !fileSubject) {
+        showUploadStatus('Please fill in all fields', 'error');
+        return;
+      }
+      
+      // Show uploading status
+      showUploadStatus('Preparing to upload...', 'info');
+      
+      try {
+        console.log("Creating Appwrite client...");
+        
+        // Create Appwrite client using the SDK
+        const client = new Appwrite.Client();
+        
+        client
+          .setEndpoint(APPWRITE_ENDPOINT)
+          .setProject(APPWRITE_PROJECT_ID);
+        
+        console.log("Appwrite client created successfully");
+        
+        // Create progress bar
+        const progressContainer = document.createElement('div');
+        progressContainer.className = 'upload-progress';
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-bar';
+        progressContainer.appendChild(progressBar);
+        uploadStatus.appendChild(progressContainer);
+        
+        // Generate a unique file ID
+        const fileId = 'file_' + Date.now();
+        
+        showUploadStatus('Uploading file...', 'info');
+        
+        // Create storage service
+        const storage = new Appwrite.Storage(client);
+        
+        console.log("Uploading file to bucket:", APPWRITE_BUCKET_ID);
+        
+        // Upload file
+        const result = await storage.createFile(
+          APPWRITE_BUCKET_ID,
+          fileId,
+          file
+        );
+        
+        console.log("File uploaded successfully:", result);
+        
+        // Get file URL
+        const fileUrl = storage.getFileView(APPWRITE_BUCKET_ID, fileId);
+        
+        showUploadStatus('File uploaded, saving metadata...', 'info');
+        
+        // Create databases service
+        const databases = new Appwrite.Databases(client);
+        
+        // Create document in collection
+        const uniqueId = 'unique_' + Date.now();
+        
+        const document = await databases.createDocument(
+          DATABASE_ID,
+          COLLECTION_ID,
+          uniqueId,
+          {
+            title: fileTitle,
+            subject: fileSubject,
+            type: getFileType(file.type),
+            url: fileUrl,
+            date: new Date().toLocaleDateString(),
+            fileId: fileId
+          }
+        );
+        
+        console.log("Document created successfully:", document);
+        
+        showUploadStatus('Material uploaded successfully!', 'success');
+        
+        // Update materials data in the UI
+        if (!window.materialsData) {
+          window.materialsData = {};
+        }
+        
+        if (!window.materialsData[fileSubject]) {
+          window.materialsData[fileSubject] = [];
+        }
+        
+        window.materialsData[fileSubject].push({
+          title: fileTitle,
+          type: getFileType(file.type),
+          url: fileUrl,
+          date: new Date().toLocaleDateString()
+        });
+        
+        // Reset form after successful upload
+        setTimeout(() => {
+          closeModalFunction();
+          
+          // Refresh materials display if needed
+          if (typeof showMaterials === 'function' && 
+              document.getElementById('materials-display').style.display === 'block') {
+            showMaterials(fileSubject);
+          }
+        }, 2000);
+        
+      } catch (error) {
+        console.error('Upload error:', error);
+        showUploadStatus('Upload failed: ' + error.message, 'error');
+      }
+    });
+
+    // Helper functions
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    function showUploadStatus(message, type) {
+      uploadStatus.textContent = message;
+      uploadStatus.className = 'upload-status ' + type;
+      uploadStatus.style.display = 'block';
+    }
+
+    function getFileType(mimeType) {
+      if (mimeType.includes('pdf')) {
+        return 'pdf';
+      } else if (mimeType.includes('image')) {
+        return 'image';
+      } else if (mimeType.includes('zip') || mimeType.includes('archive')) {
+        return 'zip';
+      } else {
+        return 'other';
+      }
+    }
+  }
+
+  // Check if Appwrite SDK is available and initialize
+  const checkForAppwrite = () => {
+    if (typeof Appwrite !== 'undefined') {
+      console.log("Appwrite SDK found, version:", Appwrite.VERSION);
+      initUploadFeature();
+    } else {
+      console.log("Appwrite SDK not found, checking again in 100ms");
+      setTimeout(checkForAppwrite, 100);
+    }
+  };
+  
+  // Start checking for Appwrite
+  checkForAppwrite();
 });
 </script>
 
