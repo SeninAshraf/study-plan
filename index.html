@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2492,7 +2491,7 @@ header {
     align-items: center;
     background-color: var(--card-bg);
     border-top: 1px solid var(--border-color);
-    padding: 12px 0;
+    padding: 10px 0;
     z-index: 1000;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -2506,50 +2505,34 @@ header {
     color: var(--gray);
     font-size: 0.7rem;
     gap: 4px;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     padding: 8px 12px;
-    border-radius: 12px;
 }
 
 .nav-tab i {
-    font-size: 1.4rem;
-    transition: all 0.3s ease;
+    font-size: 1.5rem;
+    transition: all 0.2s ease;
 }
 
 .nav-tab.active {
-    color: var(--primary);
+    color: #4dabf7; /* Sky blue color for active state */
+    font-weight: 500;
 }
 
 .nav-tab.active i {
-    transform: translateY(-3px);
+    transform: scale(1.1);
+    color: #4dabf7; /* Sky blue color for the icon */
 }
 
 .nav-tab:hover {
-    color: var(--primary-light);
-}
-
-/* Pulse animation for active tab */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-.nav-tab.active i {
-    animation: pulse 0.5s ease;
-}
-
-/* Hide on desktop */
-@media (min-width: 769px) {
-    .mobile-nav {
-        display: none;
-    }
+    opacity: 0.8;
 }
 
 /* Make sure content doesn't hide behind navbar */
 .container {
     padding-bottom: 70px !important;
 }
+
 /* Theme Toggle Button for Mobile */
 .theme-toggle {
     position: fixed;
@@ -2565,6 +2548,7 @@ header {
     justify-content: center;
     z-index: 1001;
     color: var(--text);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .theme-toggle i {
@@ -2581,39 +2565,28 @@ header {
         position: fixed;
         bottom: 30px;
         left: 30px;
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
     }
 }
+
 /* Mobile specific styles */
 @media (max-width: 768px) {
     .tab {
-        padding: 8px 12px;
+        padding: 6px 10px;
         flex: 1;
     }
     
     .tab i {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
     
     .tab span {
-        font-size: 0.6rem;
-    }
-    
-    .tab.active {
-        position: relative;
-    }
-    
-    .tab.active::after {
-        content: '';
-        position: absolute;
-        top: -8px;
-        width: 24px;
-        height: 3px;
-        background: var(--primary);
-        border-radius: 3px;
+        font-size: 0.65rem;
+        margin-top: 3px;
     }
 }
+
 @media (max-width: 768px) {
     .tabs {
         display: none; /* Hide the upper tabs on mobile */
@@ -2623,6 +2596,7 @@ header {
         display: flex; /* Ensure bottom nav is visible */
     }
 }
+
 @media (min-width: 769px) {
     .mobile-nav {
         display: none; /* Hide bottom nav on desktop */
