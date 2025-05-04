@@ -2479,6 +2479,833 @@ header {
 .exam-day-card.exam-completed:hover {
     border-left-color: var(--success) !important;
 }
+/* Mobile Navigation Bar Styles */
+ /* Replace existing .mobile-nav styles with this: */
+/* Remove any existing mobile-nav styles and replace with: */
+.mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    padding: 12px 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--gray);
+    font-size: 0.7rem;
+    gap: 4px;
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 12px;
+}
+
+.nav-tab i {
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
+}
+
+.nav-tab.active {
+    color: var(--primary);
+}
+
+.nav-tab.active i {
+    transform: translateY(-3px);
+}
+
+.nav-tab:hover {
+    color: var(--primary-light);
+}
+
+/* Pulse animation for active tab */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.nav-tab.active i {
+    animation: pulse 0.5s ease;
+}
+
+/* Hide on desktop */
+@media (min-width: 769px) {
+    .mobile-nav {
+        display: none;
+    }
+}
+
+/* Make sure content doesn't hide behind navbar */
+.container {
+    padding-bottom: 70px !important;
+}
+/* Theme Toggle Button for Mobile */
+.theme-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    color: var(--text);
+}
+
+.theme-toggle i {
+    font-size: 1.2rem;
+}
+
+/* Desktop specific styles */
+@media (min-width: 769px) {
+    .mobile-nav {
+        display: none;
+    }
+    
+    .theme-toggle {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        width: 60px;
+        height: 60px;
+    }
+}
+/* Mobile specific styles */
+@media (max-width: 768px) {
+    .tab {
+        padding: 8px 12px;
+        flex: 1;
+    }
+    
+    .tab i {
+        font-size: 1.2rem;
+    }
+    
+    .tab span {
+        font-size: 0.6rem;
+    }
+    
+    .tab.active {
+        position: relative;
+    }
+    
+    .tab.active::after {
+        content: '';
+        position: absolute;
+        top: -8px;
+        width: 24px;
+        height: 3px;
+        background: var(--primary);
+        border-radius: 3px;
+    }
+}
+@media (max-width: 768px) {
+    .tabs {
+        display: none; /* Hide the upper tabs on mobile */
+    }
+    
+    .mobile-nav {
+        display: flex; /* Ensure bottom nav is visible */
+    }
+}
+@media (min-width: 769px) {
+    .mobile-nav {
+        display: none; /* Hide bottom nav on desktop */
+    }
+    
+    .tabs {
+        display: flex; /* Show upper tabs on desktop */
+    }
+}
+ /* Exam Status Card Styles */
+ /* Welcome Title */
+ .welcome-title {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-title .emoji {
+    font-style: normal;
+}
+
+/* Exam Card Styles - Enhanced */
+.exam-card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 
+                0 8px 16px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    border: 1px solid var(--border-color);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.exam-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 25px 50px rgba(0, 112, 243, 0.4),
+                0 10px 20px rgba(121, 40, 202, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+}
+
+.exam-card-header {
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    background: linear-gradient(135deg, rgba(0, 112, 243, 0.15), rgba(121, 40, 202, 0.15));
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.exam-card-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.1), transparent 70%);
+    pointer-events: none;
+}
+
+.exam-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 18px;
+    color: white;
+    font-size: 1.6rem;
+    box-shadow: 0 8px 16px rgba(0, 112, 243, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.exam-icon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50% 50% 100% 100% / 25% 25% 75% 75%;
+}
+
+.exam-card-title h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--light);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.exam-card-title p {
+    margin: 6px 0 0;
+    font-size: 0.95rem;
+    color: var(--gray);
+    opacity: 0.9;
+}
+
+.exam-card-body {
+    padding: 28px;
+    text-align: center;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.exam-card-footer {
+    padding: 0 28px 28px;
+    text-align: center;
+}
+
+/* Exam Status States - Enhanced */
+.exam-status {
+    padding: 24px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.exam-status:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.exam-status::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: currentColor;
+    opacity: 0.08;
+    z-index: 0;
+}
+
+.exam-upcoming {
+    color: var(--accent);
+    border-left: 5px solid var(--accent);
+}
+
+.exam-current {
+    color: #FF9F43;
+    border-left: 5px solid #FF9F43;
+}
+
+.exam-completed {
+    color: var(--success);
+    border-left: 5px solid var(--success);
+}
+
+/* Urgent Exam Notification */
+.exam-urgent {
+    color: #FF4757;
+    border-left: 5px solid #FF4757;
+    animation: pulse-border 2s infinite;
+}
+
+@keyframes pulse-border {
+    0% { border-left-color: rgba(255, 71, 87, 0.7); }
+    50% { border-left-color: rgba(255, 71, 87, 1); }
+    100% { border-left-color: rgba(255, 71, 87, 0.7); }
+}
+
+/* Urgent Icon */
+.urgent-icon {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 60px;
+    height: 60px;
+    background: #FF4757;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    box-shadow: 0 6px 12px rgba(255, 71, 87, 0.4);
+    z-index: 10;
+    animation: pulse 2s infinite;
+    transform-origin: center center;
+}
+
+.urgent-icon::before {
+    content: '!';
+    font-weight: 900;
+    font-style: normal;
+    font-size: 2rem;
+}
+
+/* Time display for urgent exams */
+.time-remaining {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 12px;
+    border-radius: 10px;
+    min-width: 60px;
+}
+
+.time-value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.time-label {
+    font-size: 0.8rem;
+    margin-top: 3px;
+    opacity: 0.8;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 6px 12px rgba(255, 71, 87, 0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 8px 16px rgba(255, 71, 87, 0.6); }
+    100% { transform: scale(1); box-shadow: 0 6px 12px rgba(255, 71, 87, 0.4); }
+}
+
+/* Urgent Alert Banner */
+.urgent-alert {
+    background: linear-gradient(135deg, #FF4757, #FF6B81);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 8px 16px rgba(255, 71, 87, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.urgent-alert::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    60% { transform: translateX(100%); }
+    100% { transform: translateX(100%); }
+}
+
+.urgent-alert-icon {
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.urgent-alert-text {
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+}
+
+.exam-name {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    position: relative;
+    letter-spacing: -0.5px;
+}
+
+.exam-date {
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+    position: relative;
+    opacity: 0.9;
+}
+
+.countdown-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    position: relative;
+    margin-top: 10px;
+}
+
+.countdown-days {
+    font-size: 3.2rem;
+    font-weight: 900;
+    min-width: 80px;
+    color: #FF9F43;
+    text-shadow: 0 2px 10px rgba(255, 159, 67, 0.3);
+    position: relative;
+    z-index: 2;
+    animation: pulse-count 2s infinite;
+}
+
+@keyframes pulse-count {
+    0% { text-shadow: 0 2px 10px rgba(255, 159, 67, 0.3); }
+    50% { text-shadow: 0 4px 20px rgba(255, 159, 67, 0.6); }
+    100% { text-shadow: 0 2px 10px rgba(255, 159, 67, 0.3); }
+}
+
+/* Style variations based on status */
+.exam-upcoming .countdown-days {
+    color: var(--accent);
+    text-shadow: 0 2px 10px rgba(0, 112, 243, 0.3);
+}
+
+.exam-current .countdown-days {
+    color: #FF9F43;
+    text-shadow: 0 2px 10px rgba(255, 159, 67, 0.3);
+}
+
+.exam-urgent .countdown-days {
+    color: #FF4757;
+    text-shadow: 0 2px 10px rgba(255, 71, 87, 0.4);
+    animation: pulse-urgent 1.5s infinite;
+}
+
+@keyframes pulse-urgent {
+    0% { transform: scale(1); text-shadow: 0 2px 10px rgba(255, 71, 87, 0.4); }
+    50% { transform: scale(1.05); text-shadow: 0 4px 20px rgba(255, 71, 87, 0.7); }
+    100% { transform: scale(1); text-shadow: 0 2px 10px rgba(255, 71, 87, 0.4); }
+}
+
+.countdown-label {
+    font-size: 1.15rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--light);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Notes Button - Enhanced */
+.notes-btn {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 16px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 20px rgba(0, 112, 243, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.notes-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 100% 100% 0 0 / 100% 100% 0 0;
+}
+
+.notes-btn:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 12px 30px rgba(0, 112, 243, 0.5);
+}
+
+.notes-btn:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 5px 15px rgba(0, 112, 243, 0.3);
+}
+
+.notes-btn i {
+    font-size: 1.3rem;
+}
+
+.celebrate-btn {
+    background: linear-gradient(135deg, var(--success), #10b981);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+}
+
+.celebrate-btn:hover {
+    box-shadow: 0 12px 30px rgba(16, 185, 129, 0.5);
+}
+
+.urgent-btn {
+    background: linear-gradient(135deg, #FF4757, #FF6B81);
+    box-shadow: 0 8px 20px rgba(255, 71, 87, 0.3);
+}
+
+.urgent-btn:hover {
+    box-shadow: 0 12px 30px rgba(255, 71, 87, 0.5);
+}
+
+/* Loading Animation - Enhanced & Mobile Optimized */
+.exam-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-circle {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(0, 112, 243, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--primary);
+    animation: spin 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 112, 243, 0.1);
+}
+
+.exam-loading p {
+    color: var(--gray);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+@media (max-width: 480px) {
+    .loading-circle {
+        width: 50px;
+        height: 50px;
+        border-width: 4px;
+        margin-bottom: 15px;
+    }
+    
+    .exam-loading p {
+        font-size: 0.9rem;
+    }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Confetti Effect - Enhanced */
+.confetti {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #f00;
+    opacity: 0;
+    animation: confetti-fall 3.5s ease-in-out forwards;
+    z-index: 100;
+}
+
+.confetti:nth-child(odd) {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.confetti:nth-child(even) {
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+@keyframes confetti-fall {
+    0% { 
+        transform: translateY(-150px) rotate(0deg) scale(0.8); 
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% { 
+        transform: translateY(600px) rotate(720deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .welcome-title {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    
+    .exam-card {
+        border-radius: 20px;
+        max-width: 100%;
+        margin: 0 10px;
+    }
+    
+    .exam-card-header {
+        padding: 18px;
+    }
+    
+    .exam-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.4rem;
+    }
+    
+    .exam-card-body {
+        padding: 20px;
+        min-height: 160px;
+    }
+    
+    .exam-name {
+        font-size: 1.3rem;
+    }
+    
+    .exam-date {
+        font-size: 0.95rem;
+    }
+    
+    .notes-btn {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .urgent-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.4rem;
+        top: -8px;
+        right: -8px;
+    }
+    
+    .urgent-alert {
+        padding: 10px 15px;
+    }
+    
+    .countdown-days {
+        font-size: 2.8rem;
+        min-width: 60px;
+    }
+    
+    .countdown-label {
+        font-size: 1rem;
+    }
+    
+    .countdown-container {
+        gap: 12px;
+    }
+    
+    .exam-status {
+        padding: 20px;
+    }
+}
+
+/* Additional small screen optimizations */
+@media (max-width: 480px) {
+    .welcome-title {
+        font-size: 1.6rem;
+    }
+    
+    .exam-card-header {
+        padding: 15px;
+    }
+    
+    .exam-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        margin-right: 12px;
+    }
+    
+    .exam-card-title h3 {
+        font-size: 1.2rem;
+    }
+    
+    .exam-card-title p {
+        font-size: 0.85rem;
+    }
+    
+    .exam-card-body {
+        padding: 16px;
+        min-height: 140px;
+    }
+    
+    .exam-card-footer {
+        padding: 0 16px 16px;
+    }
+    
+    .countdown-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .countdown-days {
+        font-size: 2.5rem;
+        min-width: auto;
+        text-align: center;
+    }
+    
+    .countdown-label {
+        text-align: center;
+        font-size: 0.9rem;
+        br {
+            display: none;
+        }
+    }
+    
+    .urgent-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    /* Time blocks for urgent exams */
+    .time-block {
+        padding: 6px 8px;
+        min-width: 50px;
+    }
+    
+    .time-value {
+        font-size: 1.5rem;
+    }
+    
+    .time-label {
+        font-size: 0.7rem;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+    .notes-btn:active {
+        transform: translateY(0) scale(0.98);
+    }
+    
+    .exam-status:active {
+        transform: translateY(-2px);
+    }
+}
+
+/* For landscape orientation on mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .exam-card {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .exam-card-body {
+        min-height: 130px;
+    }
+    
+    .countdown-container {
+        flex-direction: row;
+    }
+}
 /* Faculty Chat Styles */
 
     </style>
@@ -2526,44 +3353,83 @@ header {
         
         <!-- Tabs Navigation -->
         <div class="tabs">
-            <div class="tab active" data-tab="about">About Us</div>
-            <div class="tab" data-tab="calendar">Study Calendar</div>
-            <div class="tab" data-tab="study-times">Best Study Times</div>
-            <div class="tab" data-tab="materials">Study Materials</div>
-            <div class="tab" data-tab="team">Our Team</div>
-        </div>
-        
-        <!-- Navigation dots for mobile -->
-        <div class="nav-dots">
-            <span class="dot active" data-index="0"></span>
-            <span class="dot" data-index="1"></span>
-            <span class="dot" data-index="2"></span>
-            <span class="dot" data-index="3"></span>
-            <span class="dot" data-index="4"></span>
-        </div>
-        
-        <!-- About Tab Content -->
-        <div id="about" class="tab-content active">
-            <div class="about-content" style="margin-top: 30px;">
-                <h2>Kootukkara...!!!</h2>
-                <div class="urgent-exam-alert" id="urgent-exam-alert">
-                    <div class="alert-icon">
-                        <i class="fas fa-bell"></i>
-                    </div>
-                    <div class="alert-content">
-                        <div class="alert-title">NEXT EXAM WARNING</div>
-                        <div class="alert-message" id="exam-alert-message"></div>
-                        <div class="countdown-badge" id="countdown-badge"></div>
-                    </div>
-                    <div class="alert-fire" id="alert-fire">
-                        <i class="fas fa-fire"></i>
-                    </div>
-                </div>
-                
-                <button class="chat-launch-btn" onclick="document.getElementById('selinte-ai-container').classList.add('active')">
-                    <i class="fas fa-robot"></i> Try Selinte AI Now
-                </button>
+            <div class="tab active" data-tab="about">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
             </div>
+            <div class="tab" data-tab="calendar">
+                <i class="far fa-calendar-check"></i>
+                <span>Schedule</span>
+            </div>
+            <div class="tab" data-tab="study-times">
+                <i class="fas fa-clock"></i>
+                <span>Times</span>
+            </div>
+            <div class="tab" data-tab="materials">
+                <i class="fas fa-book-open"></i>
+                <span>Materials</span>
+            </div>
+            <div class="tab" data-tab="team">
+                <i class="fas fa-users"></i>
+                <span>Team</span>
+            </div>
+          </div>
+         <!-- Replace your current mobile-nav with this -->
+<nav class="mobile-nav">
+    <a href="#" class="nav-tab" data-tab="about">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+    </a>
+    <a href="#" class="nav-tab" data-tab="calendar">
+        <i class="far fa-calendar-alt"></i>
+        <span>Schedule</span>
+    </a>
+    <a href="#" class="nav-tab" data-tab="study-times">
+        <i class="fas fa-clock"></i>
+        <span>Times</span>
+    </a>
+    <a href="#" class="nav-tab" data-tab="materials">
+        <i class="fas fa-book"></i>
+        <span>Materials</span>
+    </a>
+    <a href="#" class="nav-tab" data-tab="team">
+        <i class="fas fa-users"></i>
+        <span>Team</span>
+    </a>
+</nav>
+        
+<!-- Enhanced Exam Status Card -->
+<div id="about" class="tab-content active">
+  <div class="about-content">
+      <h2 class="welcome-title">Welcome Kootukkara! <span class="emoji">👋</span></h2>
+      
+      <!-- Exam Status Card -->
+      <div class="exam-card" id="exam-card">
+          <!-- Urgent icon will be added here by JavaScript when needed -->
+          
+          <div class="exam-card-header">
+              <div class="exam-icon">
+                  <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div class="exam-card-title">
+                  <h3>Exam Countdown</h3>
+                  <p>Stay prepared for your upcoming exams</p>
+              </div>
+          </div>
+          
+          <div class="exam-card-body" id="exam-card-body">
+              <!-- Content will be filled by JavaScript -->
+              <div class="exam-loading">
+                  <div class="loading-circle"></div>
+                  <p>Checking exam schedule...</p>
+              </div>
+          </div>
+          
+          <div class="exam-card-footer" id="exam-card-footer">
+              <!-- Button will be added by JavaScript -->
+          </div>
+      </div>
+  </div>
             
                 <div class="exam-days-container">
                     <!-- Exam Day Cards -->
@@ -2673,12 +3539,12 @@ header {
                     <div class="countdown-separator">:</div>
                     <div class="countdown-item">
                       <div class="countdown-number" id="countdown-minutes">00</div>
-                      <div class="countdown-label">MINUTES</div>
+                      <div class="countdown-label">MIN</div>
                     </div>
                     <div class="countdown-separator">:</div>
                     <div class="countdown-item">
                       <div class="countdown-number" id="countdown-seconds">00</div>
-                      <div class="countdown-label">SECONDS</div>
+                      <div class="countdown-label">SEC</div>
                     </div>
                   </div>
                   <div class="exam-details" id="exam-details">
@@ -3067,19 +3933,8 @@ header {
     <a href="https://seninashraf.netlify.app/" style="color: #0070f3; font-weight: bold; text-decoration: none;">SENIN</a>
 </div>
     
-    <!-- Mobile Menu Toggle -->
-    <button class="mobile-menu-toggle" id="mobileMenuToggle">
-        <i class="fas fa-bars"></i>
-    </button>
     
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="#" data-tab="about">About Us</a>
-        <a href="#" data-tab="calendar">Study Calendar</a>
-        <a href="#" data-tab="study-times">Study Times</a>
-        <a href="#" data-tab="materials">Study Materials</a>
-        <a href="#" data-tab="team">Our Team</a>
-    </div>
+  
     
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
@@ -4360,14 +5215,7 @@ function showMaterials(subject) {
     });
 }
             
-            // Mobile menu toggle
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            const mobileMenu = document.getElementById('mobileMenu');
-            
-            mobileMenuToggle.addEventListener('click', () => {
-                mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
-            });
-            
+          
             // Mobile menu links
             document.querySelectorAll('.mobile-menu a').forEach(link => {
                 link.addEventListener('click', (e) => {
@@ -5196,32 +6044,407 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-   
+   // Handle mobile tab clicks
+document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remove active class from all tabs
+        document.querySelectorAll('.nav-tab').forEach(t => {
+            t.classList.remove('active');
+        });
+        
+        // Add active class to clicked tab
+        this.classList.add('active');
+        
+        // Get the tab to show
+        const tabId = this.getAttribute('data-tab');
+        
+        // Hide all tab contents
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        
+        // Show corresponding tab content
+        document.getElementById(tabId).classList.add('active');
+    });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    // Exam data - replace with your actual exam schedule
+    const exams = [
+        { 
+            date: '2025-04-10', 
+            subject: 'Lab Exam',
+            materialTab: 'Lab-exam',
+            icon: 'fa-flask'
+        },
+        { 
+            date: '2025-04-11', 
+            subject: 'Lab Exam',
+            materialTab: 'Lab-exam',
+            icon: 'fa-flask'
+        },
+        { 
+            date: '2025-04-25', 
+            subject: 'Big Data',
+            materialTab: 'big-data',
+            icon: 'fa-database'
+        },
+        { 
+            date: '2025-05-02', 
+            subject: 'RIS',
+            materialTab: 'ris',
+            icon: 'fa-robot'
+        },
+        { 
+            date: '2025-05-08', 
+            subject: 'AAD',
+            materialTab: 'aad',
+            icon: 'fa-project-diagram'
+        },
+        { 
+            date: '2025-05-13', 
+            subject: 'Recommendation',
+            materialTab: 'rec',
+            icon: 'fa-shield-alt'
+        },
+        { 
+            date: '2025-05-16', 
+            subject: 'IEFT',
+            materialTab: 'ieft',
+            icon: 'fa-network-wired'
+        },
+        { 
+            date: '2025-05-20', 
+            subject: 'CV',
+            materialTab: 'cv',
+            icon: 'fa-eye'
+        }
+    ];
+
+    // Get DOM elements
+    const examCard = document.getElementById('exam-card');
+    const examCardBody = document.getElementById('exam-card-body');
+    const examCardFooter = document.getElementById('exam-card-footer');
+    
+    // Find next exam
+    function getNextExam() {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        // Sort exams by date to ensure correct order
+        const sortedExams = [...exams].sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        for (let exam of sortedExams) {
+            const examDate = new Date(exam.date);
+            // Set exam time to 9 AM
+            examDate.setHours(9, 0, 0, 0);
+            
+            if (examDate >= today) {
+                return {
+                    ...exam,
+                    dateObj: examDate
+                };
+            }
+        }
+        return null; // No more exams
+    }
+    
+    // Format date in a nice readable format
+    function formatDate(date) {
+        const options = { 
+            weekday: 'long', 
+            month: 'long', 
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true
+        };
+        return date.toLocaleDateString('en-US', options);
+    }
+    
+    // Check if an exam is urgent (within 48 hours)
+    function isUrgent(examDate) {
+        const now = new Date();
+        const diffTime = examDate - now;
+        const diffHours = diffTime / (1000 * 60 * 60);
+        return diffHours <= 48;
+    }
+    
+    // Update exam status display
+    function updateExamStatus() {
+        const nextExam = getNextExam();
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        // Clear previous content
+        examCardBody.innerHTML = '';
+        examCardFooter.innerHTML = '';
+        
+        // Remove any existing urgent icon
+        const existingUrgentIcon = examCard.querySelector('.urgent-icon');
+        if (existingUrgentIcon) {
+            existingUrgentIcon.remove();
+        }
+        
+        if (!nextExam) {
+            // All exams completed
+            examCardBody.innerHTML = `
+                <div class="exam-status exam-completed">
+                    <div class="exam-name">All Exams Completed!</div>
+                    <p>Congratulations on finishing your exam season!</p>
+                </div>
+            `;
+            
+            const celebrateBtn = document.createElement('button');
+            celebrateBtn.className = 'notes-btn celebrate-btn';
+            celebrateBtn.innerHTML = `<i class="fas fa-graduation-cap"></i> Celebrate Achievement`;
+            celebrateBtn.addEventListener('click', createConfetti);
+            examCardFooter.appendChild(celebrateBtn);
+            
+            return;
+        }
+        
+        const now = new Date();
+        const diffTime = nextExam.dateObj - now;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+        
+        let statusClass = 'exam-upcoming';
+        let urgentNotification = '';
+        
+        // Check if exam is today
+        const isToday = nextExam.dateObj.getDate() === now.getDate() && 
+                        nextExam.dateObj.getMonth() === now.getMonth() && 
+                        nextExam.dateObj.getFullYear() === now.getFullYear();
+                        
+        if (isToday) {
+            statusClass = 'exam-current';
+        }
+        
+        // Check if exam is urgent (within 48 hours)
+        if (isUrgent(nextExam.dateObj)) {
+            statusClass = 'exam-urgent';
+            
+            // Add urgent icon to card
+            const urgentIcon = document.createElement('div');
+            urgentIcon.className = 'urgent-icon';
+            examCard.appendChild(urgentIcon);
+            
+            // Add urgent alert banner
+            urgentNotification = `
+                <div class="urgent-alert">
+                    <div class="urgent-alert-icon">!</div>
+                    <div class="urgent-alert-text">
+                        ${isToday ? 'Exam is TODAY!' : 'Exam coming up soon!'}
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Format countdown text
+        let countdownText = '';
+        let countdownLabel = '';
+        
+        if (isToday) {
+            // If exam is today, countdown to 9 AM
+            if (now.getHours() < 9) {
+                // Before 9 AM
+                const hoursUntil9AM = 9 - now.getHours() - (now.getMinutes() > 0 ? 1 : 0);
+                const minutesRemaining = hoursUntil9AM > 0 ? 60 - now.getMinutes() : 0;
+                
+                if (hoursUntil9AM > 0) {
+                    countdownText = `${hoursUntil9AM} hour${hoursUntil9AM !== 1 ? 's' : ''} and ${minutesRemaining} minute${minutesRemaining !== 1 ? 's' : ''}`;
+                } else {
+                    countdownText = `${minutesRemaining} minute${minutesRemaining !== 1 ? 's' : ''}`;
+                }
+                countdownLabel = 'until exam starts!<br>You\'ve got this!';
+            } else {
+                // After 9 AM
+                countdownText = 'Exam in progress';
+                countdownLabel = 'Good luck!';
+            }
+        } else if (diffDays > 0) {
+            countdownText = `${diffDays} day${diffDays !== 1 ? 's' : ''}`;
+            countdownLabel = 'remaining<br>to prepare';
+        } else if (diffHours > 0) {
+            countdownText = `${diffHours} hour${diffHours !== 1 ? 's' : ''}`;
+            countdownLabel = 'remaining<br>to prepare';
+        } else {
+            countdownText = `${diffMinutes} minute${diffMinutes !== 1 ? 's' : ''}`;
+            countdownLabel = 'remaining<br>to prepare';
+        }
+        
+        // Update exam card content
+        examCardBody.innerHTML = `
+            ${urgentNotification}
+            <div class="exam-status ${statusClass}">
+                <div class="exam-name">${nextExam.subject}</div>
+                <div class="exam-date">${formatDate(nextExam.dateObj)}</div>
+                <div class="countdown-container">
+                    <div class="countdown-days">${countdownText}</div>
+                    <div class="countdown-label">
+                        ${countdownLabel}
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Add appropriate button
+        const buttonClass = isUrgent(nextExam.dateObj) ? 'notes-btn urgent-btn' : 'notes-btn';
+        const notesBtn = document.createElement('button');
+        notesBtn.className = buttonClass;
+        notesBtn.innerHTML = `<i class="fas ${nextExam.icon}"></i> ${isUrgent(nextExam.dateObj) ? 'Review Now!' : 'Study Materials'}`;
+        notesBtn.addEventListener('click', function() {
+            // Switch to materials tab
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector(`.tab[data-tab="materials"]`).classList.add('active');
+            
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show materials tab
+            document.getElementById('materials').classList.add('active');
+            
+            // Scroll to materials section
+            setTimeout(() => {
+                document.getElementById('materials').scrollIntoView({ behavior: 'smooth' });
+                
+                // Optional: Auto-open the specific subject materials
+                // showMaterials(nextExam.materialTab);
+            }, 300);
+        });
+        examCardFooter.appendChild(notesBtn);
+    }
+    
+    // Confetti effect for celebration
+    function createConfetti() {
+        const colors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff', '#ff6b81', '#10b981'];
+        const container = document.querySelector('.exam-card');
+        
+        for (let i = 0; i < 150; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.width = Math.random() * 12 + 8 + 'px';
+            confetti.style.height = Math.random() * 12 + 8 + 'px';
+            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+            confetti.style.animationDelay = Math.random() * 3 + 's';
+            
+            container.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, 6000);
+        }
+    }
+    
+    // Initial update
+    updateExamStatus();
+    
+    // Function to schedule next update
+    function scheduleNextUpdate() {
+        const now = new Date();
+        
+        // Create two schedule targets: midnight and noon
+        const midnight = new Date(now);
+        midnight.setHours(24, 0, 0, 0); // Next midnight
+        
+        const noon = new Date(now);
+        noon.setHours(12, 0, 0, 0); // Today at noon
+        if (now >= noon) {
+            noon.setDate(noon.getDate() + 1); // Tomorrow at noon if noon has passed
+        }
+        
+        // Find the next closest time (either midnight or noon)
+        const nextUpdateTime = now > noon ? midnight : (now > midnight ? noon : midnight);
+        const timeUntilUpdate = nextUpdateTime - now;
+        
+        console.log(`Next update scheduled for ${nextUpdateTime.toLocaleString()}`);
+        
+        // Schedule update
+        setTimeout(function() {
+            updateExamStatus();
+            scheduleNextUpdate(); // Schedule the next update
+        }, timeUntilUpdate);
+    }
+    
+    // Start the scheduling
+    scheduleNextUpdate();
+    
+    // Also update every minute to keep countdown accurate
+    setInterval(function() {
+        const nextExam = getNextExam();
+        if (nextExam && isUrgent(nextExam.dateObj)) {
+            updateExamStatus(); // More frequent updates for urgent exams
+        }
+    }, 60000); // Update every minute for urgent exams
+});
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if the device is low-powered (this is a rough estimate)
+    const isLowPoweredDevice = () => {
+        // Check if it's a mobile device
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        // If we can detect battery API, use it
+        if ('getBattery' in navigator) {
+            navigator.getBattery().then(battery => {
+                if (isMobile && !battery.charging && battery.level < 0.2) {
+                    document.body.classList.add('reduce-animations');
+                }
+            });
+        } else if (isMobile) {
+            // For older devices without battery API but still mobile
+            // Check if it's an older device through memory or processor constraints
+            if (navigator.deviceMemory && navigator.deviceMemory < 4) {
+                document.body.classList.add('reduce-animations');
+            } else if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
+                document.body.classList.add('reduce-animations');
+            }
+        }
+    };
+    
+    // Run the check
+    isLowPoweredDevice();
+    
+    // Add smooth scrolling but only on non-reduced motion settings
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.style.scrollBehavior = 'smooth';
+    } else {
+        document.body.classList.add('reduce-animations');
+    }
+    
+    // Add passive event listeners for better scrolling performance
+    const wheelOpt = supportsPassiveOption ? { passive: true } : false;
+    const wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+    
+    // Use passive listeners to improve mobile scrolling performance
+    document.addEventListener(wheelEvent, function() {}, wheelOpt);
+    document.addEventListener('touchstart', function() {}, wheelOpt);
+    
+    // Helper function to check for passive event listener support
+    function supportsPassiveOption() {
+        let supportsPassive = false;
+        try {
+            const opts = Object.defineProperty({}, 'passive', {
+                get: function() {
+                    supportsPassive = true;
+                    return true;
+                }
+            });
+            window.addEventListener('testPassive', null, opts);
+            window.removeEventListener('testPassive', null, opts);
+        } catch (e) {}
+        return supportsPassive;
+    }
+});
+
 </script>
 
-<!-- Chatbot Container -->
-<div id="selinte-ai-container" class="chatbot-container">
-    <div class="chatbot-header">
-        <div class="chatbot-title">Selinte AI</div>
-        <button class="chatbot-close"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="chatbot-messages" id="chatbot-messages">
-        <div class="chatbot-message bot">
-            <div class="message-content">
-                Hello! I'm Selinte AI, your study assistant. How can I help you today?
-            </div>
-        </div>
-    </div>
-    <div class="chatbot-input">
-        <input type="text" id="chatbot-input" placeholder="Ask me anything about your studies...">
-        <button id="chatbot-send"><i class="fas fa-paper-plane"></i></button>
-    </div>
-</div>
-
-<!-- Chatbot Toggle Button -->
-<button id="selinte-ai-toggle" class="chatbot-toggle">
-    <i class="fas fa-robot"></i>
-</button>
 
 <button id="theme-toggle" class="theme-toggle">
     <i class="fas fa-moon"></i>
