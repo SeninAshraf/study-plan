@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6250,10 +6251,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isUrgent(nextExam.dateObj)) {
             statusClass = 'exam-urgent';
             
-            // Add urgent icon to card
-            const urgentIcon = document.createElement('div');
-            urgentIcon.className = 'urgent-icon';
-            examCard.appendChild(urgentIcon);
             
             // Add urgent alert banner
             urgentNotification = `
