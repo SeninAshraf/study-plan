@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3713,14 +3714,22 @@ header {
                       <h3 class="team-name">Semester 6</h3>
                       <p class="team-bio">Sixth semester study materials</p>
                   </div>
-              </div>
+                  <div class="team-card subject-card" data-semester="s7">
+            <div class="subject-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3 class="team-name">Semester 7</h3>
+            <p class="team-bio">Seventh semester study materials</p>
           </div>
+        </div>
+      </div>
+
           
           <!-- Subject Selection Screen (hidden by default) -->
-          <div id="subject-selection" style="display: none;">
+          <div id="subject-selection-s6" style="display: none;">
               <div class="card-header">
                   <div class="card-title">
-                      <i class="fas fa-arrow-left" id="back-to-semesters" style="cursor: pointer;"></i>
+                      <i class="fas fa-arrow-left back-to-semesters" style="cursor: pointer;"></i>
                       <span id="current-semester">Semester 6 Subjects</span>
                   </div>
               </div>
@@ -3806,6 +3815,27 @@ header {
                   </div>
               </div>
           </div>
+
+           <!-- Subject s7 (hidden by default) -->
+          <div id="subject-selection-s7" style="display: none;">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-arrow-left back-to-semesters" style="cursor: pointer;"></i>
+            <span>Semester 7 Subjects</span>
+          </div>
+        </div>
+
+        <div class="team-grid">
+          <div class="team-card subject-card" data-subject="ai">
+            <div class="subject-icon">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h3 class="team-name">Artificial Intelligence</h3>
+            <p class="team-bio">Lecture notes, reference materials, and past papers</p>
+          </div>
+           </div>
+      </div>
+        
           
           <!-- Materials Display Area (hidden by default) -->
           <div id="materials-display" style="display: none; margin-top: 30px;">
@@ -3960,9 +3990,147 @@ header {
             });
 
 
-            // Subject materials data (you can replace with actual data from server)
-const materialsData = {
-'r': [
+
+
+document.querySelectorAll('.subject-card[data-semester]').forEach(card => {
+    card.addEventListener('click', function() {
+        const semester = this.getAttribute('data-semester');
+        
+        // Hide semester selection screen
+        document.getElementById('semester-selection').style.display = 'none';
+        
+        if (semester === 's6') {
+            // Show S6 subjects
+            document.getElementById('subject-selection-s6').style.display = 'block';
+        } else if (semester === 's7') {
+            // Show S7 subjects
+            document.getElementById('subject-selection-s7').style.display = 'block';
+        }
+    });
+});
+
+// Handle back buttons from subject selection to semester selection
+document.querySelectorAll('.back-to-semesters').forEach(button => {
+    button.addEventListener('click', function() {
+        // Hide all subject selection screens
+        document.getElementById('subject-selection-s6').style.display = 'none';
+        document.getElementById('subject-selection-s7').style.display = 'none';
+        
+        // Show semester selection screen
+        document.getElementById('semester-selection').style.display = 'block';
+    });
+});
+
+// Handle subject card clicks for both semesters
+document.querySelectorAll('.subject-card[data-subject]').forEach(card => {
+    card.addEventListener('click', function() {
+        const subject = this.getAttribute('data-subject');
+        const semesterContainer = this.closest('[id^="subject-selection-"]');
+        const semester = semesterContainer.id.replace('subject-selection-', '');
+        
+        showMaterials(subject, semester);
+    });
+});
+
+// Handle back button from materials to subject selection
+document.getElementById('back-to-subjects').addEventListener('click', function() {
+    // Hide materials display
+    document.getElementById('materials-display').style.display = 'none';
+    
+    // Show the appropriate subject selection based on which semester we came from
+    // This would need to track the previous view - here's a simple implementation
+    if (lastViewedSemester === 's6') {
+        document.getElementById('subject-selection-s6').style.display = 'block';
+    } else if (lastViewedSemester === 's7') {
+        document.getElementById('subject-selection-s7').style.display = 'block';
+    }
+});
+
+// Track last viewed semester
+let lastViewedSemester = null;
+
+// Function to show materials for a subject
+function showMaterials(subject, semester) {
+    // Track which semester we're viewing
+    lastViewedSemester = semester;
+    
+    // Hide subject selection and show materials display
+    document.getElementById(`subject-selection-${semester}`).style.display = 'none';
+    document.getElementById('materials-display').style.display = 'block';
+    
+    // Set subject title
+    document.getElementById('current-subject').textContent = 
+        document.querySelector(`.subject-card[data-subject="${subject}"] .team-name`).textContent + ' Materials';
+    
+    // Clear previous materials
+    const container = document.getElementById('materials-container');
+    container.innerHTML = '';
+    
+    // Get materials for this subject and semester
+    const materials = getMaterialsForSubject(semester, subject);
+    
+    // Add each material to the container
+    materials.forEach(material => {
+        const materialItem = document.createElement('div');
+        materialItem.className = 'material-item';
+        
+        let previewContent = '';
+        if (material.type === 'pdf') {
+            previewContent = `
+                <div class="material-preview">
+                    <i class="fas fa-file-pdf pdf-icon"></i>
+                </div>
+            `;
+        } else if (material.type === 'image') {
+            previewContent = `
+                <div class="material-preview">
+                    <img src="${material.preview || material.url}" alt="${material.title}">
+                </div>
+            `;
+        } else if (material.type === 'youtube') {
+            previewContent = `
+                <div class="material-preview">
+                    <i class="fab fa-youtube pdf-icon" style="color: #ff0000;"></i>
+                </div>
+            `;
+        } else if (material.type === 'zip') {
+            previewContent = `
+                <div class="material-preview">
+                    <i class="fas fa-file-archive zip-icon"></i>
+                </div>
+            `;
+        }
+        
+         // Create download link
+        let downloadLink = '';
+        if (material.type === 'youtube') {
+            downloadLink = `<a href="${material.url}" target="_blank" class="download-btn">
+                <i class="fas fa-external-link-alt"></i> Watch Video
+            </a>`;
+        } else {
+            downloadLink = `<a href="${material.url}" class="download-btn" download>
+                <i class="fas fa-download"></i> Download
+            </a>`;
+        }
+        
+        materialItem.innerHTML = `
+            ${previewContent}
+            <div class="material-info">
+                <div class="material-title">${material.title}</div>
+                <div class="material-description">${material.date}</div>
+                ${downloadLink}
+            </div>
+        `;
+        
+        container.appendChild(materialItem);
+    });
+}
+function getMaterialsForSubject(semester, subject) {
+    // This would come from your actual data source
+    // Here's just an example structure:
+    const allMaterials = {
+        s6: {
+           'r': [
      {
             type: 'pdf',
             title: 'IMPORTANT TOPICS BASED ON PRVS PAPERS',
@@ -5224,116 +5392,23 @@ const materialsData = {
             preview: 'materials/aad/basics-preview.jpg'
         },
     ],
-    
-    
-    // Add materials for other subjects similarly
-};
-
-// Handle semester card clicks
-document.querySelectorAll('.subject-card[data-semester]').forEach(card => {
-    card.addEventListener('click', function() {
-        const semester = this.getAttribute('data-semester');
-        if (semester === 's6') {
-            // Show S6 subjects
-            document.getElementById('semester-selection').style.display = 'none';
-            document.getElementById('subject-selection').style.display = 'block';
-            document.getElementById('current-semester').textContent = 'Semester 6 Subjects';
+            // ... other S6 subjects
+        },
+        s7: {
+            ai: [
+                 {
+    type: 'youtube',
+    title: 'Introduction to AI',
+    date: '2025-03-10',
+    url: 'https://youtu.be/WNED5YVCuwM?si=d_gpSMevBNU_DFbc',
+    preview: 'path/to/thumbnail/image.jpg'
+},
+            ],
+            // ... other S7 subjects
         }
-    });
-});
-
-// Handle back button from subjects to semesters
-document.getElementById('back-to-semesters').addEventListener('click', function() {
-    document.getElementById('subject-selection').style.display = 'none';
-    document.getElementById('semester-selection').style.display = 'block';
-});
-
-// Handle subject card clicks (existing code, keep this)
-document.querySelectorAll('.subject-card[data-subject]').forEach(card => {
-    card.addEventListener('click', function() {
-        const subject = this.getAttribute('data-subject');
-        showMaterials(subject);
-    });
-});
-
-// Handle back button from materials to subjects (existing code, keep this)
-document.getElementById('back-to-subjects').addEventListener('click', function() {
-    document.getElementById('materials-display').style.display = 'none';
-    document.getElementById('subject-selection').style.display = 'block';
-});
-
-// Function to show materials for a subject
-function showMaterials(subject) {
-    // Hide subject selection and show materials display
-    document.getElementById('subject-selection').style.display = 'none';
-    document.getElementById('materials-display').style.display = 'block';
+    };
     
-    // Set subject title
-    document.getElementById('current-subject').textContent = 
-        document.querySelector(`.subject-card[data-subject="${subject}"] .team-name`).textContent + ' Materials';
-    
-    // Clear previous materials
-    const container = document.getElementById('materials-container');
-    container.innerHTML = '';
-    
-    // Get materials for this subject
-    const materials = materialsData[subject] || [];
-    
-    // Add each material to the container
-    materials.forEach(material => {
-        const materialItem = document.createElement('div');
-        materialItem.className = 'material-item';
-        
-        let previewContent = '';
-        if (material.type === 'pdf') {
-            previewContent = `
-                <div class="material-preview">
-                    <i class="fas fa-file-pdf pdf-icon"></i>
-                </div>
-            `;
-        } else if (material.type === 'image') {
-            previewContent = `
-                <div class="material-preview">
-                    <img src="${material.preview || material.url}" alt="${material.title}">
-                </div>
-            `;
-        } else if (material.type === 'youtube') {
-            previewContent = `
-                <div class="material-preview">
-                    <i class="fab fa-youtube pdf-icon" style="color: #ff0000;"></i>
-                </div>
-            `;
-        } else if (material.type === 'zip') {
-            previewContent = `
-                <div class="material-preview">
-                    <i class="fas fa-file-archive pdf-icon"></i>
-                </div>
-            `;
-        }
-        
-        // Create download link
-        let downloadLink = '';
-        if (material.type === 'youtube') {
-            downloadLink = `<a href="${material.url}" target="_blank" class="download-btn">
-                <i class="fas fa-external-link-alt"></i> Watch Video
-            </a>`;
-        } else {
-            downloadLink = `<a href="${material.url}" class="download-btn" download>
-                <i class="fas fa-download"></i> Download
-            </a>`;
-        }
-        
-        materialItem.innerHTML = `
-            ${previewContent}
-            <div class="material-info">
-                <div class="material-title">${material.title}</div>
-                <div class="material-description">${material.date}</div>
-                ${downloadLink}
-            </div>
-        `;
-        
-        container.appendChild(materialItem);
-    });
+    return allMaterials[semester]?.[subject] || [];
 }
             
           
@@ -6364,25 +6439,46 @@ document.addEventListener('DOMContentLoaded', function() {
         let countdownText = '';
         let countdownLabel = '';
         
-        if (isToday) {
-            // If exam is today, countdown to 9 AM
-            if (now.getHours() < 9) {
-                // Before 9 AM
-                const hoursUntil9AM = 9 - now.getHours() - (now.getMinutes() > 0 ? 1 : 0);
-                const minutesRemaining = hoursUntil9AM > 0 ? 60 - now.getMinutes() : 0;
-                
-                if (hoursUntil9AM > 0) {
-                    countdownText = `${hoursUntil9AM} hour${hoursUntil9AM !== 1 ? 's' : ''} and ${minutesRemaining} minute${minutesRemaining !== 1 ? 's' : ''}`;
-                } else {
-                    countdownText = `${minutesRemaining} minute${minutesRemaining !== 1 ? 's' : ''}`;
-                }
-                countdownLabel = 'until exam starts!<br>You\'ve got this!';
-            } else {
-                // After 9 AM
-                countdownText = 'Exam in progress';
-                countdownLabel = 'Good luck!';
-            }
-        } else if (diffDays > 0) {
+       if (isToday) {
+    // If exam is today, handle different time periods
+    const currentHour = now.getHours();
+    const currentMinutes = now.getMinutes();
+    
+    // Check if we're before exam time (before 9:30 AM)
+    if (currentHour < 9 || (currentHour === 9 && currentMinutes < 30)) {
+        // Calculate time until 9:30 AM
+        const hoursUntil = 9 - currentHour;
+        const minutesUntil = 30 - currentMinutes;
+        
+        // Handle minute overflow
+        let adjustedHours = hoursUntil;
+        let adjustedMinutes = minutesUntil;
+        if (minutesUntil < 0) {
+            adjustedHours--;
+            adjustedMinutes += 60;
+        }
+        
+        // Format countdown text
+        if (adjustedHours > 0) {
+            countdownText = `${adjustedHours} hour${adjustedHours !== 1 ? 's' : ''} and ${adjustedMinutes} minute${adjustedMinutes !== 1 ? 's' : ''}`;
+        } else {
+            countdownText = `${adjustedMinutes} minute${adjustedMinutes !== 1 ? 's' : ''}`;
+        }
+        countdownLabel = 'until exam starts!<br>You\'ve got this!';
+    } 
+    // Check if we're during exam time (9:30 AM to 12:30 PM)
+    else if ((currentHour === 9 && currentMinutes >= 30) || 
+             (currentHour > 9 && currentHour < 12) ||
+             (currentHour === 12 && currentMinutes <= 30)) {
+        countdownText = 'Exam in progress';
+        countdownLabel = 'Good luck!<br>Focus on your exam!';
+    }
+    // After exam time (after 12:30 PM)
+    else {
+        countdownText = 'Exam completed';
+        countdownLabel = 'Great job today!';
+    }
+} else if (diffDays > 0) {
             countdownText = `${diffDays} day${diffDays !== 1 ? 's' : ''}`;
             countdownLabel = 'remaining<br>to prepare';
         } else if (diffHours > 0) {
